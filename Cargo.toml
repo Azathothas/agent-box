@@ -1,0 +1,52 @@
+# The agent-box workspace.
+#
+# The crate graph goes down only. `cargo xtask layering` checks it, and
+# docs/architecture.md gives the layers. This is the planned graph:
+#
+#   layer 0  box-core                     no IO
+#   layer 1  box-proto (no IO), box-policy, box-image, box-transport
+#   layer 2  box-vmm, box-net, box-broker
+#   layer 3  box-daemon
+#   layer 4  box-chat, box-web, box-pool  (late milestones)
+#   layer 5  box-cli (agent-box), box-helper (agent-box-helper), box-guest (box-guest)
+#   tools    xtask (not shipped; depends on no workspace crate)
+
+[workspace]
+resolver = "3"
+# The product crates do not exist yet. Entry T-033 creates them, with the
+# edges of the graph above. Until then the workspace holds the tooling only.
+members = ["xtask"]
+
+[workspace.package]
+version = "0.0.0"
+edition = "2024"
+rust-version = "1.99"
+license = "0BSD"
+publish = false
+repository = "https://github.com/Azathothas/agent-box"
+
+# Versions are added by the entry that first needs each dependency.
+# Write the reason for each dependency next to it.
+[workspace.dependencies]
+# xtask writes its reports as JSON with --json.
+serde_json = "1"
+
+[workspace.lints.rust]
+# deny, not forbid: an entry may allow unsafe code in one named module (FFI to
+# computecore, virtdisk and AF_HYPERV on Windows), with a comment on each block.
+unsafe_code = "deny"
+missing_debug_implementations = "warn"
+unreachable_pub = "warn"
+
+[workspace.lints.clippy]
+pedantic = { level = "warn", priority = -1 }
+# A short name in a module is clear in context.
+module_name_repetitions = "allow"
+# A function that cannot panic in practice does not need a "# Panics" section.
+missing_panics_doc = "allow"
+
+[profile.release]
+codegen-units = 1
+lto = "fat"
+panic = "abort"
+strip = "symbols"

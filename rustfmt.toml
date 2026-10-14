@@ -1,0 +1,4 @@
+# Lines up to 120 characters, and short items on one line, as in the sibling
+# repository podssh. A table keeps one row to a line with #[rustfmt::skip].
+max_width = 120
+use_small_heuristics = "Max"

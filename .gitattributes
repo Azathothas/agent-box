@@ -1,0 +1,47 @@
+# Line endings are LF in the repository on every platform.
+#
+# This file travels with the repository, so a machine with other git settings
+# still makes correct commits. Every tracked text file must show i/lf in the
+# index column of this command:
+#
+#   git ls-files --eol
+#
+# `cargo xtask check text` refuses a CR byte in any tracked text file.
+
+* text=auto eol=lf
+
+*.md            text eol=lf
+*.txt           text eol=lf
+*.json          text eol=lf
+*.yml           text eol=lf
+*.yaml          text eol=lf
+*.toml          text eol=lf
+*.rs            text eol=lf
+*.sh            text eol=lf
+.gitignore      text eol=lf
+.gitattributes  text eol=lf
+.editorconfig   text eol=lf
+LICENSE         text eol=lf
+.githooks/*     text eol=lf
+
+# Files whose exact bytes are the content: no translation.
+*.png           binary
+*.jpg           binary
+*.gif           binary
+*.ico           binary
+*.pdf           binary
+*.zip           binary
+*.gz            binary
+*.xz            binary
+*.zst           binary
+*.tar           binary
+*.exe           binary
+*.dll           binary
+*.so            binary
+*.bin           binary
+*.img           binary
+*.vhdx          binary
+*.erofs         binary
+
+# Generated files: collapsed in review, still tracked.
+Cargo.lock      linguist-generated=true

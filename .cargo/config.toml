@@ -1,0 +1,10 @@
+# `cargo xtask ...` runs the repository tooling (xtask/). `cargo todo ...` is
+# the short form of `cargo xtask todo ...`, the checker and writer of the work
+# record in TODO/.
+[alias]
+xtask = "run -q -p xtask --"
+todo = "run -q -p xtask -- todo"
+
+# `cargo update` takes the newest versions that the declared minimum Rust allows.
+[resolver]
+incompatible-rust-versions = "fallback"

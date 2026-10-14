@@ -1,0 +1,103 @@
+# What git does not track in this repository.
+#
+# NOTE: An ignore rule does not untrack a file that git already tracks.
+# Check with `git ls-files` after you add a rule.
+
+# -- Secrets. Never committed. ---------------------------------------------
+# These rules exist before the files do, so a credential file cannot be
+# staged by accident. `cargo xtask check secrets` also reads the files that
+# are not tracked and not ignored.
+.env
+.env.*
+!.env.example
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.keystore
+id_rsa
+id_ed25519
+credentials.json
+service-account*.json
+*.token
+.*_token
+.*-token
+
+# -- Work areas of the tooling ----------------------------------------------
+# Reference trees that `cargo xtask refs fetch` clones at their pinned
+# commits. docs/references.md holds the pins, so a tree can be fetched again.
+.refs/
+# Throwaway work: spike programs, measurement output, keys made for one test.
+.work/
+.tmp/
+tmp/
+scratch/
+.scratch/
+
+# -- Logs, local databases, test output -------------------------------------
+*.log
+logs/
+*.sqlite
+*.sqlite3
+*.sqlite-journal
+*.sqlite-wal
+*.db-shm
+*.db-wal
+coverage/
+test-results/
+
+# -- Local files of agent tools ---------------------------------------------
+.claude/settings.local.json
+.claude/worktrees/
+CLAUDE.local.md
+.codegraph/
+
+# -- Windows reserved device names ------------------------------------------
+# A shell redirect such as 2>/dev/null under a shell that does not map it, or
+# a tool that passes NUL as a file name under Git Bash, makes a real file with
+# one of these names. git cannot stash such a file, and rm cannot delete it.
+nul
+CON
+PRN
+AUX
+NUL
+COM[1-9]
+LPT[1-9]
+CON.*
+PRN.*
+AUX.*
+NUL.*
+COM[1-9].*
+LPT[1-9].*
+
+# -- Rust ---------------------------------------------------------------------
+# Cargo.lock is tracked: the binaries need reproducible builds.
+/target/
+**/*.rs.bk
+*.pdb
+
+# -- Operating system and editor files ---------------------------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+desktop.ini
+$RECYCLE.BIN/
+*.lnk
+.directory
+.Trash-*
+.nfs*
+.vscode/
+.idea/
+*.iml
+*.swp
+*.swo
+*~
+.history/
+.fleet/

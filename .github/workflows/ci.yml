@@ -1,0 +1,90 @@
+# CI runs the gate of this repository on Linux and on Windows.
+#
+# The job runs one command: the gate that a developer runs. CI does not keep a
+# second list of checks, because two lists drift apart. `cargo xtask gate
+# --list` prints the steps, and docs/development.md describes them.
+#
+# NOTE: Each third-party action is pinned to a full commit, with its version
+# in a comment. A tag can move, and a moved tag runs code that nobody read with
+# the permissions of this workflow. To find the commit of a tag, run:
+#
+#   gh api repos/actions/checkout/git/ref/tags/v7.0.1 --jq .object.sha
+#
+# Then read the runtime that the action declares (node24 or composite):
+#
+#   gh api repos/actions/checkout/contents/action.yml?ref=v7.0.1 --jq .content | base64 -d | grep using:
+#
+# SPDX-License-Identifier: 0BSD
+
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# Least privilege. The job reads the tree and the history, and writes nothing.
+permissions:
+  contents: read
+
+# A new push to a pull request stops the old run of that pull request. A run
+# on main is not stopped, so each commit on main gets its result.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  CARGO_TERM_COLOR: always
+
+defaults:
+  run:
+    # bash on both hosts. bash stops the step at the first command that
+    # fails. PowerShell, the default shell on Windows, does not stop for a
+    # native command that fails.
+    shell: bash
+
+jobs:
+  gate:
+    name: gate (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    strategy:
+      # A failure on one host does not stop the other host. Each result is a
+      # different fact.
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, windows-2025]
+    steps:
+      # fetch-depth 0 gets the full history. The check `attribution` reads
+      # `git log`. With the default depth of 1 it reads one commit, and its
+      # pass then says nothing about the history.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      # rust-toolchain.toml names the toolchain and its components. rustup
+      # installs that toolchain in the repository root.
+      - name: install the pinned toolchain
+        run: |
+          rustup toolchain install
+          rustup show
+
+      # A release binary of cargo-deny, checked against its checksum. Without
+      # cargo-deny the step `deny` does not run, and --strict makes that a
+      # failure.
+      - name: install cargo-deny
+        uses: taiki-e/install-action@1168f6810a3cb30a3514bf5756a3b7f0422c6df8 # v2.87.28
+        with:
+          tool: cargo-deny@0.20.2
+
+      # This is `cargo xtask gate --strict` with --locked. The alias does not
+      # pass --locked to the build of xtask. A build without --locked can
+      # write a new Cargo.lock before the gate reads it.
+      #
+      # --strict is the CI mode. CI installs each tool on purpose, so a step
+      # that did not run means that an install failed. --strict makes it a
+      # failure.
+      - name: the gate
+        run: cargo --locked xtask gate --strict

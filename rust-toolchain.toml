@@ -1,0 +1,7 @@
+# The toolchain of this repository. CI and every developer use this version,
+# so a new lint in a newer clippy cannot make CI fail on code that passed here.
+# The guest agent needs the musl targets; `cargo xtask setup` adds them.
+[toolchain]
+channel = "1.99.0"
+components = ["rustfmt", "clippy"]
+profile = "minimal"
