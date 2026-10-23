@@ -45,7 +45,9 @@ cgroup v1, no systemd. The source of each is in engines-shortlist.md.
 | Docker Hub, anonymous | 429 rate limit | pull once; move images with save and load, or a registry mirror |
 | no AppArmor in the kernel | Incus loses a layer it normally adds | seccomp, idmap isolation; state it |
 | root lacks CAP_SYS_RESOURCE | Sysbox fails without a patch | not an Incus problem |
-| `security.idmap.isolated=true` | each instance gets its own uid range, so its rootfs must be rewritten | measured in section 9 |
+| `security.idmap.isolated=true` | each instance gets its own uid range, so its rootfs must be rewritten | about 2 s per launch on btrfs (section 9.4); worth it |
+| incusd killed (SIGKILL), with no systemd | its guests died too; incusd restarted them as new processes, and in-memory work was lost | a supervisor that restarts incusd at once; find out why the guests do not outlive it here (section 9.5) |
+| `incus launch` with stdin open, from a background job | the client hung 482 s while the server had nothing to do | call the client with stdin closed and a timeout (section 9.6) |
 
 ### 1.3 How errand reaches any engine
 
