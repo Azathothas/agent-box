@@ -1,4 +1,21 @@
-# errand sandbox research (in progress, paused)
+# errand sandbox research
+
+**Start with `engines-shortlist.md` section 7.** On this no-KVM, cgroup v1
+host: Sysbox, patched, runs Docker inside an agent's session at runc's
+speed; Incus 6.0 does too, with systemd, but starts in 17-24 s here; gVisor
+is the strongest boundary, at 6-8x on spawning and compiling. The microVM
+waits on the platform booting with `nested_pvm=1`.
+
+What is here:
+- `engines-shortlist.md`: the no-KVM engines tried here, as a log.
+- `runtime-survey.md`: a delegated web survey, not checked.
+- `experiments/70-90`: the scripts behind section 7.
+- `patches/`: the Sysbox patches.
+
+The sections below are the earlier phase: the gVisor bailey shim, and the
+errand findings.
+
+# The bailey shim phase (paused)
 
 Question: can errand (QaidVoid/errand@4a8011cd3668) run kage under a different
 sandbox by replacing only `bailey` (QaidVoid/bailey@98d9b455adc6), with

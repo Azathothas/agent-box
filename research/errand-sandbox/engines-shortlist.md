@@ -335,3 +335,79 @@ Notes on these:
   Its user-space kernel is why.
 - Sysbox starts in 0.7 s. Incus starts in 17-24 s on this host, until its
   ID-mapping refusal is solved.
+
+## 6. What root inside each engine can reach
+
+`lib/escape-probe.sh` runs in each engine, and its output is in
+`results/90-host-surface-probe.txt`. The probe is coarse:
+- "open" means the call succeeded inside. It does not mean the host was
+  reached.
+- Each probe has a 5 s timeout, because an open /dev/kmsg blocks on read.
+
+| probe | runc | sysbox-runc | runsc | incus 6.0 | incus, nesting on |
+| --- | --- | --- | --- | --- | --- |
+| mknod the host disk and read it | closed | closed | closed | closed | closed |
+| dmesg | closed | closed | open (1) | closed | closed |
+| see more than 50 processes | closed | closed | closed | closed | closed |
+| mount tmpfs / mount procfs | closed | closed (2) | closed | open / open | open / open |
+| unshare a user namespace | closed | open | open | open | open |
+| write a host sysctl | closed | closed | closed | closed | closed |
+| read /proc/kcore | closed | closed | closed | closed | closed |
+| change the hostname | closed | open | closed | open | open |
+| open /dev/kmsg | closed | open (3) | closed | closed | closed |
+| write under /sys | closed | closed | closed | closed | closed |
+| uid 0 inside is, on the host | 0 | 231072 | 0 (4) | 1000000 | 1000000 |
+
+Notes to the table:
+1. gVisor's dmesg is the sentry's own synthetic log, not the host's.
+2. The probe's tmpfs mount was refused under Sysbox, yet dockerd inside
+   Sysbox mounted overlayfs and proc for its containers (section 1.4). The
+   reason was not looked into. Sysbox screens mounts with seccomp-notify, and
+   this probe's mount source name `t` may be what it refused. Open question.
+3. Inside Sysbox, /dev/kmsg is device 1:3, that is /dev/null bind-mounted
+   over it. A read returns 0 bytes. This is a false positive of the probe.
+4. gVisor's uid 0 is root in the sentry's own kernel. On the host, the
+   sandbox runs as the user who ran runsc.
+
+What this shows:
+- runc is the tightest by these probes, because Docker drops CAP_SYS_ADMIN.
+  That is also why Docker cannot run inside it.
+- Sysbox and Incus give the session root inside its own user namespace, which
+  is what lets Docker and systemd run. It maps to an unprivileged host id, so
+  a breakout through a kernel bug lands as an unprivileged user. Their
+  boundary is still the shared host kernel. Their syscall surface is the
+  host's, less seccomp.
+- gVisor is the only one of the four in which the host kernel does not run
+  the session's syscalls. That is its whole price, measured in section 5.
+
+Not tested: actual kernel exploits; seccomp profile contents; side channels;
+resource exhaustion against the host. No cgroup limits apply under rootless
+use on this cgroup v1 host.
+
+## 7. The answer for this host, 2026-10-23
+
+| | Sysbox (patched) | Incus 6.0 LTS | gVisor | microVM |
+| --- | --- | --- | --- | --- |
+| docker inside | yes | yes, with systemd | yes, after 6 concessions | — |
+| cost against runc | 1.0-1.1x | 0.9-1.1x | 1.1-8.2x | — |
+| cold start | 0.7 s | 17-24 s (rootfs chown) | 0.5 s | — |
+| boundary | shared kernel, userns, seccomp | shared kernel, userns | user-space kernel | hardware |
+| on this host | 3 patches to Sysbox | stock; ends at 6.0 (7.0 needs cgroup v2) | stock | blocked: nested_pvm=1 |
+
+- For agents that build software and run containers, on a host without KVM:
+  **Sysbox**. It runs at runc's speed, starts in under a second, and plugs
+  into the Docker already here (`--runtime=sysbox-runc`). That is how errand's
+  podman backend would reach it too, or a small bailey shim.
+  - Against it: its maintenance is best effort (runtime-survey.md). On this
+    platform it needs three patches, which no release carries.
+- **Incus** is equally fast for work, and it gives a real init.
+  - Against it: 17-24 s starts here, and no road past 6.0 on cgroup v1.
+- **gVisor** is the strongest boundary available without KVM.
+  - Against it: 6-8x slower on the work an agent does most. Docker inside it
+    loses network isolation and needs raw sockets.
+- **The microVM** remains the design for hardware isolation. On this platform
+  it waits on one boot parameter. PVM's CPU prerequisites are met here.
+
+Assume more claims here are wrong than have been caught. Two were caught in
+this section's own work: experiment 80's 8x, and the ID-mapping "no" that
+came from my own build.

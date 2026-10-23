@@ -1,0 +1,82 @@
+# lib/escape-probe.sh in each engine, 2026-10-23T03:00:16Z, host 6.18.44-fc-v140, image bench:trixie / incus bench
+== docker --runtime=runc
+closed  mknod the host disk (254:0) and read it
+closed  read the kernel log (dmesg)
+closed  see more than 50 processes
+closed  mount a tmpfs
+closed  mount a fresh procfs
+closed  unshare a new user namespace
+closed  write a host sysctl (vm.drop_caches)
+closed  read /proc/kcore
+closed  load a kernel keyring key
+closed  change the hostname
+closed  open /dev/kmsg for reading
+closed  write under /sys
+closed  use ptrace (strace-like) on pid 1
+kernel seen: 6.18.44-fc-v140
+my uid inside: 0; uid_map:  0 0 4294967295
+== docker --runtime=sysbox-runc
+closed  mknod the host disk (254:0) and read it
+closed  read the kernel log (dmesg)
+closed  see more than 50 processes
+closed  mount a tmpfs
+closed  mount a fresh procfs
+open    unshare a new user namespace
+closed  write a host sysctl (vm.drop_caches)
+closed  read /proc/kcore
+closed  load a kernel keyring key
+open    change the hostname
+open    open /dev/kmsg for reading
+closed  write under /sys
+closed  use ptrace (strace-like) on pid 1
+kernel seen: 6.18.44-fc-v140
+my uid inside: 0; uid_map:  0 231072 65536
+== docker --runtime=runsc
+closed  mknod the host disk (254:0) and read it
+open    read the kernel log (dmesg)
+closed  see more than 50 processes
+closed  mount a tmpfs
+closed  mount a fresh procfs
+open    unshare a new user namespace
+closed  write a host sysctl (vm.drop_caches)
+closed  read /proc/kcore
+closed  load a kernel keyring key
+closed  change the hostname
+closed  open /dev/kmsg for reading
+closed  write under /sys
+closed  use ptrace (strace-like) on pid 1
+kernel seen: 4.19.0-gvisor
+my uid inside: 0; uid_map:  0 0 4294967295
+== incus 6.0 (nesting off)
+closed  mknod the host disk (254:0) and read it
+closed  read the kernel log (dmesg)
+closed  see more than 50 processes
+open    mount a tmpfs
+open    mount a fresh procfs
+open    unshare a new user namespace
+closed  write a host sysctl (vm.drop_caches)
+closed  read /proc/kcore
+closed  load a kernel keyring key
+open    change the hostname
+closed  open /dev/kmsg for reading
+closed  write under /sys
+closed  use ptrace (strace-like) on pid 1
+kernel seen: 6.18.44-fc-v140
+my uid inside: 0; uid_map:  0 1000000 1000000000
+== incus 6.0 (security.nesting=true)
+== incus 6.0 (security.nesting=true)
+closed  mknod the host disk (254:0) and read it
+closed  read the kernel log (dmesg)
+closed  see more than 50 processes
+open    mount a tmpfs
+open    mount a fresh procfs
+open    unshare a new user namespace
+closed  write a host sysctl (vm.drop_caches)
+closed  read /proc/kcore
+closed  load a kernel keyring key
+open    change the hostname
+closed  open /dev/kmsg for reading
+closed  write under /sys
+closed  use ptrace (strace-like) on pid 1
+kernel seen: 6.18.44-fc-v140
+my uid inside: 0; uid_map:  0 1000000 1000000000
