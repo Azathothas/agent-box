@@ -1,0 +1,618 @@
+#!/usr/bin/python3 -I
+# PROOF OF CONCEPT, 2026-10-23. Not product code; nothing imports it.
+#
+# Question: can errand, unmodified, run its sessions under gVisor instead of
+# Landlock and seccomp, by putting a program named `bailey` on its PATH that
+# speaks the part of bailey's CLI errand calls (src/sandbox/bailey.rs at
+# QaidVoid/errand@4a8011cd3668), and can the sandbox then reach nothing but
+# errand's credential broker?
+#
+# The verbs errand calls, and nothing more:
+#   bailey doctor
+#   bailey trust <policy> | bailey untrust <policy>
+#   bailey run [--isolate] [--egress-proxy ADDR:PORT | --proxy-net]
+#              --config <policy> [--profile P] [--quiet] -- CMD...
+#
+# What it does with `run`: reads errand's policy.toml, builds an OCI bundle in
+# which every read/write grant is a bind mount (read-only unless granted
+# write), the root is an empty read-only directory, and the network is
+# gVisor's `none`. Under --egress-proxy, an init inside the sandbox puts
+# ADDR on loopback, listens on ADDR:PORT and relays each connection over a
+# unix socket to this process on the host, which dials 127.0.0.1:PORT, where
+# errand's broker listens. Nothing else leaves the sandbox.
+#
+# What it does NOT handle (the list an implementing session estimates from):
+# - [network] egress_allow without --egress-proxy. The session gets no
+#   network at all and a warning; this is fail-closed, not bailey's behaviour.
+# - Landlock's split of read and execute is approximated by `noexec` on
+#   read-only mounts not in the execute list.
+# - [[device]] is ignored; gVisor gives its own /dev with null, zero, full,
+#   random, urandom and tty.
+# - BAILEY_CGROUP_ROOT and per-session cgroup limits. `doctor` says so.
+# - tmp_dir (sandbox.diskTmp), audit, hooks, profiles other than the two
+#   errand names: the profile is read as a label only.
+# - Concurrency of the host relay is one thread per connection, no limits.
+# - The inside init needs a python3 under a granted path; a product would be
+#   one static binary.
+
+import base64
+import hashlib
+import json
+import os
+import shutil
+import signal
+import socket
+import struct
+import subprocess
+import sys
+import threading
+import tomllib
+
+ME = os.path.realpath(__file__)
+INIT_AT = "/run/bailey/bailey"
+EGRESS_DIR_AT = "/run/bailey/egress"
+EGRESS_SOCK = "sock"
+
+
+def base_dir():
+    root = os.environ.get("XDG_RUNTIME_DIR") or f"/tmp/bailey-gvisor-{os.getuid()}"
+    path = os.path.join(root, "bailey-gvisor")
+    os.makedirs(path, mode=0o700, exist_ok=True)
+    return path
+
+
+def operator_home():
+    # Not $HOME and not the XDG variables: errand sets HOME to the session's
+    # private home and, for the session's own run, XDG_* to /state/kage, the
+    # agent's path (src/sandbox/bailey.rs:97-127 with session.rs:2392-2402 at
+    # errand@4a8011cd3668). The passwd entry is the one answer the caller's
+    # environment cannot move. BAILEY_GVISOR_HOME is for the experiments.
+    import pwd
+    return os.environ.get("BAILEY_GVISOR_HOME") or pwd.getpwuid(os.getuid()).pw_dir
+
+
+def trust_dir():
+    path = os.path.join(operator_home(), ".local/share", "bailey-gvisor", "trust")
+    os.makedirs(path, mode=0o700, exist_ok=True)
+    return path
+
+
+def digest(path):
+    with open(path, "rb") as f:
+        return hashlib.sha256(f.read()).hexdigest()
+
+
+def landlock_abi():
+    # landlock_create_ruleset(NULL, 0, LANDLOCK_CREATE_RULESET_VERSION)
+    import ctypes
+    libc = ctypes.CDLL(None, use_errno=True)
+    abi = libc.syscall(444, None, 0, 1)
+    return abi if abi > 0 else None
+
+
+def runsc():
+    found = shutil.which("runsc")
+    if not found:
+        sys.exit("bailey-gvisor: runsc is not on PATH")
+    return found
+
+
+# ---------------------------------------------------------------- doctor
+
+def doctor():
+    abi = landlock_abi()
+    probe = subprocess.run([runsc(), "--version"], capture_output=True, text=True)
+    print("backend: gVisor (runsc), not Landlock; the sentry is the boundary")
+    print(f"runsc: {probe.stdout.splitlines()[0] if probe.returncode == 0 else 'failed'}")
+    print("platform: kvm" if os.path.exists("/dev/kvm") else "platform: systrap")
+    # errand reads these three lines. The first states the kernel's ABI, which
+    # is true, though this backend does not depend on it.
+    print(f"landlock: ABI {abi}" if abi else "landlock: unavailable")
+    print("user namespaces: yes" if os.path.exists("/proc/self/ns/user") else "user namespaces: no")
+    print("cgroup delegation: no")
+    return 0 if probe.returncode == 0 else 1
+
+
+# ---------------------------------------------------------------- trust
+
+def trust(path, add):
+    marker = os.path.join(trust_dir(), digest(path))
+    if add:
+        open(marker, "w").close()
+    elif os.path.exists(marker):
+        os.unlink(marker)
+    return 0
+
+
+# ---------------------------------------------------------------- run
+
+def size_bytes(text):
+    units = {"k": 1 << 10, "m": 1 << 20, "g": 1 << 30, "t": 1 << 40}
+    text = text.strip().lower()
+    if text and text[-1] in units:
+        return int(float(text[:-1]) * units[text[-1]])
+    return int(text)
+
+
+def grants(entries):
+    """(host, at) for each entry: a bare path, or { path, at }."""
+    for entry in entries:
+        if isinstance(entry, str):
+            yield entry, entry
+        else:
+            yield entry["path"], entry["at"]
+
+
+def build_mounts(fs, resources):
+    write = dict((at, host) for host, at in grants(fs.get("write", [])))
+    execute = set(at for _, at in grants(fs.get("execute", [])))
+    seen = {}
+    for host, at in grants(fs.get("read", [])):
+        seen[at] = host
+    for at, host in write.items():
+        seen[at] = host
+
+    mounts = [
+        {"destination": "/proc", "type": "proc", "source": "proc"},
+        {"destination": "/tmp", "type": "tmpfs", "source": "tmpfs",
+         "options": ["nosuid", "nodev", f"size={size_bytes(resources.get('tmp_size', '512m'))}"]},
+        {"destination": "/dev/shm", "type": "tmpfs", "source": "tmpfs",
+         "options": ["nosuid", "nodev", f"size={size_bytes(resources.get('shm_size', '64m'))}"]},
+    ]
+
+    def executable(at):
+        return any(at == e or at.startswith(e.rstrip("/") + "/") for e in execute)
+
+    for at in sorted(seen, key=len):
+        host = seen[at]
+        if at == "/proc" or not os.path.exists(host):
+            continue
+        options = ["rbind", "rw" if at in write else "ro"]
+        if not executable(at):
+            options.append("noexec")
+        mounts.append({"destination": at, "type": "bind", "source": host, "options": options})
+
+    # A link through a path the policy does not name dangles in a mount
+    # namespace (/usr/bin/python3 -> /etc/alternatives/python3 on Debian and
+    # Ubuntu). Bind the directories such links pass through, read-only.
+    # NOTE: this grants MORE than real bailey, which dangles the same link
+    # under --isolate (measured, experiment 60, results/README.md); errand's
+    # read list is what lacks /etc/alternatives. Kept so python works here,
+    # and said out loud rather than presented as parity.
+    # Judged by the names the sandbox sees, which are the mount destinations,
+    # and only for system directories granted at their own path.
+    visible = list(seen)
+
+    def is_visible(path):
+        return any(path == v or path.startswith(v.rstrip("/") + "/") for v in visible)
+
+    extra = set()
+    for directory in execute:
+        if seen.get(directory) != directory or not os.path.isdir(directory):
+            continue
+        for name in os.listdir(directory):
+            link = os.path.join(directory, name)
+            for _ in range(8):
+                if not os.path.islink(link):
+                    break
+                hop = os.path.normpath(os.path.join(os.path.dirname(link), os.readlink(link)))
+                parent = os.path.dirname(hop)
+                if not is_visible(parent) and parent != "/" and os.path.isdir(parent):
+                    extra.add(parent)
+                    visible.append(parent)
+                link = hop
+    for directory in sorted(extra):
+        mounts.append({"destination": directory, "type": "bind", "source": directory,
+                       "options": ["rbind", "ro", "noexec"]})
+    return mounts
+
+
+def map_cwd(cwd, mounts):
+    best = None
+    for m in mounts:
+        if m["type"] != "bind":
+            continue
+        src = os.path.realpath(m["source"])
+        if cwd == src or cwd.startswith(src.rstrip("/") + "/"):
+            if best is None or len(src) > len(best[0]):
+                best = (src, m["destination"])
+    if best is None:
+        return "/"
+    return best[1] + cwd[len(best[0]):]
+
+
+def parse_run(argv):
+    opts = {"egress": None, "config": None, "quiet": False, "profile": None}
+    i = 0
+    while i < len(argv):
+        a = argv[i]
+        if a == "--":
+            return opts, argv[i + 1:]
+        if a in ("--isolate", "--proxy-net"):
+            pass
+        elif a == "--quiet":
+            opts["quiet"] = True
+        elif a == "--egress-proxy":
+            i += 1
+            opts["egress"] = argv[i]
+        elif a == "--config":
+            i += 1
+            opts["config"] = argv[i]
+        elif a == "--profile":
+            i += 1
+            opts["profile"] = argv[i]
+        else:
+            sys.exit(f"bailey-gvisor: unknown run option {a}")
+        i += 1
+    return opts, []
+
+
+def pump(a, b):
+    try:
+        while True:
+            data = a.recv(65536)
+            if not data:
+                break
+            b.sendall(data)
+    except OSError:
+        pass
+    finally:
+        for s in (a, b):
+            try:
+                s.shutdown(socket.SHUT_RDWR)
+            except OSError:
+                pass
+
+
+def splice(a, b):
+    threading.Thread(target=pump, args=(a, b), daemon=True).start()
+    threading.Thread(target=pump, args=(b, a), daemon=True).start()
+
+
+# ---------------------------------------------------------------- credentials
+#
+# errand's broker swaps a model provider's key for a nonce. It does nothing
+# for GH_TOKEN, which errand hands the agent as the real token. This is the
+# same idea one layer down, for any variable the operator names in
+# ~/.config/bailey-gvisor/credentials.toml, ~ being the passwd home of the
+# user errand runs as (see operator_home), which the agent cannot write:
+#
+#   [[inject]]
+#   variable = "GH_TOKEN"
+#   hosts = ["github.com", "api.github.com"]
+#
+# The sandbox is given a placeholder in the variable. A CONNECT to a named
+# host is answered here: TLS ends on a leaf minted by a CA made for this run
+# alone, which the sandbox trusts through an overlaid CA bundle; the
+# placeholder is replaced with the real value in the request head; the
+# request goes on through errand's broker, so its allowlist and log still
+# apply. Every other connection is relayed to the broker byte for byte.
+
+HOST_BUNDLE = "/etc/ssl/certs/ca-certificates.crt"
+
+
+def load_injections():
+    path = os.path.join(operator_home(), ".config", "bailey-gvisor", "credentials.toml")
+    if not os.path.exists(path):
+        return {}, None
+    with open(path, "rb") as f:
+        doc = tomllib.load(f)
+    return {i["variable"]: i["hosts"] for i in doc.get("inject", [])}, doc.get("upstream_ca")
+
+
+class Injector:
+    def __init__(self, workdir, secrets, hosts, upstream_ca):
+        import ssl
+        self.ssl = ssl
+        self.dir = workdir
+        self.secrets = secrets  # placeholder -> real value
+        self.hosts = hosts      # host -> True
+        self.lock = threading.Lock()
+        self.ca_key = os.path.join(workdir, "ca.key")
+        self.ca_crt = os.path.join(workdir, "ca.crt")
+        self.openssl("req", "-x509", "-newkey", "ec", "-pkeyopt", "ec_paramgen_curve:P-256",
+                     "-nodes", "-keyout", self.ca_key, "-out", self.ca_crt, "-days", "2",
+                     "-subj", "/CN=bailey-gvisor session CA",
+                     "-addext", "basicConstraints=critical,CA:TRUE",
+                     "-addext", "keyUsage=critical,keyCertSign,cRLSign")
+        with open(HOST_BUNDLE) as host, open(self.ca_crt) as ca, \
+                open(os.path.join(workdir, "bundle.crt"), "w") as out:
+            out.write(host.read() + "\n" + ca.read())
+        self.upstream = ssl.create_default_context(cafile=upstream_ca) if upstream_ca \
+            else ssl.create_default_context()
+
+    def openssl(self, *args):
+        subprocess.run(["openssl", *args], check=True, capture_output=True)
+
+    def leaf(self, host):
+        crt = os.path.join(self.dir, f"{host}.crt")
+        with self.lock:
+            if not os.path.exists(crt):
+                key, csr = crt[:-4] + ".key", crt[:-4] + ".csr"
+                ext = os.path.join(self.dir, f"{host}.ext")
+                with open(ext, "w") as f:
+                    f.write(f"subjectAltName=DNS:{host}\nextendedKeyUsage=serverAuth\n"
+                            "keyUsage=critical,digitalSignature\n"
+                            "authorityKeyIdentifier=keyid\n")
+                self.openssl("req", "-newkey", "ec", "-pkeyopt", "ec_paramgen_curve:P-256", "-nodes",
+                             "-keyout", key, "-out", csr, "-subj", f"/CN={host}")
+                self.openssl("x509", "-req", "-in", csr, "-CA", self.ca_crt, "-CAkey", self.ca_key,
+                             "-CAcreateserial", "-out", crt, "-days", "2", "-extfile", ext)
+        return crt, crt[:-4] + ".key"
+
+    def rewrite(self, head):
+        lines = head.split("\r\n")
+        for i, line in enumerate(lines[1:], 1):
+            name, sep, value = line.partition(":")
+            if not sep:
+                continue
+            for fake, real in self.secrets.items():
+                if fake in value:
+                    value = value.replace(fake, real)
+                elif name.strip().lower() == "authorization" and value.strip().lower().startswith("basic "):
+                    raw = base64.b64decode(value.strip()[6:]).decode(errors="replace")
+                    if fake in raw:
+                        value = " Basic " + base64.b64encode(raw.replace(fake, real).encode()).decode()
+            if name.strip().lower() == "connection":
+                value = " close"
+            lines[i] = f"{name}:{value}"
+        if not any(l.lower().startswith("connection:") for l in lines):
+            lines.insert(1, "Connection: close")
+        return "\r\n".join(lines)
+
+    def serve(self, conn, host, port, broker_port):
+        conn.sendall(b"HTTP/1.1 200 Connection Established\r\n\r\n")
+        crt, key = self.leaf(host)
+        server = self.ssl.SSLContext(self.ssl.PROTOCOL_TLS_SERVER)
+        server.load_cert_chain(crt, key)
+        server.set_alpn_protocols(["http/1.1"])
+        inner = server.wrap_socket(conn, server_side=True)
+        head = read_head(inner)
+        if head is None:
+            inner.close()
+            return
+        up = socket.create_connection(("127.0.0.1", broker_port), timeout=10)
+        up.sendall(f"CONNECT {host}:{port} HTTP/1.1\r\nHost: {host}:{port}\r\n\r\n".encode())
+        answer = read_head(up)
+        if not answer or " 200 " not in answer.split("\r\n")[0] + " ":
+            inner.sendall(b"HTTP/1.1 502 Bad Gateway\r\nConnection: close\r\n\r\n")
+            inner.close()
+            return
+        up.settimeout(None)
+        outer = self.upstream.wrap_socket(up, server_hostname=host)
+        outer.sendall((self.rewrite(head[:-4]) + "\r\n\r\n").encode())
+        splice(inner, outer)
+
+
+def read_head(sock):
+    data = b""
+    while b"\r\n\r\n" not in data:
+        byte = sock.recv(1)
+        if not byte or len(data) > 65536:
+            return None
+        data += byte
+    return data.decode("latin-1")
+
+
+def handle(conn, port, injector):
+    try:
+        head = read_head(conn) if injector else ""
+        if head is None:
+            conn.close()
+            return
+        if injector:
+            first = head.split("\r\n", 1)[0].split()
+            if len(first) >= 2 and first[0].upper() == "CONNECT":
+                host, _, target_port = first[1].rpartition(":")
+                if host.lower() in injector.hosts:
+                    injector.serve(conn, host.lower(), int(target_port), port)
+                    return
+        up = socket.create_connection(("127.0.0.1", port), timeout=10)
+        up.settimeout(None)
+        if head:
+            up.sendall(head.encode("latin-1"))
+        splice(conn, up)
+    except (OSError, ValueError) as error:
+        print(f"bailey-gvisor: relay: {error}", file=sys.stderr)
+        conn.close()
+
+
+def host_relay(listener, port, injector):
+    # The one hop out: a unix socket the sandbox reaches through the gofer,
+    # dialled through to the broker on host loopback.
+    while True:
+        conn, _ = listener.accept()
+        threading.Thread(target=handle, args=(conn, port, injector), daemon=True).start()
+
+
+def run(argv):
+    opts, command = parse_run(argv)
+    if not opts["config"] or not command:
+        sys.exit("bailey-gvisor: run needs --config and a command")
+    policy_path = opts["config"]
+    if not os.path.exists(os.path.join(trust_dir(), digest(policy_path))):
+        # bailey warns and runs without the policy; this refuses, which is the
+        # failure errand's verify_policy_applies is there to turn into one.
+        print(f"bailey-gvisor: {policy_path} is not trusted, refusing to run", file=sys.stderr)
+        return 1
+    with open(policy_path, "rb") as f:
+        policy = tomllib.load(f)
+    fs = policy.get("filesystem", {})
+    resources = policy.get("resources", {})
+    env_cfg = policy.get("env", {})
+
+    mounts = build_mounts(fs, resources)
+    cwd = map_cwd(os.path.realpath(os.getcwd()), mounts)
+
+    env = {"PATH": "/usr/local/bin:/usr/bin:/bin"}
+    for name in env_cfg.get("pass", []):
+        if name in os.environ:
+            env[name] = os.environ[name]
+    env.update(env_cfg.get("set", {}))
+
+    run_id = "b" + base64.b32encode(os.urandom(10)).decode().lower()
+    bundle = os.path.join(base_dir(), "bundles", run_id)
+    os.makedirs(os.path.join(bundle, "rootfs"), mode=0o700)
+    egress_dir = os.path.join(bundle, "egress")
+    os.makedirs(egress_dir, mode=0o700)
+
+    process_args = command
+    caps = []
+    if opts["egress"]:
+        addr, port = opts["egress"].rsplit(":", 1)
+        listener = socket.socket(socket.AF_UNIX)
+        listener.bind(os.path.join(egress_dir, EGRESS_SOCK))
+        listener.listen(64)
+        injections, upstream_ca = load_injections()
+        injector = None
+        secrets, hosts = {}, {}
+        for name, names in injections.items():
+            if env.get(name):
+                fake = "bailey-placeholder-" + os.urandom(12).hex()
+                secrets[fake] = env[name]
+                env[name] = fake
+                hosts.update({h.lower(): True for h in names})
+        if secrets:
+            # Kept out of the egress directory, which the sandbox can write.
+            ca_dir = os.path.join(bundle, "ca")
+            os.makedirs(ca_dir, mode=0o700)
+            injector = Injector(ca_dir, secrets, hosts, upstream_ca)
+            mounts.append({"destination": HOST_BUNDLE, "type": "bind",
+                           "source": os.path.join(ca_dir, "bundle.crt"), "options": ["rbind", "ro"]})
+        threading.Thread(target=host_relay, args=(listener, int(port), injector), daemon=True).start()
+        mounts.append({"destination": EGRESS_DIR_AT, "type": "bind", "source": egress_dir,
+                       "options": ["rbind", "rw", "noexec"]})
+        mounts.append({"destination": INIT_AT, "type": "bind", "source": ME,
+                       "options": ["rbind", "ro"]})
+        # The init needs NET_ADMIN to add one address and SETPCAP to drop
+        # every capability before the command runs.
+        caps = ["CAP_NET_ADMIN", "CAP_SETPCAP"]
+        python = shutil.which("python3", path="/usr/bin:/bin") or "/usr/bin/python3"
+        process_args = [python, "-I", INIT_AT, "__init", addr, port, "--"] + command
+    elif "network" in policy and not opts["quiet"]:
+        print("bailey-gvisor: warning: no --egress-proxy, so this session has no network; "
+              "egress_allow is not enforced as an allowance", file=sys.stderr)
+
+    rlimits = []
+    if "file_max" in resources:
+        n = size_bytes(resources["file_max"])
+        rlimits.append({"type": "RLIMIT_FSIZE", "hard": n, "soft": n})
+
+    spec = {
+        "ociVersion": "1.0.2",
+        "process": {
+            "terminal": False,
+            "user": {"uid": 0, "gid": 0},
+            "args": process_args,
+            "env": [f"{k}={v}" for k, v in env.items()],
+            "cwd": cwd,
+            "capabilities": {k: caps for k in ("bounding", "effective", "permitted")},
+            "rlimits": rlimits,
+            "noNewPrivileges": True,
+        },
+        "root": {"path": "rootfs", "readonly": True},
+        "hostname": "sandbox",
+        "mounts": mounts,
+        "linux": {"namespaces": [{"type": t} for t in ("pid", "network", "ipc", "uts", "mount")]},
+    }
+    with open(os.path.join(bundle, "config.json"), "w") as f:
+        json.dump(spec, f)
+
+    root = os.path.join(base_dir(), "runsc")
+    flags = ["--root", root, "--network=none", "--ignore-cgroups"]
+    if opts["egress"]:
+        flags.append("--host-uds=open")
+    if os.getuid() != 0:
+        flags.append("--rootless")
+    if not os.path.exists("/dev/kvm"):
+        flags.append("--platform=systrap")
+    else:
+        flags.append("--platform=kvm")
+
+    child = subprocess.Popen([runsc()] + flags + ["run", "--bundle", bundle, run_id])
+
+    def stop(signum, _frame):
+        child.send_signal(signum)
+
+    signal.signal(signal.SIGTERM, stop)
+    signal.signal(signal.SIGINT, stop)
+    code = child.wait()
+    subprocess.run([runsc()] + flags + ["delete", "--force", run_id],
+                   stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    shutil.rmtree(bundle, ignore_errors=True)
+    return code if code >= 0 else 128 - code
+
+
+# ---------------------------------------------------------------- inside
+
+def add_address(addr):
+    idx = socket.if_nametoindex("lo")
+    raw = socket.inet_aton(addr)
+    body = struct.pack("BBBBI", socket.AF_INET, 32, 0, 0, idx)
+    body += struct.pack("HH", 8, 1) + raw + struct.pack("HH", 8, 2) + raw
+    header = struct.pack("IHHII", 16 + len(body), 20, 1 | 4 | 0x400 | 0x200, 1, 0)
+    nl = socket.socket(socket.AF_NETLINK, socket.SOCK_RAW, 0)
+    nl.send(header + body)
+    err = struct.unpack("i", nl.recv(4096)[16:20])[0]
+    if err != 0:
+        sys.exit(f"bailey-gvisor init: adding {addr} failed: {err}")
+
+
+def drop_capabilities():
+    # capset(v3, this process, all zero), so the relay keeps no NET_ADMIN.
+    import ctypes
+    libc = ctypes.CDLL(None, use_errno=True)
+    header = (ctypes.c_uint32 * 2)(0x20080522, 0)
+    data = (ctypes.c_uint32 * 6)()
+    if libc.capset(header, data) != 0:
+        sys.exit(f"bailey-gvisor init: capset failed: {ctypes.get_errno()}")
+
+
+def inside(argv):
+    addr, port, sep = argv[0], int(argv[1]), argv[2]
+    command = argv[3:]
+    assert sep == "--" and command
+    add_address(addr)
+    listener = socket.socket()
+    listener.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    listener.bind((addr, port))
+    listener.listen(64)
+    if os.fork() == 0:
+        # The relay outlives nothing: pid 1 below is the command, and the
+        # sandbox ends when it does.
+        os.setsid()
+        drop_capabilities()
+        while True:
+            conn, _ = listener.accept()
+            out = socket.socket(socket.AF_UNIX)
+            try:
+                out.connect(os.path.join(EGRESS_DIR_AT, EGRESS_SOCK))
+            except OSError:
+                conn.close()
+                continue
+            splice(conn, out)
+    listener.close()
+    os.execv("/usr/bin/setpriv", ["setpriv", "--bounding-set=-all", "--inh-caps=-all",
+                                  "--no-new-privs", "--"] + command)
+
+
+def main():
+    argv = sys.argv[1:]
+    if not argv:
+        sys.exit("usage: bailey doctor | trust P | untrust P | run ... -- CMD")
+    verb, rest = argv[0], argv[1:]
+    if verb == "doctor":
+        return doctor()
+    if verb == "trust":
+        return trust(rest[0], True)
+    if verb == "untrust":
+        return trust(rest[0], False)
+    if verb == "run":
+        return run(rest)
+    if verb == "__init":
+        return inside(rest)
+    sys.exit(f"bailey-gvisor: unknown verb {verb}")
+
+
+if __name__ == "__main__":
+    sys.exit(main())
