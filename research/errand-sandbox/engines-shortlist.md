@@ -412,7 +412,7 @@ Assume more claims here are wrong than have been caught. Two were caught in
 this section's own work: experiment 80's 8x, and the ID-mapping "no" that
 came from my own build.
 
-## 8. FUSE (including network storage) and podman inside (in progress)
+## 8. FUSE (including network storage) and podman inside
 
 Question: can a session mount FUSE filesystems, including network storage,
 and run podman? The probe is `lib/fuse-podman-probe.sh`, in image
@@ -438,9 +438,37 @@ First run, 2026-10-23 (results/91-fuse-podman-docker-engines.txt):
 Under runc both fail for want of CAP_SYS_ADMIN, which Docker's default set
 drops. That is the control.
 
-Still to run:
-- runsc with `--cap-add SYS_ADMIN`. That capability is gVisor's own, not
-  the host's. In progress.
-- podman inside Sysbox with the vfs storage driver, and with overlay
-  through fuse-overlayfs. In progress.
-- Incus 6.0, nesting on: FUSE, network storage and podman. Not started.
+Follow-ups, 2026-10-23 (results/92-fuse-podman-followups.txt):
+
+- **runsc with `--device /dev/fuse --cap-add SYS_ADMIN`**: FUSE still fails
+  ("mount not ready"), and podman still fails. Only rclone was tried as the
+  FUSE program. Whether gVisor's FUSE serves a simpler filesystem was not
+  tested.
+- **podman inside Sysbox**: the vfs storage driver **works** (Debian 13.7
+  ran). Overlay through fuse-overlayfs still fails on crun's self bind
+  mount. vfs copies each layer, so it costs disk and start time; that was
+  not measured.
+- **Incus 6.0, nesting on**, with nothing else configured:
+  - It exposes `/dev/fuse` by default.
+  - FUSE on a local dir: **pass** (fuse.rclone).
+  - Network storage over FUSE: **pass** (138612 bytes read through the
+    mount).
+  - podman with defaults fails: "creating cgroup directory ...: read-only
+    file system". The cgroup v1 controller trees are read-only inside an
+    unprivileged container.
+  - podman with `--cgroups=disabled`: **works**, on the native overlay
+    driver.
+  - Its network needs `nft`: with pasta it works, and with the default
+    bridge it works once nftables is installed.
+  - What `--cgroups=disabled` costs: podman sets no limits on inner
+    containers. They share the Incus instance's own limits.
+
+| engine | docker inside | podman inside | fuse | network storage over fuse |
+| --- | --- | --- | --- | --- |
+| Sysbox (patched), `--device /dev/fuse` | yes | yes, vfs driver only | yes | yes |
+| Incus 6.0, nesting on | yes | yes, overlay, `--cgroups=disabled` | yes, by default | yes |
+| gVisor | yes, 6 concessions | no | no (tried with SYS_ADMIN) | no |
+| runc, default | no | no | no | no |
+
+So for "docker or podman, plus FUSE network storage", gVisor is out, and
+Incus does it with the least configuration.
