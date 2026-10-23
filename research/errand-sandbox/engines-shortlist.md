@@ -127,3 +127,133 @@ The two source patches are in `patches/sysbox-v0.7.1-no-modules-no-sys-resource.
 - `/proc/sys/net/ipv4` has 134 entries, and ip_unprivileged_port_start reads
   0.
 - `/proc/sys/fs/binfmt_misc` is mounted.
+
+### 1.4 Docker inside a Sysbox container (the deciding test)
+
+Setup for egress, needed by any container on this host:
+- The platform's proxy listens on host loopback, 127.0.0.1:33337, and only
+  allows CONNECT. A plain-http apt fetch gets 405.
+- So: `socat TCP-LISTEN:33337,bind=172.17.0.1,fork TCP:127.0.0.1:33337` puts
+  it on the Docker bridge.
+- `.work/sysbox/apt-proxy.sh` switches a container's apt to
+  https://deb.debian.org, through 172.17.0.1:33337, trusting the proxy's CA
+  bundle mounted read-only.
+- This is the same shape as errand's broker: one exit, outside the sandbox.
+
+Run once, 2026-10-23, outer container `debian:trixie-slim` under sysbox-runc:
+- `apt-get install docker.io docker-cli ca-certificates iptables`: 15 s of
+  wall time for the first part.
+- Debian 13 splits the client into `docker-cli`.
+- `dockerd` started by hand, since there is no systemd inside either. It
+  reports 26.1.5, storage driver overlay2, cgroup version 1.
+- An image went in with `docker save | docker exec -i sbx1 docker load`. This
+  avoids Docker Hub, which had rate-limited this host (429).
+- Inner `docker run debian:trixie-slim`: uid_map `0 231072 65536`, and
+  Seccomp 2 (filtering).
+- Inner `docker build`, legacy builder, a Dockerfile that runs
+  `apt-get install gcc libc6-dev`, compiles a C file and runs it: built (an
+  image of 295 MB), and the binary ran.
+- Seen from the host, the inner container's `sleep` runs as uid **231072**:
+  an unprivileged id, not root.
+
+So on this host, Sysbox gives a session root in its own Debian, apt, a
+compiler, and Docker inside, with no `--privileged` and no host socket.
+
+Not established yet:
+- Isolation strength beyond the uid. The boundary is the shared host kernel.
+- cgroup limits per session.
+- Cost against runc and gVisor. Section 4 measures it.
+
+## 2. Incus 6.0 LTS, unprivileged system containers
+
+The survey (runtime-survey.md) says Incus **7.0** removed cgroup v1. Ubuntu
+24.04 ships the **6.0** LTS line (`incus 6.0.0-1ubuntu0.3`), which comes
+before that removal. So 6.0 was tried. Run once, 2026-10-23:
+
+- `apt-get install incus` took one step. incusd was started by hand,
+  `/usr/libexec/incus/incusd --group root`, since there is no systemd. Then
+  `incus admin init --minimal` gave a `dir` storage pool and the bridge
+  `incusbr0` (10.233.176.1/24).
+- `incus info` reports the LXC driver as operational, with
+  idmapped_mounts, unpriv_binfmt and unpriv_fscaps all true. The QEMU driver
+  reports "KVM support is missing", as expected.
+- Warnings that did not stop it: AppArmor is absent from this kernel; there
+  is no blkio.weight, so disk priority is ignored; VLAN filtering on the
+  bridge was refused. lxc.log warns that some cgroup2 files are missing
+  (memory.oom.group, memory.reclaim).
+- `incus launch images:debian/13 c1` took 7.9 s, including fetching the
+  image through the proxy, which incusd took from its environment.
+  `core.https_proxy` is an unknown key in 6.0.
+- Inside: **systemd is PID 1**, a pty is present, and the uid_map is
+  `0 1000000 1000000000`.
+- Docker inside needed `security.nesting=true` and a restart, plus the same
+  proxy relay bound on 10.233.176.1. Then
+  `apt-get install docker.io docker-cli ca-certificates iptables` took 12 s,
+  and **systemd started docker**: 26.1.5, overlay2, cgroup v1.
+- Inner `docker run`: uid_map `0 1000000 1000000000`, Seccomp 2.
+- Inner `docker build`, the same gcc Dockerfile as in 1.4: built, and the
+  binary ran.
+- Seen from the host, the inner container's `sleep` runs as uid **1000000**.
+
+Against Sysbox, on this host:
+- Incus needed no patches. It is a stock package, and its whole lifecycle is
+  managed by a daemon.
+- It boots a full init, so `systemctl` works for the agent.
+- It is a separate engine. errand's podman backend cannot drive it, so it
+  would need a bailey shim of its own (`incus launch`, `exec` and `delete`).
+- **It ends at 6.0 LTS here.** 7.0 and later need cgroup v2. INFERRED: the
+  6.0 LTS line is supported for years, but its end date was not read here.
+
+## 3. gVisor with Docker inside (the survey's #2)
+
+Run once, 2026-10-23, under the runtime `runsc-dind`: runsc with
+`--platform=systrap --net-raw --allow-packet-socket-write`. The container
+ran with `--cap-add all` and `--tmpfs /var/lib/docker`. The capabilities
+are gVisor's, not the host's.
+
+It took six steps, and each was needed:
+1. `apt-get install docker.io docker-cli ca-certificates iptables` took
+   **101 s**, against 15 s under Sysbox and 12 s under Incus. That is one
+   run each, so it is indicative only; section 4 measures properly.
+2. dockerd's default nftables-backed iptables fails ("failed to create NAT
+   chain DOCKER"). Switching to iptables-legacy reaches the next failure.
+3. With legacy iptables, "Extension addrtype ... Invalid argument": gVisor's
+   netfilter lacks the addrtype match.
+4. So dockerd runs with `--iptables=false --ip6tables=false --bridge=none`.
+5. An inner `exec /usr/bin/sh: permission denied`: Docker's `--tmpfs` is
+   noexec by default. `mount -o remount,exec /var/lib/docker` fixes it.
+   Product use would pass `--tmpfs /var/lib/docker:exec`.
+6. Inner containers and builds need `--network=host`, because there is no
+   bridge.
+
+Result:
+- Inner `docker run`: Debian 13.7, kernel `4.19.0-gvisor`. The uid_map is
+  the identity, because the inner container shares gVisor's own kernel and
+  user namespace.
+- Inner `docker build --network=host` of the gcc Dockerfile: built in 34 s,
+  and the binary ran.
+
+What it costs in isolation terms:
+- Inner containers get no network isolation from each other, or from the
+  session.
+- Raw and packet sockets are enabled inside the sandbox. gVisor's own help
+  text warns that they let a workload craft arbitrary packets. Those are
+  bounded by the session's network, which is the egress relay.
+
+## 4. PVM
+
+Not testable on this host. README item 3 has the evidence: the kernel has
+KVM_PVM built in, but registers no /dev/kvm without `nested_pvm=1` on the
+command line, and the platform sets that command line.
+
+The survey adds that out-of-tree PVM (virt-pvm, 6.12.33) refuses a host
+with KPTI or without FSGSBASE, RDTSCP or CX16. Checked on this host:
+- /proc/cpuinfo lists rdtscp, cx16 and fsgsbase.
+- `/sys/devices/system/cpu/vulnerabilities/meltdown` reads "Not affected",
+  so this CPU needs no KPTI. INFERRED: KPTI is therefore off.
+
+On those checks, nothing on this host refuses PVM except the boot
+parameter.
+
+Reopens if: the platform boots with `nested_pvm=1`. Then the microVM route
+(Firecracker, CubeSandbox, AgentENV) can be measured here.
