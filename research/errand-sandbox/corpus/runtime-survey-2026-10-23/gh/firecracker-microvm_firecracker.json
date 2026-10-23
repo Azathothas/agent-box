@@ -1,0 +1,23 @@
+{
+ "full_name": "firecracker-microvm/firecracker",
+ "description": "Secure and fast microVMs for serverless computing.",
+ "stargazers_count": 37561,
+ "forks_count": 2702,
+ "open_issues_count": 128,
+ "pushed_at": "2026-10-22T23:55:52Z",
+ "archived": false,
+ "license": "Apache-2.0",
+ "html_url": "https://github.com/firecracker-microvm/firecracker",
+ "default_branch": "main",
+ "topics": [
+  "containers",
+  "minimalist",
+  "open-source",
+  "oversubscription",
+  "rust",
+  "sandbox",
+  "serverless",
+  "virtual-machine",
+  "virtualization"
+ ]
+}

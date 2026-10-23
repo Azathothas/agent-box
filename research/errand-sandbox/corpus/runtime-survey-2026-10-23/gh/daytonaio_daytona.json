@@ -1,0 +1,22 @@
+{
+ "full_name": "daytonaio/daytona",
+ "description": "Daytona is a Secure and Elastic Infrastructure for Running AI-Generated Code",
+ "stargazers_count": 71503,
+ "forks_count": 5636,
+ "open_issues_count": 457,
+ "pushed_at": "2026-07-24T07:12:07Z",
+ "archived": true,
+ "license": null,
+ "html_url": "https://github.com/daytonaio/daytona",
+ "default_branch": "main",
+ "topics": [
+  "agentic-workflow",
+  "ai",
+  "ai-agents",
+  "ai-runtime",
+  "ai-sandboxes",
+  "code-execution",
+  "code-interpreter",
+  "developer-tools"
+ ]
+}

@@ -1,0 +1,17 @@
+{
+ "full_name": "TencentCloud/CubeSandbox",
+ "description": "Instant, Concurrent, Secure & Lightweight Sandbox for AI Agents.",
+ "stargazers_count": 13015,
+ "forks_count": 1177,
+ "open_issues_count": 195,
+ "pushed_at": "2026-10-22T08:55:18Z",
+ "archived": false,
+ "license": "NOASSERTION",
+ "html_url": "https://github.com/TencentCloud/CubeSandbox",
+ "default_branch": "master",
+ "topics": [
+  "agents",
+  "container",
+  "sandbox"
+ ]
+}

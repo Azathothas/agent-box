@@ -1,0 +1,25 @@
+{
+ "full_name": "loft-sh/devpod",
+ "description": "Codespaces but open-source, client-only and unopinionated: Works with any IDE and lets you use any cloud, kubernetes or just localhost docker.",
+ "stargazers_count": 15286,
+ "forks_count": 588,
+ "open_issues_count": 41,
+ "pushed_at": "2025-11-14T06:33:38Z",
+ "archived": false,
+ "license": "MPL-2.0",
+ "html_url": "https://github.com/loft-sh/devpod",
+ "default_branch": "main",
+ "topics": [
+  "cloud",
+  "devcontainer",
+  "devcontainers",
+  "developer-tools",
+  "development",
+  "docker",
+  "ide",
+  "kubernetes",
+  "remote-development",
+  "remote-development-environment",
+  "vscode"
+ ]
+}

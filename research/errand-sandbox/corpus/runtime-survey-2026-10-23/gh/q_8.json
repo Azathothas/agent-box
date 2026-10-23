@@ -1,0 +1,125 @@
+{
+ "total_count": 23,
+ "items": [
+  {
+   "full_name": "FootprintAI/Containarium",
+   "description": "Open-source agent runtime \u2014 SSH-native isolation, eBPF egress policy, Kubernetes + LXC backends, GPU passthrough, MCP-native CLI",
+   "stargazers_count": 310,
+   "pushed_at": "2026-10-23T01:59:06Z",
+   "archived": false,
+   "html_url": "https://github.com/FootprintAI/Containarium"
+  },
+  {
+   "full_name": "smol-machines/smolvm",
+   "description": "An embeddable, portable, branchable virtual machine to safely run Agents locally.",
+   "stargazers_count": 6802,
+   "pushed_at": "2026-10-23T01:50:58Z",
+   "archived": false,
+   "html_url": "https://github.com/smol-machines/smolvm"
+  },
+  {
+   "full_name": "gominimal/minimal",
+   "description": "Run your agent in a Minimal box. Ship and run software with isolation on your own computer.",
+   "stargazers_count": 222,
+   "pushed_at": "2026-10-23T01:49:39Z",
+   "archived": false,
+   "html_url": "https://github.com/gominimal/minimal"
+  },
+  {
+   "full_name": "agentconnect-md/agentconnect",
+   "description": "The open-source, multi-agent alternative to Claude Tag.  @ any agent, wherever work happens, they work alongside your team, learning as they go.",
+   "stargazers_count": 1479,
+   "pushed_at": "2026-10-23T01:33:57Z",
+   "archived": false,
+   "html_url": "https://github.com/agentconnect-md/agentconnect"
+  },
+  {
+   "full_name": "strukto-ai/mirage",
+   "description": "The World's First Virtual Terminal for AI Agents",
+   "stargazers_count": 3716,
+   "pushed_at": "2026-10-22T23:41:21Z",
+   "archived": false,
+   "html_url": "https://github.com/strukto-ai/mirage"
+  },
+  {
+   "full_name": "intentic/intentic",
+   "description": "An open-source workspace for coding agents, running on your own machine. More work. Less AI waste. Same subscriptions.",
+   "stargazers_count": 85,
+   "pushed_at": "2026-10-23T00:21:06Z",
+   "archived": false,
+   "html_url": "https://github.com/intentic/intentic"
+  },
+  {
+   "full_name": "nolabs-ai/nono",
+   "description": "agent runtime security - zero trust, zero setup, zero latency agent sandboxing",
+   "stargazers_count": 4639,
+   "pushed_at": "2026-10-22T12:36:57Z",
+   "archived": false,
+   "html_url": "https://github.com/nolabs-ai/nono"
+  },
+  {
+   "full_name": "nuwax-ai/nuwax",
+   "description": "Nuwax Agent OS - An enterprise-grade AI Agent Development and Operation Platform - Providing a complete solution for agent creation and distribution, knowledge base management, model proxy, memory system, and plugin ecosystem.",
+   "stargazers_count": 895,
+   "pushed_at": "2026-10-22T12:06:59Z",
+   "archived": false,
+   "html_url": "https://github.com/nuwax-ai/nuwax"
+  },
+  {
+   "full_name": "agent-sandbox/agent-sandbox",
+   "description": "Agent-Sandbox is an easy-to-use, enterprise-grade sandbox platform for AI Agents \u2014 letting them securely run untrusted LLM-generated code, Browser use, Computer use, and deploy websites, among other tasks.",
+   "stargazers_count": 222,
+   "pushed_at": "2026-10-22T06:56:44Z",
+   "archived": false,
+   "html_url": "https://github.com/agent-sandbox/agent-sandbox"
+  },
+  {
+   "full_name": "openma-ai/open-managed-agents",
+   "description": "OpenMA handles sessions, execution and recovery, so you can build and run agents with any model, any harness, any sandbox, on any cloud. An open-source, self-hostable alternative to Claude Managed Agents and OpenAI Agents API.",
+   "stargazers_count": 328,
+   "pushed_at": "2026-10-22T17:08:51Z",
+   "archived": false,
+   "html_url": "https://github.com/openma-ai/open-managed-agents"
+  },
+  {
+   "full_name": "delta-box/deltabox-lite",
+   "description": "Lightweight, agent-native sandboxing with diff, commit and abort",
+   "stargazers_count": 112,
+   "pushed_at": "2026-10-21T13:33:10Z",
+   "archived": false,
+   "html_url": "https://github.com/delta-box/deltabox-lite"
+  },
+  {
+   "full_name": "containerd/accelerated-container-image",
+   "description": "A production-ready remote/on-demand container/sandbox/vm image format (overlaybd) and snapshotter",
+   "stargazers_count": 479,
+   "pushed_at": "2026-10-21T01:10:46Z",
+   "archived": false,
+   "html_url": "https://github.com/containerd/accelerated-container-image"
+  },
+  {
+   "full_name": "mattolson/agent-sandbox",
+   "description": "Secure local dev environment for collaboration with AI coding agents",
+   "stargazers_count": 211,
+   "pushed_at": "2026-10-21T01:06:37Z",
+   "archived": false,
+   "html_url": "https://github.com/mattolson/agent-sandbox"
+  },
+  {
+   "full_name": "langgenius/mosoo",
+   "description": "Open-source managed runtime for OpenAI Codex, Claude Agent SDK, OpenCode, and Pi Agent. Run coding agents through one Agents API with isolated cloud sandboxes, durable sessions, tool streaming, and managed files.",
+   "stargazers_count": 165,
+   "pushed_at": "2026-10-20T21:09:31Z",
+   "archived": false,
+   "html_url": "https://github.com/langgenius/mosoo"
+  },
+  {
+   "full_name": "containerd/overlaybd",
+   "description": "Overlaybd: a block based remote image format for containers/vms/sandboxes. The storage backend of containerd/accelerated-container-image.",
+   "stargazers_count": 429,
+   "pushed_at": "2026-10-20T14:55:44Z",
+   "archived": false,
+   "html_url": "https://github.com/containerd/overlaybd"
+  }
+ ]
+}

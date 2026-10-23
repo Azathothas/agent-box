@@ -1,0 +1,452 @@
+[
+ {
+  "number": 1052,
+  "state": "closed",
+  "title": "Make cloneable",
+  "created_at": "2026-10-22T13:51:09Z",
+  "closed_at": "2026-10-22T13:57:52Z",
+  "html_url": "https://github.com/nestybox/sysbox/pull/1052",
+  "is_pr": true
+ },
+ {
+  "number": 1051,
+  "state": "open",
+  "title": "Port fixes from EE -> CE",
+  "created_at": "2026-10-21T00:15:32Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nestybox/sysbox/pull/1051",
+  "is_pr": true
+ },
+ {
+  "number": 1050,
+  "state": "closed",
+  "title": "First GH actions setup",
+  "created_at": "2026-10-19T07:58:16Z",
+  "closed_at": "2026-10-19T08:04:41Z",
+  "html_url": "https://github.com/nestybox/sysbox/pull/1050",
+  "is_pr": true
+ },
+ {
+  "number": 1049,
+  "state": "closed",
+  "title": "Add tests for /proc/uptime lseek and buildx sbom",
+  "created_at": "2026-10-18T17:37:29Z",
+  "closed_at": "2026-10-21T03:33:06Z",
+  "html_url": "https://github.com/nestybox/sysbox/pull/1049",
+  "is_pr": true
+ },
+ {
+  "number": 1048,
+  "state": "closed",
+  "title": "Overlay mount from a new pid namespace fails with EINVAL (nsenter agent panics), breaks BuildKit SBOM",
+  "created_at": "2026-10-14T14:13:42Z",
+  "closed_at": "2026-10-19T01:52:44Z",
+  "html_url": "https://github.com/nestybox/sysbox/issues/1048",
+  "is_pr": false
+ },
+ {
+  "number": 1047,
+  "state": "open",
+  "title": "sysbox-fs 0.7.1 sometimes hangs at startup: ShmSysctlUserNamespaced forks without exec",
+  "created_at": "2026-10-06T19:28:24Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nestybox/sysbox/issues/1047",
+  "is_pr": false
+ },
+ {
+  "number": 1046,
+  "state": "closed",
+  "title": "sysbox-fs closes a container's seccomp listener on a transient POLLERR, so mount/umount fail with ENOSYS",
+  "created_at": "2026-09-29T01:13:43Z",
+  "closed_at": "2026-10-18T13:55:12Z",
+  "html_url": "https://github.com/nestybox/sysbox/issues/1046",
+  "is_pr": false
+ },
+ {
+  "number": 1045,
+  "state": "open",
+  "title": "Wrong cpu usage reported in top and other tools that use procps",
+  "created_at": "2026-09-28T16:32:03Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nestybox/sysbox/issues/1045",
+  "is_pr": false
+ },
+ {
+  "number": 1044,
+  "state": "open",
+  "title": "sysbox-fs zombie reaper can steal fusermount3 children during concurrent container creation",
+  "created_at": "2026-09-18T01:36:24Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nestybox/sysbox/issues/1044",
+  "is_pr": false
+ },
+ {
+  "number": 1042,
+  "state": "closed",
+  "title": "Update sysbox k8s manifest to use release v0.7.1",
+  "created_at": "2026-09-15T16:24:58Z",
+  "closed_at": "2026-09-15T16:58:10Z",
+  "html_url": "https://github.com/nestybox/sysbox/pull/1042",
+  "is_pr": true
+ },
+ {
+  "number": 1041,
+  "state": "open",
+  "title": "0.7.1: /sys/class/net inside a sysbox container lists the host's interfaces, not the container's",
+  "created_at": "2026-09-08T11:49:17Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nestybox/sysbox/issues/1041",
+  "is_pr": false
+ },
+ {
+  "number": 1040,
+  "state": "closed",
+  "title": "tests: add bats coverage for devMgr device-passthrough feature",
+  "created_at": "2026-09-02T06:07:06Z",
+  "closed_at": "2026-09-03T04:10:06Z",
+  "html_url": "https://github.com/nestybox/sysbox/pull/1040",
+  "is_pr": true
+ },
+ {
+  "number": 1039,
+  "state": "open",
+  "title": "MIG GPU passthrough for system containers via DRA/CDI",
+  "created_at": "2026-08-31T11:37:07Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nestybox/sysbox/issues/1039",
+  "is_pr": false
+ },
+ {
+  "number": 1038,
+  "state": "closed",
+  "title": "v0.7.1 has no sysbox-deploy-k8s image, so the Kubernetes install path is stuck on v0.7.0",
+  "created_at": "2026-08-26T12:56:46Z",
+  "closed_at": "2026-09-15T16:30:19Z",
+  "html_url": "https://github.com/nestybox/sysbox/issues/1038",
+  "is_pr": false
+ },
+ {
+  "number": 1037,
+  "state": "closed",
+  "title": "Makefile: adjust build to work on OSX + Docker Desktop",
+  "created_at": "2026-08-25T20:47:50Z",
+  "closed_at": "2026-08-25T21:36:31Z",
+  "html_url": "https://github.com/nestybox/sysbox/pull/1037",
+  "is_pr": true
+ },
+ {
+  "number": 1036,
+  "state": "open",
+  "title": "Support Kubernetes 1.36",
+  "created_at": "2026-08-24T18:49:50Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nestybox/sysbox/issues/1036",
+  "is_pr": false
+ },
+ {
+  "number": 1035,
+  "state": "open",
+  "title": "Sysbox v0.7.1 fails on Ubuntu 24.04 with kernel 6.17 and containerd v2.2.1",
+  "created_at": "2026-08-24T12:52:52Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nestybox/sysbox/issues/1035",
+  "is_pr": false
+ },
+ {
+  "number": 1034,
+  "state": "open",
+  "title": "Update sysbox pkg install docs to v0.7.1.",
+  "created_at": "2026-08-15T19:37:47Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nestybox/sysbox/pull/1034",
+  "is_pr": true
+ },
+ {
+  "number": 1033,
+  "state": "open",
+  "title": "Latest sysbox version failing on AKS clusters",
+  "created_at": "2026-08-13T08:46:38Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nestybox/sysbox/issues/1033",
+  "is_pr": false
+ },
+ {
+  "number": 1032,
+  "state": "closed",
+  "title": "Race condition in fuse mount on Ubuntu 26.04",
+  "created_at": "2026-08-11T14:17:21Z",
+  "closed_at": "2026-09-03T10:59:55Z",
+  "html_url": "https://github.com/nestybox/sysbox/issues/1032",
+  "is_pr": false
+ },
+ {
+  "number": 1031,
+  "state": "open",
+  "title": "azure kubernetes version 1.36.2 and sysbox nodepool version is 1.33.13 getting error sysbox failed state",
+  "created_at": "2026-08-06T14:50:47Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nestybox/sysbox/issues/1031",
+  "is_pr": false
+ },
+ {
+  "number": 1030,
+  "state": "open",
+  "title": "OOM kills in sys containers are not reported as `OOMKilled`",
+  "created_at": "2026-08-05T11:06:19Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nestybox/sysbox/issues/1030",
+  "is_pr": false
+ },
+ {
+  "number": 1029,
+  "state": "open",
+  "title": "Sysbox 0.7.1 deb package not available at downloads.nestybox.com",
+  "created_at": "2026-08-03T09:20:09Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nestybox/sysbox/issues/1029",
+  "is_pr": false
+ },
+ {
+  "number": 1028,
+  "state": "closed",
+  "title": "Sysbox 0.7.0 fails on Oracle Cloud ARM (Ubuntu 24.04, Kernel 6.17) with \"namespace {\"time\" \"\"} does not exist\"",
+  "created_at": "2026-08-03T04:31:57Z",
+  "closed_at": "2026-08-04T03:09:23Z",
+  "html_url": "https://github.com/nestybox/sysbox/issues/1028",
+  "is_pr": false
+ },
+ {
+  "number": 1027,
+  "state": "closed",
+  "title": "[sysbox-pkgr] Updating submodule.",
+  "created_at": "2026-07-31T22:33:53Z",
+  "closed_at": "2026-07-31T23:06:49Z",
+  "html_url": "https://github.com/nestybox/sysbox/pull/1027",
+  "is_pr": true
+ },
+ {
+  "number": 1026,
+  "state": "closed",
+  "title": "K8s pods fail to start when a volume is mounted at /run and the image has a /var/run symlink: \"bind mount through procfd ... no such file or directory\"",
+  "created_at": "2026-07-31T11:22:11Z",
+  "closed_at": "2026-07-31T21:43:40Z",
+  "html_url": "https://github.com/nestybox/sysbox/issues/1026",
+  "is_pr": false
+ },
+ {
+  "number": 1025,
+  "state": "open",
+  "title": "Sysbox v0.7.0 fails on Ubuntu 24.04 with kernel 6.x and containerd v2",
+  "created_at": "2026-07-29T13:55:40Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nestybox/sysbox/issues/1025",
+  "is_pr": false
+ },
+ {
+  "number": 1024,
+  "state": "closed",
+  "title": "Release v0.7.1",
+  "created_at": "2026-07-28T21:38:44Z",
+  "closed_at": "2026-07-31T22:04:04Z",
+  "html_url": "https://github.com/nestybox/sysbox/pull/1024",
+  "is_pr": true
+ },
+ {
+  "number": 1023,
+  "state": "closed",
+  "title": "Update submodules (to bring in latest functional fixes), plus a few tests fixes.",
+  "created_at": "2026-07-27T01:55:01Z",
+  "closed_at": "2026-07-28T17:24:24Z",
+  "html_url": "https://github.com/nestybox/sysbox/pull/1023",
+  "is_pr": true
+ },
+ {
+  "number": 1022,
+  "state": "closed",
+  "title": "[sysbox-mgr, sysbox-libs] Updating submodule.",
+  "created_at": "2026-07-24T23:51:48Z",
+  "closed_at": "2026-07-24T23:53:39Z",
+  "html_url": "https://github.com/nestybox/sysbox/pull/1022",
+  "is_pr": true
+ },
+ {
+  "number": 1021,
+  "state": "open",
+  "title": "Running docker inside a sysbox-container - inner docker db (containerd snapshotter) gets ruined in case the sysbox-container deleted and re-created",
+  "created_at": "2026-07-16T08:51:57Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nestybox/sysbox/issues/1021",
+  "is_pr": false
+ },
+ {
+  "number": 1020,
+  "state": "open",
+  "title": "sysbox-fs DeadlineExceeded error",
+  "created_at": "2026-07-10T07:54:09Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nestybox/sysbox/issues/1020",
+  "is_pr": false
+ },
+ {
+  "number": 1019,
+  "state": "open",
+  "title": "Error: reading ID mappings from \"/proc/0/uid_map\": open /proc/0/uid_map: no such file or directory in sysbox v.0.7.0-0 with k8s 1.33.12",
+  "created_at": "2026-07-09T16:23:36Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nestybox/sysbox/issues/1019",
+  "is_pr": false
+ },
+ {
+  "number": 1018,
+  "state": "open",
+  "title": "sysbox-fs hangs in fuse_flush (D-state hung_task) \u2014 wedges host with ~50 stuck runc tasks [Debian 13, kernel 6.12]",
+  "created_at": "2026-06-21T00:36:36Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nestybox/sysbox/issues/1018",
+  "is_pr": false
+ },
+ {
+  "number": 1017,
+  "state": "open",
+  "title": "`docker cp` into a sysbox-runc container fails with \"Could not find the file\"",
+  "created_at": "2026-06-04T07:56:32Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nestybox/sysbox/issues/1017",
+  "is_pr": false
+ },
+ {
+  "number": 1016,
+  "state": "open",
+  "title": "When using the top command, an error message appears after interruption: bad data in /proc/uptime",
+  "created_at": "2026-06-03T10:19:01Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nestybox/sysbox/issues/1016",
+  "is_pr": false
+ },
+ {
+  "number": 1015,
+  "state": "closed",
+  "title": "[DRAFT] fix: idmap overlayfs upperdir to fix docker cp nobody:nogroup",
+  "created_at": "2026-05-26T02:57:27Z",
+  "closed_at": "2026-05-31T20:56:36Z",
+  "html_url": "https://github.com/nestybox/sysbox/pull/1015",
+  "is_pr": true
+ },
+ {
+  "number": 1014,
+  "state": "open",
+  "title": "Sysbox fails to apply soft file limit if the hard limit is capped",
+  "created_at": "2026-05-23T17:12:28Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nestybox/sysbox/issues/1014",
+  "is_pr": false
+ },
+ {
+  "number": 1013,
+  "state": "closed",
+  "title": "sysbox v0.7.0 doesn't work on Ubuntu 24.04 + kernel 6.8 + containerd v2 \u2014 install + mount failures",
+  "created_at": "2026-05-22T06:10:38Z",
+  "closed_at": "2026-07-27T00:46:29Z",
+  "html_url": "https://github.com/nestybox/sysbox/issues/1013",
+  "is_pr": false
+ },
+ {
+  "number": 1012,
+  "state": "open",
+  "title": "New issue",
+  "created_at": "2026-05-22T05:34:37Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nestybox/sysbox/issues/1012",
+  "is_pr": false
+ },
+ {
+  "number": 1011,
+  "state": "open",
+  "title": "OCI runtime create failed: namespace {\"time\" \"\"} does not exist",
+  "created_at": "2026-05-15T09:35:04Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nestybox/sysbox/issues/1011",
+  "is_pr": false
+ },
+ {
+  "number": 1010,
+  "state": "open",
+  "title": "Unable to mount virtual filesystem(i.e. procfs)",
+  "created_at": "2026-05-13T23:13:34Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nestybox/sysbox/issues/1010",
+  "is_pr": false
+ },
+ {
+  "number": 1009,
+  "state": "closed",
+  "title": "A couple of test improvements",
+  "created_at": "2026-05-13T20:49:22Z",
+  "closed_at": "2026-05-13T23:26:00Z",
+  "html_url": "https://github.com/nestybox/sysbox/pull/1009",
+  "is_pr": true
+ },
+ {
+  "number": 1008,
+  "state": "open",
+  "title": "Docker service fails with \"could not insert 'br_netfilter': Operation not permitted\"",
+  "created_at": "2026-05-06T08:47:24Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nestybox/sysbox/issues/1008",
+  "is_pr": false
+ },
+ {
+  "number": 1007,
+  "state": "closed",
+  "title": "tests: update integration tests for Docker containerd snapshotter",
+  "created_at": "2026-05-04T18:33:48Z",
+  "closed_at": "2026-05-04T21:12:05Z",
+  "html_url": "https://github.com/nestybox/sysbox/pull/1007",
+  "is_pr": true
+ },
+ {
+  "number": 1006,
+  "state": "open",
+  "title": "Sysbox-CE 0.7.0 + K8s + containerd 2.x: \"mount through procfd: operation not permitted\" on pod creation (k3s and RKE2, kernels 5.15 and 6.8)",
+  "created_at": "2026-05-03T15:17:49Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nestybox/sysbox/issues/1006",
+  "is_pr": false
+ },
+ {
+  "number": 1005,
+  "state": "open",
+  "title": "Sysbox 0.7.0 not working on ubuntu 26.04",
+  "created_at": "2026-04-27T21:59:22Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nestybox/sysbox/issues/1005",
+  "is_pr": false
+ },
+ {
+  "number": 1003,
+  "state": "closed",
+  "title": "sysbox-fs panic: nil pointer dereference in ProcessNsMatch during container init sysctl write",
+  "created_at": "2026-04-15T07:24:02Z",
+  "closed_at": "2026-07-25T00:25:33Z",
+  "html_url": "https://github.com/nestybox/sysbox/issues/1003",
+  "is_pr": false
+ },
+ {
+  "number": 1002,
+  "state": "closed",
+  "title": "sysbox-fs fuse-related deadlock",
+  "created_at": "2026-04-10T10:48:08Z",
+  "closed_at": "2026-07-25T00:19:20Z",
+  "html_url": "https://github.com/nestybox/sysbox/issues/1002",
+  "is_pr": false
+ },
+ {
+  "number": 1000,
+  "state": "open",
+  "title": "sysbox 0.7.0 fails to install/upgrade on RKE2 1.32,1.33 because \"cp: cannot stat '/mnt/host/etc/containerd/config.toml'\" error during k8s sysbox installation",
+  "created_at": "2026-03-30T23:19:26Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nestybox/sysbox/issues/1000",
+  "is_pr": false
+ }
+]

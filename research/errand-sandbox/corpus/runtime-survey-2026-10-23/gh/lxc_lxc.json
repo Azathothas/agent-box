@@ -1,0 +1,18 @@
+{
+ "full_name": "lxc/lxc",
+ "description": "LXC - Linux Containers",
+ "stargazers_count": 5278,
+ "forks_count": 1183,
+ "open_issues_count": 164,
+ "pushed_at": "2026-10-02T08:32:42Z",
+ "archived": false,
+ "license": "NOASSERTION",
+ "html_url": "https://github.com/lxc/lxc",
+ "default_branch": "main",
+ "topics": [
+  "c",
+  "containers",
+  "hacktoberfest",
+  "lxc"
+ ]
+}

@@ -1,0 +1,22 @@
+{
+ "full_name": "Zouuup/landrun",
+ "description": "Run any Linux process in a secure, unprivileged sandbox using Landlock. Think firejail, but lightweight, user-friendly, and baked into the kernel.",
+ "stargazers_count": 2324,
+ "forks_count": 55,
+ "open_issues_count": 3,
+ "pushed_at": "2026-10-16T13:57:34Z",
+ "archived": false,
+ "license": "MIT",
+ "html_url": "https://github.com/Zouuup/landrun",
+ "default_branch": "main",
+ "topics": [
+  "cli",
+  "golang",
+  "kernel",
+  "landlock",
+  "sandbox",
+  "sandbox-environment",
+  "security",
+  "security-tools"
+ ]
+}

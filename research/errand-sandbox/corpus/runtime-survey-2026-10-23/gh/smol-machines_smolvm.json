@@ -1,0 +1,26 @@
+{
+ "full_name": "smol-machines/smolvm",
+ "description": "An embeddable, portable, branchable virtual machine to safely run Agents locally.",
+ "stargazers_count": 6802,
+ "forks_count": 336,
+ "open_issues_count": 71,
+ "pushed_at": "2026-10-23T02:04:42Z",
+ "archived": false,
+ "license": "Apache-2.0",
+ "html_url": "https://github.com/smol-machines/smolvm",
+ "default_branch": "main",
+ "topics": [
+  "agent-sandbox",
+  "ai-agents",
+  "code-execution",
+  "containers",
+  "crun",
+  "libkrun",
+  "llm",
+  "microvm",
+  "rust",
+  "sandbox",
+  "virtual-machine",
+  "virtualization"
+ ]
+}

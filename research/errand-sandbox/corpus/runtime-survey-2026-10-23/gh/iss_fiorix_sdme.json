@@ -1,0 +1,272 @@
+[
+ {
+  "number": 30,
+  "state": "closed",
+  "title": "fix: E2E validation flows",
+  "created_at": "2026-05-15T07:29:03Z",
+  "closed_at": "2026-05-26T23:25:46Z",
+  "html_url": "https://github.com/fiorix/sdme/pull/30",
+  "is_pr": true
+ },
+ {
+  "number": 29,
+  "state": "closed",
+  "title": "feat: add owner-managed userns ranges",
+  "created_at": "2026-05-14T13:25:12Z",
+  "closed_at": "2026-09-01T01:28:38Z",
+  "html_url": "https://github.com/fiorix/sdme/pull/29",
+  "is_pr": true
+ },
+ {
+  "number": 28,
+  "state": "closed",
+  "title": "feat: add container filesystem diff command",
+  "created_at": "2026-04-21T14:45:19Z",
+  "closed_at": "2026-04-21T18:01:14Z",
+  "html_url": "https://github.com/fiorix/sdme/pull/28",
+  "is_pr": true
+ },
+ {
+  "number": 27,
+  "state": "closed",
+  "title": "feat: add Dev Container specification support",
+  "created_at": "2026-03-31T17:25:03Z",
+  "closed_at": "2026-04-16T16:09:35Z",
+  "html_url": "https://github.com/fiorix/sdme/pull/27",
+  "is_pr": true
+ },
+ {
+  "number": 26,
+  "state": "closed",
+  "title": "ci: split CI into parallel lint, test, doc, and cross-compile jobs",
+  "created_at": "2026-03-11T15:35:15Z",
+  "closed_at": "2026-03-21T17:42:28Z",
+  "html_url": "https://github.com/fiorix/sdme/pull/26",
+  "is_pr": true
+ },
+ {
+  "number": 25,
+  "state": "closed",
+  "title": "fix: use systemd-run for build RUN commands to avoid polkit PTY denial",
+  "created_at": "2026-03-04T10:44:13Z",
+  "closed_at": "2026-03-06T22:08:30Z",
+  "html_url": "https://github.com/fiorix/sdme/pull/25",
+  "is_pr": true
+ },
+ {
+  "number": 24,
+  "state": "closed",
+  "title": "build: support FROM x AS y and COPY --from=y multi-stage builds",
+  "created_at": "2026-03-04T10:42:38Z",
+  "closed_at": "2026-03-21T08:10:29Z",
+  "html_url": "https://github.com/fiorix/sdme/pull/24",
+  "is_pr": true
+ },
+ {
+  "number": 23,
+  "state": "closed",
+  "title": "Add integration tests for OCI app image setup and port auto-forwarding",
+  "created_at": "2026-03-03T19:10:24Z",
+  "closed_at": "2026-03-03T20:20:22Z",
+  "html_url": "https://github.com/fiorix/sdme/pull/23",
+  "is_pr": true
+ },
+ {
+  "number": 22,
+  "state": "closed",
+  "title": "Auto-mount OCI-declared volumes on container creation",
+  "created_at": "2026-03-03T14:28:27Z",
+  "closed_at": "2026-03-03T16:39:18Z",
+  "html_url": "https://github.com/fiorix/sdme/pull/22",
+  "is_pr": true
+ },
+ {
+  "number": 21,
+  "state": "closed",
+  "title": "Auto-forward OCI-declared ports on container creation",
+  "created_at": "2026-03-03T14:27:48Z",
+  "closed_at": "2026-03-03T15:20:43Z",
+  "html_url": "https://github.com/fiorix/sdme/pull/21",
+  "is_pr": true
+ },
+ {
+  "number": 20,
+  "state": "closed",
+  "title": "Add environment-sanitizing wrapper for systemd-nspawn",
+  "created_at": "2026-03-02T14:48:13Z",
+  "closed_at": "2026-03-02T15:12:53Z",
+  "html_url": "https://github.com/fiorix/sdme/pull/20",
+  "is_pr": true
+ },
+ {
+  "number": 19,
+  "state": "closed",
+  "title": "Change unit type to notify with startup timeout and exit status config",
+  "created_at": "2026-03-02T14:47:41Z",
+  "closed_at": "2026-03-03T15:18:05Z",
+  "html_url": "https://github.com/fiorix/sdme/pull/19",
+  "is_pr": true
+ },
+ {
+  "number": 18,
+  "state": "closed",
+  "title": "Clean up limits drop-in when start_unit fails",
+  "created_at": "2026-03-02T14:39:51Z",
+  "closed_at": "2026-03-02T16:23:21Z",
+  "html_url": "https://github.com/fiorix/sdme/pull/18",
+  "is_pr": true
+ },
+ {
+  "number": 17,
+  "state": "closed",
+  "title": "Cap swap usage when memory limit is set (MemorySwapMax)",
+  "created_at": "2026-03-02T14:39:19Z",
+  "closed_at": "2026-03-02T15:02:40Z",
+  "html_url": "https://github.com/fiorix/sdme/pull/17",
+  "is_pr": true
+ },
+ {
+  "number": 16,
+  "state": "closed",
+  "title": "Add TasksMax and DevicePolicy directives to container template unit",
+  "created_at": "2026-03-02T14:38:56Z",
+  "closed_at": "2026-03-02T16:22:55Z",
+  "html_url": "https://github.com/fiorix/sdme/pull/16",
+  "is_pr": true
+ },
+ {
+  "number": 15,
+  "state": "closed",
+  "title": "Add OCI pod network namespaces",
+  "created_at": "2026-02-28T12:38:24Z",
+  "closed_at": "2026-02-28T15:33:39Z",
+  "html_url": "https://github.com/fiorix/sdme/pull/15",
+  "is_pr": true
+ },
+ {
+  "number": 14,
+  "state": "closed",
+  "title": "Revisit the connector paradigm",
+  "created_at": "2026-02-28T12:29:22Z",
+  "closed_at": "2026-02-28T15:33:40Z",
+  "html_url": "https://github.com/fiorix/sdme/issues/14",
+  "is_pr": false
+ },
+ {
+  "number": 13,
+  "state": "closed",
+  "title": "Implement \"connector\" paradigm",
+  "created_at": "2026-02-27T21:37:29Z",
+  "closed_at": "2026-02-28T04:21:37Z",
+  "html_url": "https://github.com/fiorix/sdme/pull/13",
+  "is_pr": true
+ },
+ {
+  "number": 12,
+  "state": "closed",
+  "title": "Networking: missing",
+  "created_at": "2026-02-26T00:50:30Z",
+  "closed_at": "2026-02-27T19:41:47Z",
+  "html_url": "https://github.com/fiorix/sdme/issues/12",
+  "is_pr": false
+ },
+ {
+  "number": 11,
+  "state": "closed",
+  "title": "Build qcow2 image with sdme in it",
+  "created_at": "2026-02-25T13:42:26Z",
+  "closed_at": "2026-02-26T13:50:10Z",
+  "html_url": "https://github.com/fiorix/sdme/issues/11",
+  "is_pr": false
+ },
+ {
+  "number": 10,
+  "state": "closed",
+  "title": "Wire up the ports and volumes / bind mounts of OCI containers",
+  "created_at": "2026-02-25T13:06:25Z",
+  "closed_at": "2026-03-03T15:20:44Z",
+  "html_url": "https://github.com/fiorix/sdme/issues/10",
+  "is_pr": false
+ },
+ {
+  "number": 9,
+  "state": "closed",
+  "title": "Create distribution packages",
+  "created_at": "2026-02-25T12:57:01Z",
+  "closed_at": "2026-02-26T08:25:36Z",
+  "html_url": "https://github.com/fiorix/sdme/issues/9",
+  "is_pr": false
+ },
+ {
+  "number": 8,
+  "state": "closed",
+  "title": "Add bind mounts and environment variables support",
+  "created_at": "2026-02-25T02:51:01Z",
+  "closed_at": "2026-02-25T10:39:15Z",
+  "html_url": "https://github.com/fiorix/sdme/pull/8",
+  "is_pr": true
+ },
+ {
+  "number": 7,
+  "state": "closed",
+  "title": "cli: Add shell completions",
+  "created_at": "2026-02-25T00:14:30Z",
+  "closed_at": "2026-02-25T13:07:20Z",
+  "html_url": "https://github.com/fiorix/sdme/pull/7",
+  "is_pr": true
+ },
+ {
+  "number": 6,
+  "state": "closed",
+  "title": "Add network configuration",
+  "created_at": "2026-02-24T14:41:24Z",
+  "closed_at": "2026-02-24T15:52:48Z",
+  "html_url": "https://github.com/fiorix/sdme/pull/6",
+  "is_pr": true
+ },
+ {
+  "number": 5,
+  "state": "closed",
+  "title": "containers: mask systemd units that cause degraded state (#4)",
+  "created_at": "2026-02-24T11:35:58Z",
+  "closed_at": "2026-02-25T00:25:09Z",
+  "html_url": "https://github.com/fiorix/sdme/pull/5",
+  "is_pr": true
+ },
+ {
+  "number": 4,
+  "state": "closed",
+  "title": "Mask other systemd services to avoid creating containers in degraded state.",
+  "created_at": "2026-02-24T11:20:02Z",
+  "closed_at": "2026-02-25T00:54:09Z",
+  "html_url": "https://github.com/fiorix/sdme/issues/4",
+  "is_pr": false
+ },
+ {
+  "number": 3,
+  "state": "closed",
+  "title": "import: deduplicate decompression logic (#2)",
+  "created_at": "2026-02-24T09:48:54Z",
+  "closed_at": "2026-02-24T10:02:02Z",
+  "html_url": "https://github.com/fiorix/sdme/pull/3",
+  "is_pr": true
+ },
+ {
+  "number": 2,
+  "state": "closed",
+  "title": "Refactor Decompression Stream Initialization to Eliminate Duplication",
+  "created_at": "2026-02-24T09:46:37Z",
+  "closed_at": "2026-02-24T10:02:24Z",
+  "html_url": "https://github.com/fiorix/sdme/issues/2",
+  "is_pr": false
+ },
+ {
+  "number": 1,
+  "state": "closed",
+  "title": "Add per-container resource limits (--memory, --cpus, --cpu-weight)",
+  "created_at": "2026-02-24T02:01:23Z",
+  "closed_at": "2026-02-24T02:42:12Z",
+  "html_url": "https://github.com/fiorix/sdme/pull/1",
+  "is_pr": true
+ }
+]

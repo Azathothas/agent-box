@@ -1,0 +1,13 @@
+{
+ "full_name": "virt-pvm/linux",
+ "description": "Linux kernel source tree for PVM",
+ "stargazers_count": 46,
+ "forks_count": 12,
+ "open_issues_count": 18,
+ "pushed_at": "2026-10-21T14:01:22Z",
+ "archived": false,
+ "license": "NOASSERTION",
+ "html_url": "https://github.com/virt-pvm/linux",
+ "default_branch": "pvm-612",
+ "topics": []
+}

@@ -1,0 +1,125 @@
+{
+ "total_count": 29,
+ "items": [
+  {
+   "full_name": "microsoft/nvx",
+   "description": "Cross-Platform Micro-VM Sandbox for Agentic Workloads",
+   "stargazers_count": 734,
+   "pushed_at": "2026-10-23T01:58:37Z",
+   "archived": false,
+   "html_url": "https://github.com/microsoft/nvx"
+  },
+  {
+   "full_name": "smol-machines/smolvm",
+   "description": "An embeddable, portable, branchable virtual machine to safely run Agents locally.",
+   "stargazers_count": 6802,
+   "pushed_at": "2026-10-23T01:50:58Z",
+   "archived": false,
+   "html_url": "https://github.com/smol-machines/smolvm"
+  },
+  {
+   "full_name": "superradcompany/microsandbox",
+   "description": "\ud83e\uddf1 easy, fast, programmable and local-first microVM runtime and library",
+   "stargazers_count": 8770,
+   "pushed_at": "2026-10-23T01:43:09Z",
+   "archived": false,
+   "html_url": "https://github.com/superradcompany/microsandbox"
+  },
+  {
+   "full_name": "ilbertt/nibrun",
+   "description": "Upload a binary. Get a server.",
+   "stargazers_count": 115,
+   "pushed_at": "2026-10-22T21:10:02Z",
+   "archived": false,
+   "html_url": "https://github.com/ilbertt/nibrun"
+  },
+  {
+   "full_name": "trailofbits/coop",
+   "description": "Isolated VM environment for running Claude Code and Codex",
+   "stargazers_count": 795,
+   "pushed_at": "2026-10-22T20:24:08Z",
+   "archived": false,
+   "html_url": "https://github.com/trailofbits/coop"
+  },
+  {
+   "full_name": "e2b-dev/runtime",
+   "description": "The runtime behind every E2B stack: Cloud, Enterprise, and your own machine.",
+   "stargazers_count": 1756,
+   "pushed_at": "2026-10-22T20:06:16Z",
+   "archived": false,
+   "html_url": "https://github.com/e2b-dev/runtime"
+  },
+  {
+   "full_name": "arcboxlabs/arcbox",
+   "description": "Run AI agents on real and isolated machines \u2014 own kernel, filesystem, and network \u2014 with <100ms boot. Local first, OCI compatible, pure Rust.",
+   "stargazers_count": 4246,
+   "pushed_at": "2026-10-22T18:30:44Z",
+   "archived": false,
+   "html_url": "https://github.com/arcboxlabs/arcbox"
+  },
+  {
+   "full_name": "kubeswift-io/kubeswift",
+   "description": "Kubernetes-native VM orchestration on Cloud Hypervisor ",
+   "stargazers_count": 120,
+   "pushed_at": "2026-10-22T16:41:43Z",
+   "archived": false,
+   "html_url": "https://github.com/kubeswift-io/kubeswift"
+  },
+  {
+   "full_name": "deeplethe/forkd",
+   "description": "Fork() for AI agent microVMs. Spawn 100 children in ~100ms from a warm parent; BRANCH a live VM in ~150ms. KVM-isolated, snapshot CoW.",
+   "stargazers_count": 2901,
+   "pushed_at": "2026-10-22T15:24:51Z",
+   "archived": false,
+   "html_url": "https://github.com/deeplethe/forkd"
+  },
+  {
+   "full_name": "brekkylab/ailoy",
+   "description": "AI agent builder with a VM at its heart. Every agent gets its own microVM sandbox to install software, run code and use the GPU in. Python, Node.js and Rust.",
+   "stargazers_count": 155,
+   "pushed_at": "2026-10-22T20:07:19Z",
+   "archived": false,
+   "html_url": "https://github.com/brekkylab/ailoy"
+  },
+  {
+   "full_name": "brig-sh/brig",
+   "description": "Brig: run coding agents in a microVM sandbox - the Go cli (brig) and session daemon (brigd)",
+   "stargazers_count": 236,
+   "pushed_at": "2026-10-23T00:05:25Z",
+   "archived": false,
+   "html_url": "https://github.com/brig-sh/brig"
+  },
+  {
+   "full_name": "harmont-dev/hyper",
+   "description": "Distributed Firecracker VM Orchestrator written in Elixir",
+   "stargazers_count": 171,
+   "pushed_at": "2026-10-21T05:49:11Z",
+   "archived": false,
+   "html_url": "https://github.com/harmont-dev/hyper"
+  },
+  {
+   "full_name": "cocoonstack/cocoon",
+   "description": "Lightweight MicroVM engine built on Cloud Hypervisor. Features include OCI and cloud image support, instant snapshot and clone via reflink, Windows 11 guest support, CNI networking with TC redirect, memory balloon, hugepages, and a Docker-like CLI. Designed for AI sandboxing, cloud desktops, and ephemeral dev environments.",
+   "stargazers_count": 251,
+   "pushed_at": "2026-10-21T02:24:38Z",
+   "archived": false,
+   "html_url": "https://github.com/cocoonstack/cocoon"
+  },
+  {
+   "full_name": "rcarmo/pve-microvm",
+   "description": "Firecracker-like microVMs for Proxmox VE \u2014 KVM isolation, under 200 ms boot.",
+   "stargazers_count": 439,
+   "pushed_at": "2026-10-20T20:54:05Z",
+   "archived": false,
+   "html_url": "https://github.com/rcarmo/pve-microvm"
+  },
+  {
+   "full_name": "liquidmetal-dev/flintlock",
+   "description": "Lock, Stock, and Two Smoking MicroVMs. Create and manage the lifecycle of MicroVMs backed by containerd.",
+   "stargazers_count": 1519,
+   "pushed_at": "2026-10-20T20:52:30Z",
+   "archived": false,
+   "html_url": "https://github.com/liquidmetal-dev/flintlock"
+  }
+ ]
+}

@@ -1,0 +1,13 @@
+{
+ "full_name": "kvcache-ai/firecracker-next",
+ "description": "Secure and fast lightweight microVMs for serverless computing. This is a fork from loopholelabs that adds live migration and optionally PMV support. (No KVM or Nested Virtualization Needed)",
+ "stargazers_count": 0,
+ "forks_count": 1,
+ "open_issues_count": 0,
+ "pushed_at": "2026-07-30T03:45:57Z",
+ "archived": false,
+ "license": "Apache-2.0",
+ "html_url": "https://github.com/kvcache-ai/firecracker-next",
+ "default_branch": "main",
+ "topics": []
+}

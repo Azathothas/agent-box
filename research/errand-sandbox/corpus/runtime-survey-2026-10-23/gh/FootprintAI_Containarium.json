@@ -1,0 +1,33 @@
+{
+ "full_name": "FootprintAI/Containarium",
+ "description": "Open-source agent runtime \u2014 SSH-native isolation, eBPF egress policy, Kubernetes + LXC backends, GPU passthrough, MCP-native CLI",
+ "stargazers_count": 310,
+ "forks_count": 54,
+ "open_issues_count": 186,
+ "pushed_at": "2026-10-23T01:59:06Z",
+ "archived": false,
+ "license": "Apache-2.0",
+ "html_url": "https://github.com/FootprintAI/Containarium",
+ "default_branch": "main",
+ "topics": [
+  "agent-native",
+  "agent-runtime",
+  "agent-sandbox",
+  "agentic-ai",
+  "ai-agents",
+  "claude",
+  "code-sandbox",
+  "cursor",
+  "ebpf",
+  "gpu",
+  "kubernetes",
+  "llm",
+  "lxc",
+  "mcp",
+  "model-context-protocol",
+  "multi-tenant",
+  "sandbox",
+  "self-hosted",
+  "ssh"
+ ]
+}

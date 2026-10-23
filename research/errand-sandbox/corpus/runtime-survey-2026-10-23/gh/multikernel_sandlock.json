@@ -1,0 +1,22 @@
+{
+ "full_name": "multikernel/sandlock",
+ "description": "The lightest AI sandbox. A process-based sandbox for Linux, no container, no VM, no privilege, no prompt injection",
+ "stargazers_count": 579,
+ "forks_count": 59,
+ "open_issues_count": 23,
+ "pushed_at": "2026-10-21T23:26:10Z",
+ "archived": false,
+ "license": "Apache-2.0",
+ "html_url": "https://github.com/multikernel/sandlock",
+ "default_branch": "main",
+ "topics": [
+  "ai-agents",
+  "faas",
+  "landlock",
+  "linux",
+  "promptinjection",
+  "rust",
+  "sandboxing",
+  "seccomp"
+ ]
+}

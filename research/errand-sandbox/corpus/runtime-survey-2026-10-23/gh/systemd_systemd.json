@@ -1,0 +1,20 @@
+{
+ "full_name": "systemd/systemd",
+ "description": "The systemd System and Service Manager ",
+ "stargazers_count": 16891,
+ "forks_count": 4778,
+ "open_issues_count": 3576,
+ "pushed_at": "2026-10-23T00:53:26Z",
+ "archived": false,
+ "license": "GPL-2.0",
+ "html_url": "https://github.com/systemd/systemd",
+ "default_branch": "main",
+ "topics": [
+  "c",
+  "init",
+  "linux",
+  "services",
+  "system",
+  "systemd"
+ ]
+}

@@ -1,0 +1,125 @@
+{
+ "total_count": 28,
+ "items": [
+  {
+   "full_name": "guanzi008/linyaps-box-rust",
+   "description": "Pure Rust, feature-compatible rewrite of OpenAtom Linyaps ll-box",
+   "stargazers_count": 1,
+   "pushed_at": "2026-10-22T14:44:55Z",
+   "archived": false,
+   "html_url": "https://github.com/guanzi008/linyaps-box-rust"
+  },
+  {
+   "full_name": "juan3861/hermetic-microvm-sandbox",
+   "description": "The Ultra-Fast Hermetic MicroVM & Silicon Sandbox for AI Agents \u2014 Dual-Engine (Cloud-Cascade + Kernel RAM-Disk) with Seccomp-BPF, MMU CoW, OCI Spec, and Formal SMT Proofs.",
+   "stargazers_count": 0,
+   "pushed_at": "2026-10-22T13:57:08Z",
+   "archived": false,
+   "html_url": "https://github.com/juan3861/hermetic-microvm-sandbox"
+  },
+  {
+   "full_name": "cri-o/cri-o",
+   "description": "Open Container Initiative-based implementation of Kubernetes Container Runtime Interface",
+   "stargazers_count": 5681,
+   "pushed_at": "2026-10-23T00:16:14Z",
+   "archived": false,
+   "html_url": "https://github.com/cri-o/cri-o"
+  },
+  {
+   "full_name": "containers/crun",
+   "description": "A fast and lightweight fully featured OCI runtime and C library for running containers",
+   "stargazers_count": 4179,
+   "pushed_at": "2026-10-22T06:34:52Z",
+   "archived": false,
+   "html_url": "https://github.com/containers/crun"
+  },
+  {
+   "full_name": "CageForge/nexcage",
+   "description": "An OCI runtime for Proxmox VE: Proxmox LXC containers from the command line, and crun under podman, containerd, CRI-O and Kubernetes, with an isolation profile per RuntimeClass.",
+   "stargazers_count": 23,
+   "pushed_at": "2026-10-19T10:41:14Z",
+   "archived": false,
+   "html_url": "https://github.com/CageForge/nexcage"
+  },
+  {
+   "full_name": "getkern/kern",
+   "description": "Rootless container runtime with no daemon. Runs agent tool calls and LLM-generated code in kernel-enforced containers.",
+   "stargazers_count": 448,
+   "pushed_at": "2026-10-18T13:30:21Z",
+   "archived": false,
+   "html_url": "https://github.com/getkern/kern"
+  },
+  {
+   "full_name": "caioksav-hash/HyperOS_FCM_Live",
+   "description": "Fix HyperOS Google push reconnect by removing broadcast limits for FCM connection on HyperOS systems",
+   "stargazers_count": 1,
+   "pushed_at": "2026-10-13T07:03:51Z",
+   "archived": false,
+   "html_url": "https://github.com/caioksav-hash/HyperOS_FCM_Live"
+  },
+  {
+   "full_name": "OpenAtom-Linyaps/linyaps-box",
+   "description": null,
+   "stargazers_count": 12,
+   "pushed_at": "2026-10-22T12:45:45Z",
+   "archived": false,
+   "html_url": "https://github.com/OpenAtom-Linyaps/linyaps-box"
+  },
+  {
+   "full_name": "OthmaneBlial/Rift",
+   "description": "Ridiculously lightweight containers for macOS. No Docker. No daemon. No Docker Desktop. Just one binary.",
+   "stargazers_count": 4,
+   "pushed_at": "2026-09-29T09:18:51Z",
+   "archived": false,
+   "html_url": "https://github.com/OthmaneBlial/Rift"
+  },
+  {
+   "full_name": "aether-flux/kuro",
+   "description": "OCI-compliant container runtime built in Rust.",
+   "stargazers_count": 1,
+   "pushed_at": "2026-09-19T16:06:20Z",
+   "archived": false,
+   "html_url": "https://github.com/aether-flux/kuro"
+  },
+  {
+   "full_name": "MarStack-Labs/marstack-container",
+   "description": "OCI container runtime written from scratch in Rust: a third less kernel attack surface than runc, container failures explained from kernel state, a drop-in Docker runtime",
+   "stargazers_count": 0,
+   "pushed_at": "2026-09-13T13:57:33Z",
+   "archived": false,
+   "html_url": "https://github.com/MarStack-Labs/marstack-container"
+  },
+  {
+   "full_name": "sanskarpan/kestrel",
+   "description": "From-scratch Docker-class container runtime in Rust: namespaces, cgroups v2, OverlayFS, seccomp/capabilities, built phase by phase",
+   "stargazers_count": 0,
+   "pushed_at": "2026-09-19T05:34:35Z",
+   "archived": false,
+   "html_url": "https://github.com/sanskarpan/kestrel"
+  },
+  {
+   "full_name": "sadisticbrew/burg-rt",
+   "description": "minimal OCI-ish container runtime in Go \u2014 namespaces, pivot_root, supervising init, from scratch",
+   "stargazers_count": 3,
+   "pushed_at": "2026-09-06T04:39:29Z",
+   "archived": false,
+   "html_url": "https://github.com/sadisticbrew/burg-rt"
+  },
+  {
+   "full_name": "Apoorvan-A/husk",
+   "description": "A minimal OCI-compatible container runtime built from Linux kernel primitives: namespaces, cgroup v2, overlayfs, seccomp-BPF, and netfilter.",
+   "stargazers_count": 0,
+   "pushed_at": "2026-09-04T06:08:13Z",
+   "archived": false,
+   "html_url": "https://github.com/Apoorvan-A/husk"
+  },
+  {
+   "full_name": "nixpig/anocir",
+   "description": "\ud83c\udf6a An OCI spec-compliant Linux container runtime, written in Go.",
+   "stargazers_count": 4,
+   "pushed_at": "2026-08-14T04:36:38Z",
+   "archived": false,
+   "html_url": "https://github.com/nixpig/anocir"
+  }
+ ]
+}

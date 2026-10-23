@@ -1,0 +1,31 @@
+{
+ "full_name": "devsy-org/devsy",
+ "description": "Deploy secure local and cloud environments for developers and agents",
+ "stargazers_count": 124,
+ "forks_count": 11,
+ "open_issues_count": 35,
+ "pushed_at": "2026-10-23T01:17:58Z",
+ "archived": false,
+ "license": "MPL-2.0",
+ "html_url": "https://github.com/devsy-org/devsy",
+ "default_branch": "main",
+ "topics": [
+  "agent",
+  "agentic-ai",
+  "ai",
+  "containers",
+  "cursor",
+  "devcontainer-cli",
+  "devcontainers",
+  "devpod",
+  "devsy",
+  "docker",
+  "docker-compose",
+  "kubernetes",
+  "linux",
+  "podman",
+  "sandbox",
+  "security",
+  "vscode"
+ ]
+}

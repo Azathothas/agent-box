@@ -1,0 +1,20 @@
+{
+ "full_name": "google/nsjail",
+ "description": "A lightweight process isolation tool that utilizes Linux namespaces, cgroups, rlimits and seccomp-bpf syscall filters, leveraging the Kafel BPF language for enhanced security.",
+ "stargazers_count": 4168,
+ "forks_count": 393,
+ "open_issues_count": 55,
+ "pushed_at": "2026-10-02T07:37:48Z",
+ "archived": false,
+ "license": "Apache-2.0",
+ "html_url": "https://github.com/google/nsjail",
+ "default_branch": "master",
+ "topics": [
+  "chroot",
+  "linux",
+  "linux-namespaces",
+  "process-isolation",
+  "seccomp-bpf-policies",
+  "security"
+ ]
+}

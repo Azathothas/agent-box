@@ -1,0 +1,452 @@
+[
+ {
+  "number": 310,
+  "state": "open",
+  "title": "Add join() and sandlock run --wait-jobs for background jobs",
+  "created_at": "2026-10-21T23:26:12Z",
+  "closed_at": null,
+  "html_url": "https://github.com/multikernel/sandlock/pull/310",
+  "is_pr": true
+ },
+ {
+  "number": 309,
+  "state": "open",
+  "title": "sandbox: leave the terminal alone when run from a background job",
+  "created_at": "2026-10-21T22:55:41Z",
+  "closed_at": null,
+  "html_url": "https://github.com/multikernel/sandlock/pull/309",
+  "is_pr": true
+ },
+ {
+  "number": 308,
+  "state": "closed",
+  "title": "python: replace magic verdict values with verdict objects",
+  "created_at": "2026-10-21T05:08:48Z",
+  "closed_at": "2026-10-21T22:16:43Z",
+  "html_url": "https://github.com/multikernel/sandlock/pull/308",
+  "is_pr": true
+ },
+ {
+  "number": 307,
+  "state": "closed",
+  "title": "policy_fn: grant network access on approval",
+  "created_at": "2026-10-21T04:11:06Z",
+  "closed_at": "2026-10-21T22:16:19Z",
+  "html_url": "https://github.com/multikernel/sandlock/pull/307",
+  "is_pr": true
+ },
+ {
+  "number": 306,
+  "state": "closed",
+  "title": "policy_fn: support event category subscriptions",
+  "created_at": "2026-10-20T02:13:30Z",
+  "closed_at": "2026-10-21T01:38:40Z",
+  "html_url": "https://github.com/multikernel/sandlock/pull/306",
+  "is_pr": true
+ },
+ {
+  "number": 305,
+  "state": "open",
+  "title": "core: use `landlock` crate",
+  "created_at": "2026-10-20T00:03:41Z",
+  "closed_at": null,
+  "html_url": "https://github.com/multikernel/sandlock/pull/305",
+  "is_pr": true
+ },
+ {
+  "number": 304,
+  "state": "open",
+  "title": "procfs, cow: resolve paths named through a descriptor",
+  "created_at": "2026-10-18T13:42:48Z",
+  "closed_at": null,
+  "html_url": "https://github.com/multikernel/sandlock/pull/304",
+  "is_pr": true
+ },
+ {
+  "number": 303,
+  "state": "closed",
+  "title": "chore: run rustfmt repo-wise",
+  "created_at": "2026-10-17T09:01:34Z",
+  "closed_at": "2026-10-19T20:51:35Z",
+  "html_url": "https://github.com/multikernel/sandlock/pull/303",
+  "is_pr": true
+ },
+ {
+  "number": 302,
+  "state": "closed",
+  "title": "policy_fn: approve held syscalls asynchronously",
+  "created_at": "2026-10-16T05:44:20Z",
+  "closed_at": "2026-10-18T16:27:45Z",
+  "html_url": "https://github.com/multikernel/sandlock/pull/302",
+  "is_pr": true
+ },
+ {
+  "number": 301,
+  "state": "closed",
+  "title": "Keep background jobs supervised after the main process exits",
+  "created_at": "2026-10-16T00:04:37Z",
+  "closed_at": "2026-10-16T02:27:15Z",
+  "html_url": "https://github.com/multikernel/sandlock/pull/301",
+  "is_pr": true
+ },
+ {
+  "number": 300,
+  "state": "closed",
+  "title": "Run `rustfmt` on the repo",
+  "created_at": "2026-10-15T18:15:15Z",
+  "closed_at": "2026-10-19T20:51:37Z",
+  "html_url": "https://github.com/multikernel/sandlock/issues/300",
+  "is_pr": false
+ },
+ {
+  "number": 299,
+  "state": "closed",
+  "title": "sandbox: keep background jobs supervised after main exit",
+  "created_at": "2026-10-13T22:21:55Z",
+  "closed_at": "2026-10-16T00:05:31Z",
+  "html_url": "https://github.com/multikernel/sandlock/pull/299",
+  "is_pr": true
+ },
+ {
+  "number": 298,
+  "state": "closed",
+  "title": "policy_fn: allow asynchronous approval without stalling supervision",
+  "created_at": "2026-10-13T21:20:28Z",
+  "closed_at": "2026-10-16T05:43:25Z",
+  "html_url": "https://github.com/multikernel/sandlock/pull/298",
+  "is_pr": true
+ },
+ {
+  "number": 297,
+  "state": "closed",
+  "title": "core: make checkpoint, image, profiles and COW optional",
+  "created_at": "2026-10-12T21:04:16Z",
+  "closed_at": "2026-10-13T15:58:37Z",
+  "html_url": "https://github.com/multikernel/sandlock/pull/297",
+  "is_pr": true
+ },
+ {
+  "number": 296,
+  "state": "closed",
+  "title": "policy_fn: make verdict timeouts configurable",
+  "created_at": "2026-10-12T20:25:41Z",
+  "closed_at": "2026-10-13T20:40:13Z",
+  "html_url": "https://github.com/multikernel/sandlock/pull/296",
+  "is_pr": true
+ },
+ {
+  "number": 295,
+  "state": "open",
+  "title": "build: skip unused C stubs and honor cross-compilation toolchains",
+  "created_at": "2026-10-12T19:39:41Z",
+  "closed_at": null,
+  "html_url": "https://github.com/multikernel/sandlock/issues/295",
+  "is_pr": false
+ },
+ {
+  "number": 294,
+  "state": "closed",
+  "title": "deps: make checkpoint/restore an optional feature for minimal embedders",
+  "created_at": "2026-10-12T19:39:40Z",
+  "closed_at": "2026-10-13T15:59:01Z",
+  "html_url": "https://github.com/multikernel/sandlock/issues/294",
+  "is_pr": false
+ },
+ {
+  "number": 293,
+  "state": "closed",
+  "title": "core: offer a minimal embedding feature configuration",
+  "created_at": "2026-10-12T19:39:39Z",
+  "closed_at": "2026-10-13T15:58:38Z",
+  "html_url": "https://github.com/multikernel/sandlock/issues/293",
+  "is_pr": false
+ },
+ {
+  "number": 292,
+  "state": "closed",
+  "title": "sandbox: keep background jobs supervised after the main process exits",
+  "created_at": "2026-10-12T19:39:38Z",
+  "closed_at": "2026-10-16T02:27:16Z",
+  "html_url": "https://github.com/multikernel/sandlock/issues/292",
+  "is_pr": false
+ },
+ {
+  "number": 291,
+  "state": "closed",
+  "title": "policy_fn: support granting unrestricted network access after approval",
+  "created_at": "2026-10-12T19:39:37Z",
+  "closed_at": "2026-10-21T22:16:20Z",
+  "html_url": "https://github.com/multikernel/sandlock/issues/291",
+  "is_pr": false
+ },
+ {
+  "number": 290,
+  "state": "closed",
+  "title": "policy_fn: support network-only event subscriptions",
+  "created_at": "2026-10-12T19:39:36Z",
+  "closed_at": "2026-10-21T01:38:41Z",
+  "html_url": "https://github.com/multikernel/sandlock/issues/290",
+  "is_pr": false
+ },
+ {
+  "number": 289,
+  "state": "closed",
+  "title": "policy_fn: allow asynchronous approval without stalling supervision",
+  "created_at": "2026-10-12T19:39:35Z",
+  "closed_at": "2026-10-18T16:27:46Z",
+  "html_url": "https://github.com/multikernel/sandlock/issues/289",
+  "is_pr": false
+ },
+ {
+  "number": 288,
+  "state": "closed",
+  "title": "policy_fn: make approval timeouts configurable",
+  "created_at": "2026-10-12T19:39:34Z",
+  "closed_at": "2026-10-13T20:40:14Z",
+  "html_url": "https://github.com/multikernel/sandlock/issues/288",
+  "is_pr": false
+ },
+ {
+  "number": 287,
+  "state": "open",
+  "title": "Explore an optional Dogwood authorization layer",
+  "created_at": "2026-10-12T19:24:16Z",
+  "closed_at": null,
+  "html_url": "https://github.com/multikernel/sandlock/issues/287",
+  "is_pr": false
+ },
+ {
+  "number": 286,
+  "state": "open",
+  "title": "Switch to landlock crate",
+  "created_at": "2026-10-12T17:42:48Z",
+  "closed_at": null,
+  "html_url": "https://github.com/multikernel/sandlock/issues/286",
+  "is_pr": false
+ },
+ {
+  "number": 285,
+  "state": "closed",
+  "title": "docs: compile-check examples instead of ignoring them",
+  "created_at": "2026-10-12T17:39:51Z",
+  "closed_at": "2026-10-12T17:50:15Z",
+  "html_url": "https://github.com/multikernel/sandlock/pull/285",
+  "is_pr": true
+ },
+ {
+  "number": 284,
+  "state": "closed",
+  "title": "seccomp: reject x32 syscalls before evaluating policy rules",
+  "created_at": "2026-10-12T17:14:25Z",
+  "closed_at": "2026-10-13T15:56:51Z",
+  "html_url": "https://github.com/multikernel/sandlock/pull/284",
+  "is_pr": true
+ },
+ {
+  "number": 283,
+  "state": "closed",
+  "title": "seccomp: authorize prepared network operations before executing them",
+  "created_at": "2026-10-10T07:25:01Z",
+  "closed_at": "2026-10-12T15:07:03Z",
+  "html_url": "https://github.com/multikernel/sandlock/pull/283",
+  "is_pr": true
+ },
+ {
+  "number": 282,
+  "state": "closed",
+  "title": "Reject x32 syscall numbers in the x86_64 seccomp filter",
+  "created_at": "2026-10-09T21:18:04Z",
+  "closed_at": "2026-10-13T15:56:53Z",
+  "html_url": "https://github.com/multikernel/sandlock/issues/282",
+  "is_pr": false
+ },
+ {
+  "number": 281,
+  "state": "closed",
+  "title": "Make HTTP support optional at compile time",
+  "created_at": "2026-10-09T20:35:36Z",
+  "closed_at": "2026-10-12T15:06:37Z",
+  "html_url": "https://github.com/multikernel/sandlock/pull/281",
+  "is_pr": true
+ },
+ {
+  "number": 280,
+  "state": "closed",
+  "title": "procfs: return EINVAL from readlink on non-symlinks",
+  "created_at": "2026-10-07T16:45:46Z",
+  "closed_at": "2026-10-12T15:05:49Z",
+  "html_url": "https://github.com/multikernel/sandlock/pull/280",
+  "is_pr": true
+ },
+ {
+  "number": 279,
+  "state": "closed",
+  "title": "readlink returns ENOENT instead of EINVAL for non-symlinks (v0.8.9 regression)",
+  "created_at": "2026-10-06T01:01:09Z",
+  "closed_at": "2026-10-12T15:05:50Z",
+  "html_url": "https://github.com/multikernel/sandlock/issues/279",
+  "is_pr": false
+ },
+ {
+  "number": 278,
+  "state": "open",
+  "title": "access queries in mediated metadata paths use supervisor credentials",
+  "created_at": "2026-10-05T13:57:27Z",
+  "closed_at": null,
+  "html_url": "https://github.com/multikernel/sandlock/issues/278",
+  "is_pr": false
+ },
+ {
+  "number": 277,
+  "state": "open",
+  "title": "fix: require chroot write grants for open side effects",
+  "created_at": "2026-10-05T13:55:37Z",
+  "closed_at": null,
+  "html_url": "https://github.com/multikernel/sandlock/pull/277",
+  "is_pr": true
+ },
+ {
+  "number": 276,
+  "state": "closed",
+  "title": "Let the core own the size and timestamp grammar; bindings forward text",
+  "created_at": "2026-10-03T18:45:16Z",
+  "closed_at": "2026-10-04T18:10:23Z",
+  "html_url": "https://github.com/multikernel/sandlock/pull/276",
+  "is_pr": true
+ },
+ {
+  "number": 275,
+  "state": "open",
+  "title": "feat: add explicit read-write filesystem grants across APIs",
+  "created_at": "2026-10-03T16:11:09Z",
+  "closed_at": null,
+  "html_url": "https://github.com/multikernel/sandlock/pull/275",
+  "is_pr": true
+ },
+ {
+  "number": 274,
+  "state": "open",
+  "title": "fix: preserve caller access checks and pin chroot targets",
+  "created_at": "2026-10-03T10:06:07Z",
+  "closed_at": null,
+  "html_url": "https://github.com/multikernel/sandlock/pull/274",
+  "is_pr": true
+ },
+ {
+  "number": 273,
+  "state": "open",
+  "title": "Harden chroot named Unix socket targets and exec freeze enumeration",
+  "created_at": "2026-10-03T09:10:50Z",
+  "closed_at": null,
+  "html_url": "https://github.com/multikernel/sandlock/pull/273",
+  "is_pr": true
+ },
+ {
+  "number": 272,
+  "state": "closed",
+  "title": "Fail closed on an unknown BranchAction",
+  "created_at": "2026-10-02T23:51:29Z",
+  "closed_at": "2026-10-03T02:30:00Z",
+  "html_url": "https://github.com/multikernel/sandlock/pull/272",
+  "is_pr": true
+ },
+ {
+  "number": 271,
+  "state": "closed",
+  "title": "release: build .deb and .rpm packages",
+  "created_at": "2026-10-02T05:27:28Z",
+  "closed_at": "2026-10-02T23:39:21Z",
+  "html_url": "https://github.com/multikernel/sandlock/pull/271",
+  "is_pr": true
+ },
+ {
+  "number": 270,
+  "state": "closed",
+  "title": "checkpoint: embed the restore stub instead of exec'ing its build path",
+  "created_at": "2026-10-02T04:26:51Z",
+  "closed_at": "2026-10-02T23:18:27Z",
+  "html_url": "https://github.com/multikernel/sandlock/pull/270",
+  "is_pr": true
+ },
+ {
+  "number": 269,
+  "state": "closed",
+  "title": "procfs: stat through a task's root or cwd link",
+  "created_at": "2026-10-02T02:26:22Z",
+  "closed_at": "2026-10-02T22:16:09Z",
+  "html_url": "https://github.com/multikernel/sandlock/pull/269",
+  "is_pr": true
+ },
+ {
+  "number": 268,
+  "state": "closed",
+  "title": "Read-only mounts in the SDKs; profiles parsed by the core",
+  "created_at": "2026-10-02T01:05:26Z",
+  "closed_at": "2026-10-02T20:33:47Z",
+  "html_url": "https://github.com/multikernel/sandlock/pull/268",
+  "is_pr": true
+ },
+ {
+  "number": 267,
+  "state": "closed",
+  "title": "sdk: pull container images from Go and Python",
+  "created_at": "2026-09-30T21:35:00Z",
+  "closed_at": "2026-10-02T00:06:47Z",
+  "html_url": "https://github.com/multikernel/sandlock/pull/267",
+  "is_pr": true
+ },
+ {
+  "number": 266,
+  "state": "closed",
+  "title": "image: pull OCI images without a Docker daemon",
+  "created_at": "2026-09-30T21:10:09Z",
+  "closed_at": "2026-10-02T00:06:24Z",
+  "html_url": "https://github.com/multikernel/sandlock/pull/266",
+  "is_pr": true
+ },
+ {
+  "number": 265,
+  "state": "open",
+  "title": "feat(cli): expose runtime JSONL observations and minimal device defaults",
+  "created_at": "2026-09-30T18:58:20Z",
+  "closed_at": null,
+  "html_url": "https://github.com/multikernel/sandlock/pull/265",
+  "is_pr": true
+ },
+ {
+  "number": 264,
+  "state": "closed",
+  "title": "fix(tls): generate MITM certificates accepted by strict X509 clients",
+  "created_at": "2026-09-30T18:51:33Z",
+  "closed_at": "2026-10-02T20:32:00Z",
+  "html_url": "https://github.com/multikernel/sandlock/pull/264",
+  "is_pr": true
+ },
+ {
+  "number": 263,
+  "state": "closed",
+  "title": "Generated MITM certificates fail strict X509 verification (missing leaf AKI and CA key usage)",
+  "created_at": "2026-09-30T18:43:47Z",
+  "closed_at": "2026-10-02T20:32:01Z",
+  "html_url": "https://github.com/multikernel/sandlock/issues/263",
+  "is_pr": false
+ },
+ {
+  "number": 262,
+  "state": "closed",
+  "title": "python: add prompt guard with pipeline integration",
+  "created_at": "2026-09-27T23:47:24Z",
+  "closed_at": "2026-09-28T22:41:43Z",
+  "html_url": "https://github.com/multikernel/sandlock/pull/262",
+  "is_pr": true
+ },
+ {
+  "number": 261,
+  "state": "open",
+  "title": "Virtualize sysfs to prevent host information exposure",
+  "created_at": "2026-09-23T23:02:29Z",
+  "closed_at": null,
+  "html_url": "https://github.com/multikernel/sandlock/issues/261",
+  "is_pr": false
+ }
+]

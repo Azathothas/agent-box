@@ -1,0 +1,13 @@
+{
+ "full_name": "penberg/chimera",
+ "description": "Sandbox untrusted code with safe access to the host.",
+ "stargazers_count": 136,
+ "forks_count": 4,
+ "open_issues_count": 14,
+ "pushed_at": "2026-10-18T16:51:50Z",
+ "archived": false,
+ "license": "MIT",
+ "html_url": "https://github.com/penberg/chimera",
+ "default_branch": "main",
+ "topics": []
+}

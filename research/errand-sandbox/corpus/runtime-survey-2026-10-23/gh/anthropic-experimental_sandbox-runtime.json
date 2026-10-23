@@ -1,0 +1,13 @@
+{
+ "full_name": "anthropics/sandbox-runtime",
+ "description": "A lightweight sandboxing tool for enforcing filesystem and network restrictions on arbitrary processes at the OS level, without requiring a container.",
+ "stargazers_count": 5652,
+ "forks_count": 503,
+ "open_issues_count": 292,
+ "pushed_at": "2026-10-22T22:03:17Z",
+ "archived": false,
+ "license": "Apache-2.0",
+ "html_url": "https://github.com/anthropics/sandbox-runtime",
+ "default_branch": "main",
+ "topics": []
+}

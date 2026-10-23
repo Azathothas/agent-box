@@ -1,0 +1,19 @@
+{
+ "full_name": "podman-container-tools/podman",
+ "description": "Podman: A tool for managing OCI containers and pods.",
+ "stargazers_count": 33101,
+ "forks_count": 3417,
+ "open_issues_count": 983,
+ "pushed_at": "2026-10-22T18:03:53Z",
+ "archived": false,
+ "license": "Apache-2.0",
+ "html_url": "https://github.com/podman-container-tools/podman",
+ "default_branch": "main",
+ "topics": [
+  "containers",
+  "docker",
+  "kubernetes",
+  "linux",
+  "oci"
+ ]
+}

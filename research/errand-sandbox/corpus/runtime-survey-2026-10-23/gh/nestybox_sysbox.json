@@ -1,0 +1,20 @@
+{
+ "full_name": "nestybox/sysbox",
+ "description": "An open-source, next-generation \"runc\" that empowers rootless containers to run workloads such as Systemd, Docker, Kubernetes, just like VMs.",
+ "stargazers_count": 3923,
+ "forks_count": 237,
+ "open_issues_count": 216,
+ "pushed_at": "2026-10-21T03:36:00Z",
+ "archived": false,
+ "license": "Apache-2.0",
+ "html_url": "https://github.com/nestybox/sysbox",
+ "default_branch": "master",
+ "topics": [
+  "container-runtime-security",
+  "container-runtimes",
+  "containers",
+  "devops",
+  "docker",
+  "kubernetes"
+ ]
+}

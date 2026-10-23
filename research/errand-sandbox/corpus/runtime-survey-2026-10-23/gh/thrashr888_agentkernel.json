@@ -1,0 +1,21 @@
+{
+ "full_name": "thrashr888/agentkernel",
+ "description": "Run AI coding agents in secure, isolated microVMs. Sub-125ms boot times, real hardware isolation.",
+ "stargazers_count": 59,
+ "forks_count": 6,
+ "open_issues_count": 4,
+ "pushed_at": "2026-10-21T20:51:53Z",
+ "archived": false,
+ "license": "MIT",
+ "html_url": "https://github.com/thrashr888/agentkernel",
+ "default_branch": "main",
+ "topics": [
+  "agent",
+  "ai",
+  "claude-code",
+  "codex",
+  "gemini-cli",
+  "microkernel",
+  "rust"
+ ]
+}

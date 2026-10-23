@@ -1,0 +1,13 @@
+{
+ "full_name": "libkrun/libkrun",
+ "description": "A dynamic library providing Virtualization-based process isolation capabilities",
+ "stargazers_count": 2809,
+ "forks_count": 300,
+ "open_issues_count": 120,
+ "pushed_at": "2026-10-22T10:26:20Z",
+ "archived": false,
+ "license": "Apache-2.0",
+ "html_url": "https://github.com/libkrun/libkrun",
+ "default_branch": "main",
+ "topics": []
+}

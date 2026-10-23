@@ -1,0 +1,13 @@
+{
+ "full_name": "netblue30/firejail",
+ "description": "Linux namespaces and seccomp-bpf sandbox",
+ "stargazers_count": 7708,
+ "forks_count": 678,
+ "open_issues_count": 531,
+ "pushed_at": "2026-10-18T14:31:26Z",
+ "archived": false,
+ "license": "GPL-2.0",
+ "html_url": "https://github.com/netblue30/firejail",
+ "default_branch": "master",
+ "topics": []
+}

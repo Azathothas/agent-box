@@ -1,0 +1,19 @@
+{
+ "full_name": "youki-dev/youki",
+ "description": "A container runtime written in Rust",
+ "stargazers_count": 7644,
+ "forks_count": 483,
+ "open_issues_count": 182,
+ "pushed_at": "2026-10-22T00:43:07Z",
+ "archived": false,
+ "license": "Apache-2.0",
+ "html_url": "https://github.com/youki-dev/youki",
+ "default_branch": "main",
+ "topics": [
+  "containers",
+  "docker",
+  "kubernetes",
+  "oci",
+  "rust"
+ ]
+}

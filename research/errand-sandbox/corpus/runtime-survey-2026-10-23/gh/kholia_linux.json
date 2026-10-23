@@ -1,0 +1,13 @@
+{
+ "full_name": "kholia/linux",
+ "description": "Linux kernel source tree. Contains forward-port of PVM to Linux 7.2.x.",
+ "stargazers_count": 2,
+ "forks_count": 0,
+ "open_issues_count": 0,
+ "pushed_at": "2026-08-19T11:42:56Z",
+ "archived": false,
+ "license": "NOASSERTION",
+ "html_url": "https://github.com/kholia/linux",
+ "default_branch": "pvm-720",
+ "topics": []
+}

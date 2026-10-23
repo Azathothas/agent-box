@@ -1,0 +1,18 @@
+{
+ "full_name": "lxc/incus",
+ "description": "Powerful system container and virtual machine manager ",
+ "stargazers_count": 6454,
+ "forks_count": 511,
+ "open_issues_count": 40,
+ "pushed_at": "2026-10-22T09:08:37Z",
+ "archived": false,
+ "license": "Apache-2.0",
+ "html_url": "https://github.com/lxc/incus",
+ "default_branch": "main",
+ "topics": [
+  "cloud",
+  "containers",
+  "hacktoberfest",
+  "virtual-machines"
+ ]
+}

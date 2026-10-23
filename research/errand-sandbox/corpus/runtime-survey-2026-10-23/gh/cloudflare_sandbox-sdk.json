@@ -1,0 +1,21 @@
+{
+ "full_name": "cloudflare/sandbox-sdk",
+ "description": "Run sandboxed code environments on Cloudflare's edge network",
+ "stargazers_count": 1156,
+ "forks_count": 122,
+ "open_issues_count": 2,
+ "pushed_at": "2026-10-22T16:25:35Z",
+ "archived": false,
+ "license": "NOASSERTION",
+ "html_url": "https://github.com/cloudflare/sandbox-sdk",
+ "default_branch": "main",
+ "topics": [
+  "agent",
+  "agents",
+  "ai",
+  "code-interpreter",
+  "containers",
+  "devtools",
+  "sandbox"
+ ]
+}

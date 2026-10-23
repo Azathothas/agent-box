@@ -1,0 +1,24 @@
+{
+ "full_name": "trailofbits/coop",
+ "description": "Isolated VM environment for running Claude Code and Codex",
+ "stargazers_count": 795,
+ "forks_count": 44,
+ "open_issues_count": 55,
+ "pushed_at": "2026-10-22T20:24:08Z",
+ "archived": false,
+ "license": "Apache-2.0",
+ "html_url": "https://github.com/trailofbits/coop",
+ "default_branch": "main",
+ "topics": [
+  "claude-code",
+  "cli",
+  "codex",
+  "firecracker",
+  "kvm",
+  "lima",
+  "microvm",
+  "rust",
+  "sandbox",
+  "vm"
+ ]
+}

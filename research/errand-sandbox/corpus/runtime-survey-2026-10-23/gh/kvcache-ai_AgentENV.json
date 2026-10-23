@@ -1,0 +1,13 @@
+{
+ "full_name": "kvcache-ai/AgentENV",
+ "description": "AgentENV (AENV) is a distributed platform for running agent environments at scale.",
+ "stargazers_count": 3678,
+ "forks_count": 341,
+ "open_issues_count": 93,
+ "pushed_at": "2026-10-23T01:42:58Z",
+ "archived": false,
+ "license": "MIT",
+ "html_url": "https://github.com/kvcache-ai/AgentENV",
+ "default_branch": "main",
+ "topics": []
+}

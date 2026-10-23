@@ -1,0 +1,24 @@
+{
+ "full_name": "Skelf-Research/zviz",
+ "description": "Container isolation for code you can't trust but have to run.",
+ "stargazers_count": 2,
+ "forks_count": 0,
+ "open_issues_count": 0,
+ "pushed_at": "2026-07-02T12:02:55Z",
+ "archived": false,
+ "license": "MIT",
+ "html_url": "https://github.com/Skelf-Research/zviz",
+ "default_branch": "main",
+ "topics": [
+  "container",
+  "container-isolation",
+  "gvisor",
+  "isolation",
+  "sandbox",
+  "security",
+  "skelf-research",
+  "untrusted-code-execution",
+  "wasm",
+  "zig"
+ ]
+}

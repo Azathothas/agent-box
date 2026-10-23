@@ -1,0 +1,27 @@
+{
+ "full_name": "kata-containers/kata-containers",
+ "description": "Kata Containers is an open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs. https://katacontainers.io/",
+ "stargazers_count": 8995,
+ "forks_count": 1525,
+ "open_issues_count": 1233,
+ "pushed_at": "2026-10-22T19:21:28Z",
+ "archived": false,
+ "license": "Apache-2.0",
+ "html_url": "https://github.com/kata-containers/kata-containers",
+ "default_branch": "main",
+ "topics": [
+  "containers",
+  "cri",
+  "cri-o",
+  "docker",
+  "firecracker",
+  "k8s",
+  "kubernetes",
+  "kvm",
+  "oci",
+  "qemu",
+  "security",
+  "virtual-machine",
+  "virtualization"
+ ]
+}

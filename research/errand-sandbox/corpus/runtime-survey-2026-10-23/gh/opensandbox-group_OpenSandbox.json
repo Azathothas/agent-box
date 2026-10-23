@@ -1,0 +1,19 @@
+{
+ "full_name": "opensandbox-group/OpenSandbox",
+ "description": "Secure, Fast, and Extensible Sandbox runtime for AI agents.",
+ "stargazers_count": 16066,
+ "forks_count": 1492,
+ "open_issues_count": 137,
+ "pushed_at": "2026-10-23T02:01:34Z",
+ "archived": false,
+ "license": "Apache-2.0",
+ "html_url": "https://github.com/opensandbox-group/OpenSandbox",
+ "default_branch": "main",
+ "topics": [
+  "ai",
+  "ai-agent",
+  "ai-infra",
+  "kubernetes",
+  "sandbox"
+ ]
+}

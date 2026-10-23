@@ -1,0 +1,13 @@
+{
+ "full_name": "docker/sbx-releases",
+ "description": "Docker Sandboxes run AI coding agents in isolated environments on your machine or on Docker-managed cloud infrastructure",
+ "stargazers_count": 469,
+ "forks_count": 29,
+ "open_issues_count": 241,
+ "pushed_at": "2026-10-22T06:47:05Z",
+ "archived": false,
+ "license": "NOASSERTION",
+ "html_url": "https://github.com/docker/sbx-releases",
+ "default_branch": "main",
+ "topics": []
+}

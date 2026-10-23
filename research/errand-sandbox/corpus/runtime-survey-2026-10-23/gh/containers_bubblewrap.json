@@ -1,0 +1,16 @@
+{
+ "full_name": "containers/bubblewrap",
+ "description": "Low-level unprivileged sandboxing tool used by Flatpak and similar projects",
+ "stargazers_count": 9166,
+ "forks_count": 400,
+ "open_issues_count": 207,
+ "pushed_at": "2026-10-14T12:26:14Z",
+ "archived": false,
+ "license": "NOASSERTION",
+ "html_url": "https://github.com/containers/bubblewrap",
+ "default_branch": "main",
+ "topics": [
+  "linux-containers",
+  "user-namespaces"
+ ]
+}

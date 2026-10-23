@@ -1,0 +1,28 @@
+{
+ "full_name": "nolabs-ai/nono",
+ "description": "agent runtime security - zero trust, zero setup, zero latency agent sandboxing",
+ "stargazers_count": 4639,
+ "forks_count": 317,
+ "open_issues_count": 265,
+ "pushed_at": "2026-10-22T12:36:57Z",
+ "archived": false,
+ "license": "Apache-2.0",
+ "html_url": "https://github.com/nolabs-ai/nono",
+ "default_branch": "main",
+ "topics": [
+  "agent-runtime-security",
+  "agent-sandbox",
+  "agent-security",
+  "ai-agent-sandbox",
+  "ai-agent-security",
+  "ai-agents",
+  "ai-security",
+  "ai-security-tool",
+  "llm-security",
+  "mcp",
+  "mcp-security",
+  "security",
+  "supply-chain-security",
+  "zero-trust"
+ ]
+}

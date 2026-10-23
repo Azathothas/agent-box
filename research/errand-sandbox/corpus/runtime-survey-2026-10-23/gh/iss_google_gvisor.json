@@ -1,0 +1,452 @@
+[
+ {
+  "number": 16229,
+  "state": "open",
+  "title": "Interrupt RSEQ abort tests with a timer",
+  "created_at": "2026-10-23T01:56:59Z",
+  "closed_at": null,
+  "html_url": "https://github.com/google/gvisor/pull/16229",
+  "is_pr": true
+ },
+ {
+  "number": 16228,
+  "state": "open",
+  "title": "Write `runsc` state file atomically.",
+  "created_at": "2026-10-23T01:10:50Z",
+  "closed_at": null,
+  "html_url": "https://github.com/google/gvisor/pull/16228",
+  "is_pr": true
+ },
+ {
+  "number": 16227,
+  "state": "open",
+  "title": "sysfs: add cpulist and id files to /sys/devices/system/cpu/cpuN/topology",
+  "created_at": "2026-10-23T01:05:45Z",
+  "closed_at": null,
+  "html_url": "https://github.com/google/gvisor/pull/16227",
+  "is_pr": true
+ },
+ {
+  "number": 16226,
+  "state": "open",
+  "title": "Add `pkg/state` benchmark for kernel serialization.",
+  "created_at": "2026-10-23T00:41:12Z",
+  "closed_at": null,
+  "html_url": "https://github.com/google/gvisor/pull/16226",
+  "is_pr": true
+ },
+ {
+  "number": 16225,
+  "state": "open",
+  "title": "seccomp: set GOMAXPROCS in test victim before installing filter",
+  "created_at": "2026-10-23T00:06:41Z",
+  "closed_at": null,
+  "html_url": "https://github.com/google/gvisor/pull/16225",
+  "is_pr": true
+ },
+ {
+  "number": 16224,
+  "state": "open",
+  "title": "Check Go import groups with goimports",
+  "created_at": "2026-10-23T00:04:08Z",
+  "closed_at": null,
+  "html_url": "https://github.com/google/gvisor/pull/16224",
+  "is_pr": true
+ },
+ {
+  "number": 16223,
+  "state": "open",
+  "title": "Return EPERM from every epoll_ctl op on files without poll support",
+  "created_at": "2026-10-22T23:58:05Z",
+  "closed_at": null,
+  "html_url": "https://github.com/google/gvisor/pull/16223",
+  "is_pr": true
+ },
+ {
+  "number": 16222,
+  "state": "open",
+  "title": "Return EINVAL for invalid EPOLLEXCLUSIVE use in epoll_ctl",
+  "created_at": "2026-10-22T23:58:02Z",
+  "closed_at": null,
+  "html_url": "https://github.com/google/gvisor/pull/16222",
+  "is_pr": true
+ },
+ {
+  "number": 16221,
+  "state": "closed",
+  "title": "Restore trace tests to routine CI",
+  "created_at": "2026-10-22T23:57:24Z",
+  "closed_at": "2026-10-23T01:11:03Z",
+  "html_url": "https://github.com/google/gvisor/pull/16221",
+  "is_pr": true
+ },
+ {
+  "number": 16220,
+  "state": "open",
+  "title": "cpuid: make arm64 /proc/cpuinfo Features match AT_HWCAP",
+  "created_at": "2026-10-22T23:50:59Z",
+  "closed_at": null,
+  "html_url": "https://github.com/google/gvisor/pull/16220",
+  "is_pr": true
+ },
+ {
+  "number": 16219,
+  "state": "open",
+  "title": "seccomp: set GOMAXPROCS in test victim before installing filter",
+  "created_at": "2026-10-22T23:50:56Z",
+  "closed_at": null,
+  "html_url": "https://github.com/google/gvisor/pull/16219",
+  "is_pr": true
+ },
+ {
+  "number": 16218,
+  "state": "closed",
+  "title": "Bound TUN and TAP interface MTUs",
+  "created_at": "2026-10-22T23:19:42Z",
+  "closed_at": "2026-10-22T23:55:35Z",
+  "html_url": "https://github.com/google/gvisor/pull/16218",
+  "is_pr": true
+ },
+ {
+  "number": 16217,
+  "state": "open",
+  "title": "Refuse route types that netstack cannot install",
+  "created_at": "2026-10-22T22:32:16Z",
+  "closed_at": null,
+  "html_url": "https://github.com/google/gvisor/pull/16217",
+  "is_pr": true
+ },
+ {
+  "number": 16216,
+  "state": "open",
+  "title": "Optimization: Make `pkg/state` cheap and fast",
+  "created_at": "2026-10-22T22:24:27Z",
+  "closed_at": null,
+  "html_url": "https://github.com/google/gvisor/issues/16216",
+  "is_pr": false
+ },
+ {
+  "number": 16215,
+  "state": "open",
+  "title": "mm: hugepage-align shared anonymous mappings",
+  "created_at": "2026-10-22T22:12:51Z",
+  "closed_at": null,
+  "html_url": "https://github.com/google/gvisor/pull/16215",
+  "is_pr": true
+ },
+ {
+  "number": 16214,
+  "state": "closed",
+  "title": "KVM: exclude the last page below 2^47 from physical regions.",
+  "created_at": "2026-10-22T22:07:10Z",
+  "closed_at": "2026-10-22T23:31:58Z",
+  "html_url": "https://github.com/google/gvisor/pull/16214",
+  "is_pr": true
+ },
+ {
+  "number": 16213,
+  "state": "closed",
+  "title": "nvproxy: support GPU queries and FIFO events",
+  "created_at": "2026-10-22T21:52:56Z",
+  "closed_at": "2026-10-23T00:20:18Z",
+  "html_url": "https://github.com/google/gvisor/pull/16213",
+  "is_pr": true
+ },
+ {
+  "number": 16212,
+  "state": "closed",
+  "title": "Optimization: Save byte arrays as one raw wire object in checkpoints",
+  "created_at": "2026-10-22T21:44:11Z",
+  "closed_at": "2026-10-22T21:46:28Z",
+  "html_url": "https://github.com/google/gvisor/issues/16212",
+  "is_pr": false
+ },
+ {
+  "number": 16211,
+  "state": "closed",
+  "title": "Optimization: Stop making one interface call per byte when pkg/state decodes varints",
+  "created_at": "2026-10-22T21:44:07Z",
+  "closed_at": "2026-10-22T21:47:22Z",
+  "html_url": "https://github.com/google/gvisor/issues/16211",
+  "is_pr": false
+ },
+ {
+  "number": 16210,
+  "state": "closed",
+  "title": "Optimization: Don't recompute every task's seccomp filter cache on restore",
+  "created_at": "2026-10-22T21:44:04Z",
+  "closed_at": "2026-10-22T21:47:07Z",
+  "html_url": "https://github.com/google/gvisor/issues/16210",
+  "is_pr": false
+ },
+ {
+  "number": 16209,
+  "state": "open",
+  "title": "Optimization: Read local state files through the async read-ahead reader during restore",
+  "created_at": "2026-10-22T21:44:00Z",
+  "closed_at": null,
+  "html_url": "https://github.com/google/gvisor/issues/16209",
+  "is_pr": false
+ },
+ {
+  "number": 16208,
+  "state": "open",
+  "title": "Optimization: Don't stat every cached gofer file during checkpoint when restore does not validate metadata",
+  "created_at": "2026-10-22T21:43:56Z",
+  "closed_at": null,
+  "html_url": "https://github.com/google/gvisor/issues/16208",
+  "is_pr": false
+ },
+ {
+  "number": 16207,
+  "state": "open",
+  "title": "Optimization: Don't decommit zero pages during a checkpoint that does not resume",
+  "created_at": "2026-10-22T21:43:52Z",
+  "closed_at": null,
+  "html_url": "https://github.com/google/gvisor/issues/16207",
+  "is_pr": false
+ },
+ {
+  "number": 16206,
+  "state": "closed",
+  "title": "Fix `signalfd` read racing with `execve` in the creator process of `signalfd`.",
+  "created_at": "2026-10-22T20:16:02Z",
+  "closed_at": "2026-10-22T21:10:27Z",
+  "html_url": "https://github.com/google/gvisor/pull/16206",
+  "is_pr": true
+ },
+ {
+  "number": 16205,
+  "state": "closed",
+  "title": "Reuse inherited seccomp syscall caches",
+  "created_at": "2026-10-22T20:08:16Z",
+  "closed_at": "2026-10-22T22:48:44Z",
+  "html_url": "https://github.com/google/gvisor/pull/16205",
+  "is_pr": true
+ },
+ {
+  "number": 16204,
+  "state": "open",
+  "title": "Declare syscall fixture headers directly",
+  "created_at": "2026-10-22T20:06:54Z",
+  "closed_at": null,
+  "html_url": "https://github.com/google/gvisor/pull/16204",
+  "is_pr": true
+ },
+ {
+  "number": 16203,
+  "state": "open",
+  "title": "Avoid holding shim locks across container creation and cache nil PodExtension.",
+  "created_at": "2026-10-22T19:47:52Z",
+  "closed_at": null,
+  "html_url": "https://github.com/google/gvisor/pull/16203",
+  "is_pr": true
+ },
+ {
+  "number": 16202,
+  "state": "open",
+  "title": "Add Bun spawning and seccomp fork benchmarks",
+  "created_at": "2026-10-22T19:27:18Z",
+  "closed_at": null,
+  "html_url": "https://github.com/google/gvisor/pull/16202",
+  "is_pr": true
+ },
+ {
+  "number": 16201,
+  "state": "closed",
+  "title": "Wait for FUSE before copying benchmark inputs",
+  "created_at": "2026-10-22T19:20:25Z",
+  "closed_at": "2026-10-22T20:27:16Z",
+  "html_url": "https://github.com/google/gvisor/pull/16201",
+  "is_pr": true
+ },
+ {
+  "number": 16200,
+  "state": "closed",
+  "title": "Refactor SpecEnviron so that its stored in the kernel.",
+  "created_at": "2026-10-22T18:38:17Z",
+  "closed_at": "2026-10-22T21:16:44Z",
+  "html_url": "https://github.com/google/gvisor/pull/16200",
+  "is_pr": true
+ },
+ {
+  "number": 16199,
+  "state": "closed",
+  "title": "Use the BCR libbpf header target",
+  "created_at": "2026-10-22T18:32:59Z",
+  "closed_at": "2026-10-22T19:42:23Z",
+  "html_url": "https://github.com/google/gvisor/pull/16199",
+  "is_pr": true
+ },
+ {
+  "number": 16198,
+  "state": "open",
+  "title": "Add `pkg/state` benchmark for kernel serialization.",
+  "created_at": "2026-10-22T18:29:30Z",
+  "closed_at": null,
+  "html_url": "https://github.com/google/gvisor/pull/16198",
+  "is_pr": true
+ },
+ {
+  "number": 16197,
+  "state": "open",
+  "title": "Optimization: Derive gofer inode numbers from host keys instead of the ever-growing `inoByKey` map",
+  "created_at": "2026-10-22T18:28:35Z",
+  "closed_at": null,
+  "html_url": "https://github.com/google/gvisor/issues/16197",
+  "is_pr": false
+ },
+ {
+  "number": 16196,
+  "state": "closed",
+  "title": "Apply Java time limits during test discovery",
+  "created_at": "2026-10-22T18:21:22Z",
+  "closed_at": "2026-10-22T19:08:21Z",
+  "html_url": "https://github.com/google/gvisor/pull/16196",
+  "is_pr": true
+ },
+ {
+  "number": 16195,
+  "state": "closed",
+  "title": "Wait for accepted connections in TCP restore tests",
+  "created_at": "2026-10-22T18:18:39Z",
+  "closed_at": "2026-10-22T20:42:12Z",
+  "html_url": "https://github.com/google/gvisor/pull/16195",
+  "is_pr": true
+ },
+ {
+  "number": 16194,
+  "state": "closed",
+  "title": "Use the BCR libbpf header target",
+  "created_at": "2026-10-22T17:27:26Z",
+  "closed_at": "2026-10-22T19:42:26Z",
+  "html_url": "https://github.com/google/gvisor/pull/16194",
+  "is_pr": true
+ },
+ {
+  "number": 16193,
+  "state": "closed",
+  "title": "Merge Go template declarations directly",
+  "created_at": "2026-10-22T17:20:40Z",
+  "closed_at": "2026-10-22T23:07:35Z",
+  "html_url": "https://github.com/google/gvisor/pull/16193",
+  "is_pr": true
+ },
+ {
+  "number": 16192,
+  "state": "open",
+  "title": "signalfd read: short buffers consume the signal, records are 130 bytes, and only one signal is returned per read",
+  "created_at": "2026-10-22T17:15:59Z",
+  "closed_at": null,
+  "html_url": "https://github.com/google/gvisor/issues/16192",
+  "is_pr": false
+ },
+ {
+  "number": 16191,
+  "state": "open",
+  "title": "netstack: stop walking every /32 address on each inbound IPv4 packet",
+  "created_at": "2026-10-22T16:49:08Z",
+  "closed_at": null,
+  "html_url": "https://github.com/google/gvisor/pull/16191",
+  "is_pr": true
+ },
+ {
+  "number": 16190,
+  "state": "open",
+  "title": "feat(runsc): add --keep-host-addrs to preserve host IPs on selected links",
+  "created_at": "2026-10-22T16:33:09Z",
+  "closed_at": null,
+  "html_url": "https://github.com/google/gvisor/pull/16190",
+  "is_pr": true
+ },
+ {
+  "number": 16189,
+  "state": "closed",
+  "title": "test: Run the plugin network test only in its owning package",
+  "created_at": "2026-10-22T16:19:36Z",
+  "closed_at": "2026-10-22T17:03:49Z",
+  "html_url": "https://github.com/google/gvisor/pull/16189",
+  "is_pr": true
+ },
+ {
+  "number": 16188,
+  "state": "open",
+  "title": "Recognize GitHub codeload archives in license audits",
+  "created_at": "2026-10-22T16:16:09Z",
+  "closed_at": null,
+  "html_url": "https://github.com/google/gvisor/pull/16188",
+  "is_pr": true
+ },
+ {
+  "number": 16187,
+  "state": "open",
+  "title": "pgalloc: wait for ongoing usage scans in MemoryFile.SaveTo()",
+  "created_at": "2026-10-22T16:10:25Z",
+  "closed_at": null,
+  "html_url": "https://github.com/google/gvisor/pull/16187",
+  "is_pr": true
+ },
+ {
+  "number": 16186,
+  "state": "closed",
+  "title": "Exercise IPv4 rejection of IPv6 traffic-class options.",
+  "created_at": "2026-10-22T15:48:14Z",
+  "closed_at": "2026-10-22T20:49:36Z",
+  "html_url": "https://github.com/google/gvisor/pull/16186",
+  "is_pr": true
+ },
+ {
+  "number": 16185,
+  "state": "closed",
+  "title": "Wait for iptables test containers to exit",
+  "created_at": "2026-10-22T15:40:41Z",
+  "closed_at": "2026-10-22T17:38:25Z",
+  "html_url": "https://github.com/google/gvisor/pull/16185",
+  "is_pr": true
+ },
+ {
+  "number": 16184,
+  "state": "open",
+  "title": "FUTEX_LOCK_PI blocks forever when the futex owner does not exist or exits (Linux returns ESRCH or hands off the lock)",
+  "created_at": "2026-10-22T15:23:39Z",
+  "closed_at": null,
+  "html_url": "https://github.com/google/gvisor/issues/16184",
+  "is_pr": false
+ },
+ {
+  "number": 16183,
+  "state": "open",
+  "title": "gofer: propagate sync errors from syncRemoteFileLocked",
+  "created_at": "2026-10-22T10:38:27Z",
+  "closed_at": null,
+  "html_url": "https://github.com/google/gvisor/pull/16183",
+  "is_pr": true
+ },
+ {
+  "number": 16182,
+  "state": "closed",
+  "title": "sandboxexec: document the gvisor Python package on PyPI",
+  "created_at": "2026-10-22T09:03:46Z",
+  "closed_at": "2026-10-22T17:19:15Z",
+  "html_url": "https://github.com/google/gvisor/pull/16182",
+  "is_pr": true
+ },
+ {
+  "number": 16181,
+  "state": "closed",
+  "title": "Spawn with explicit GOMAXPROCS to avoid 5ebae40be9 regression.",
+  "created_at": "2026-10-22T08:53:31Z",
+  "closed_at": "2026-10-22T09:47:55Z",
+  "html_url": "https://github.com/google/gvisor/pull/16181",
+  "is_pr": true
+ },
+ {
+  "number": 16180,
+  "state": "open",
+  "title": "tcp: release the port of a wildcard-bound endpoint when it is closed",
+  "created_at": "2026-10-22T08:47:33Z",
+  "closed_at": null,
+  "html_url": "https://github.com/google/gvisor/pull/16180",
+  "is_pr": true
+ }
+]

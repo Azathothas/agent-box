@@ -1,0 +1,15 @@
+{
+ "full_name": "rootless-containers/rootlesskit",
+ "description": "Linux-native \"fake root\" for implementing rootless containers",
+ "stargazers_count": 1311,
+ "forks_count": 127,
+ "open_issues_count": 57,
+ "pushed_at": "2026-10-14T01:49:05Z",
+ "archived": false,
+ "license": "Apache-2.0",
+ "html_url": "https://github.com/rootless-containers/rootlesskit",
+ "default_branch": "master",
+ "topics": [
+  "rootless-containers"
+ ]
+}

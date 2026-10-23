@@ -1,0 +1,21 @@
+{
+ "full_name": "agent-infra/sandbox",
+ "description": "All-in-One Sandbox for AI Agents that combines Browser, Shell, File, MCP and VSCode Server in a single Docker container.",
+ "stargazers_count": 6210,
+ "forks_count": 562,
+ "open_issues_count": 73,
+ "pushed_at": "2026-09-14T08:47:20Z",
+ "archived": false,
+ "license": "Apache-2.0",
+ "html_url": "https://github.com/agent-infra/sandbox",
+ "default_branch": "main",
+ "topics": [
+  "agent",
+  "all-in-one",
+  "browser",
+  "filesystem",
+  "mcp",
+  "sandbox",
+  "shell"
+ ]
+}

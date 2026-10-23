@@ -1,0 +1,21 @@
+{
+ "full_name": "google/gvisor",
+ "description": "Application Kernel for Containers",
+ "stargazers_count": 19750,
+ "forks_count": 2030,
+ "open_issues_count": 1003,
+ "pushed_at": "2026-10-23T01:23:19Z",
+ "archived": false,
+ "license": "Apache-2.0",
+ "html_url": "https://github.com/google/gvisor",
+ "default_branch": "master",
+ "topics": [
+  "containers",
+  "docker",
+  "kernel",
+  "kubernetes",
+  "linux",
+  "oci",
+  "sandbox"
+ ]
+}

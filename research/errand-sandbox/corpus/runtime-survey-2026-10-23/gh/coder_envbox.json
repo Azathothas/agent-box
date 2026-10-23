@@ -1,0 +1,13 @@
+{
+ "full_name": "coder/envbox",
+ "description": "envbox is an image that enables creating non-privileged containers capable of running system-level software (e.g. dockerd, systemd, etc) in Kubernetes.",
+ "stargazers_count": 74,
+ "forks_count": 22,
+ "open_issues_count": 23,
+ "pushed_at": "2026-09-16T10:42:02Z",
+ "archived": false,
+ "license": "AGPL-3.0",
+ "html_url": "https://github.com/coder/envbox",
+ "default_branch": "main",
+ "topics": []
+}

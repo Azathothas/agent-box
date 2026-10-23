@@ -1,0 +1,53 @@
+# Experiment patches to sysbox v0.7.1 (82881aaaf2ce), agent-box research 2026-10-23.
+# Apply in the submodules: sysbox-libs (a/linuxUtils) and sysbox-runc (a/libcontainer).
+# Not upstreamed. See engines-shortlist.md section 1.2.
+### sysbox-libs
+diff --git a/linuxUtils/linux.go b/linuxUtils/linux.go
+index 7006f07..6ca9ef1 100644
+--- a/linuxUtils/linux.go
++++ b/linuxUtils/linux.go
+@@ -253,6 +253,23 @@ func KernelModSupported(mod string) (bool, error) {
+ 	filename := "/proc/modules"
+ 
+ 	f, err := os.Open(filename)
++	if os.IsNotExist(err) {
++		// EXPERIMENT PATCH (agent-box research, 2026-10-23): a kernel built
++		// without CONFIG_MODULES has no /proc/modules, and a feature built
++		// into it is then reported as fatal. binfmt_misc and shiftfs are
++		// filesystems, so a built-in one is listed in /proc/filesystems.
++		data, ferr := os.ReadFile("/proc/filesystems")
++		if ferr != nil {
++			return false, err
++		}
++		for _, line := range strings.Split(string(data), "\n") {
++			fields := strings.Fields(line)
++			if len(fields) > 0 && fields[len(fields)-1] == mod {
++				return true, nil
++			}
++		}
++		return false, nil
++	}
+ 	if err != nil {
+ 		return false, err
+ 	}
+### sysbox-runc
+diff --git a/libcontainer/nsenter/nsexec.c b/libcontainer/nsenter/nsexec.c
+index 1b1b1b5..356b983 100644
+--- a/libcontainer/nsenter/nsexec.c
++++ b/libcontainer/nsenter/nsexec.c
+@@ -749,7 +749,14 @@ void nsexec(void)
+ 	 * process start with it's configured oom score adjustment. See
+ 	 * sysbox issue #381.
+ 	 */
+-	update_oom_score_adj("-999", 4);
++	/* EXPERIMENT PATCH (agent-box research, 2026-10-23): best-effort. A
++	 * host whose root lacks CAP_SYS_RESOURCE (dropped from the bounding
++	 * set) cannot lower its oom score, and bailing here fails every
++	 * container. Without it, processes inside cannot go below the
++	 * configured score, which is all that is lost.
++	 */
++	if (write_file("-999", 4, "/proc/self/oom_score_adj") < 0)
++		write_log(DEBUG, "could not set oom_score_adj to -999, continuing");
+ 
+ 	/*
+ 	 * Make the process non-dumpable, to avoid various race conditions that

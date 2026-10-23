@@ -1,0 +1,452 @@
+[
+ {
+  "number": 2185,
+  "state": "open",
+  "title": "fix(proxy): accept complete OAuth2 token responses without TLS close_notify (#2074)",
+  "created_at": "2026-10-22T16:16:00Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nolabs-ai/nono/pull/2185",
+  "is_pr": true
+ },
+ {
+  "number": 2184,
+  "state": "open",
+  "title": "fix(proxy): enforce endpoint rules for forward HTTP requests",
+  "created_at": "2026-10-22T12:46:51Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nolabs-ai/nono/pull/2184",
+  "is_pr": true
+ },
+ {
+  "number": 2183,
+  "state": "closed",
+  "title": "Withdrawn",
+  "created_at": "2026-10-21T20:04:22Z",
+  "closed_at": "2026-10-21T20:22:52Z",
+  "html_url": "https://github.com/nolabs-ai/nono/issues/2183",
+  "is_pr": false
+ },
+ {
+  "number": 2182,
+  "state": "closed",
+  "title": "Bazel commands that require ~/.netrc access fail",
+  "created_at": "2026-10-21T18:48:26Z",
+  "closed_at": "2026-10-22T21:31:01Z",
+  "html_url": "https://github.com/nolabs-ai/nono/issues/2182",
+  "is_pr": false
+ },
+ {
+  "number": 2181,
+  "state": "closed",
+  "title": "fix(proxy): redact proxy audit paths, reasons, and upstream URLs",
+  "created_at": "2026-10-21T17:16:05Z",
+  "closed_at": "2026-10-22T12:31:57Z",
+  "html_url": "https://github.com/nolabs-ai/nono/pull/2181",
+  "is_pr": true
+ },
+ {
+  "number": 2179,
+  "state": "open",
+  "title": "musl build: command_policies sandbox fails to start \u2014 \"cannot open / for Refer grant\" (O_PATH dropped, EACCES)",
+  "created_at": "2026-10-21T16:13:38Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nolabs-ai/nono/issues/2179",
+  "is_pr": false
+ },
+ {
+  "number": 2178,
+  "state": "open",
+  "title": "feat(release): publish artifacts as OCI artifacts via GHCR",
+  "created_at": "2026-10-21T16:04:36Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nolabs-ai/nono/pull/2178",
+  "is_pr": true
+ },
+ {
+  "number": 2177,
+  "state": "open",
+  "title": "Gradle and other Java tools can't run in a command sandbox",
+  "created_at": "2026-10-21T16:04:02Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nolabs-ai/nono/issues/2177",
+  "is_pr": false
+ },
+ {
+  "number": 2176,
+  "state": "open",
+  "title": "nono supervised mode should pass fd\u2019s provided by parent process",
+  "created_at": "2026-10-21T14:56:54Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nolabs-ai/nono/issues/2176",
+  "is_pr": false
+ },
+ {
+  "number": 2175,
+  "state": "closed",
+  "title": "chore(deps): update Rust TLS dependencies",
+  "created_at": "2026-10-21T08:53:28Z",
+  "closed_at": "2026-10-21T14:21:54Z",
+  "html_url": "https://github.com/nolabs-ai/nono/pull/2175",
+  "is_pr": true
+ },
+ {
+  "number": 2174,
+  "state": "open",
+  "title": "Endpoint rules (method/path) are not enforced for plain-HTTP requests via HTTP_PROXY",
+  "created_at": "2026-10-21T07:57:02Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nolabs-ai/nono/issues/2174",
+  "is_pr": false
+ },
+ {
+  "number": 2173,
+  "state": "closed",
+  "title": "feat(proxy): include denial_category in proxy deny log lines",
+  "created_at": "2026-10-21T07:00:23Z",
+  "closed_at": "2026-10-21T14:16:05Z",
+  "html_url": "https://github.com/nolabs-ai/nono/pull/2173",
+  "is_pr": true
+ },
+ {
+  "number": 2172,
+  "state": "closed",
+  "title": "proxy: include denial_category in the \"proxy request denied\" log line",
+  "created_at": "2026-10-21T07:00:02Z",
+  "closed_at": "2026-10-21T14:16:06Z",
+  "html_url": "https://github.com/nolabs-ai/nono/issues/2172",
+  "is_pr": false
+ },
+ {
+  "number": 2171,
+  "state": "open",
+  "title": "feat(sandbox): tag macOS Seatbelt deny rules via NONO_SEATBELT_LOG_TAG",
+  "created_at": "2026-10-21T04:57:22Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nolabs-ai/nono/pull/2171",
+  "is_pr": true
+ },
+ {
+  "number": 2170,
+  "state": "open",
+  "title": "macOS: tag Seatbelt deny rules so unified-log denials name the nono session",
+  "created_at": "2026-10-21T04:54:22Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nolabs-ai/nono/issues/2170",
+  "is_pr": false
+ },
+ {
+  "number": 2169,
+  "state": "open",
+  "title": "Add read grants for standard paths to the default configuration",
+  "created_at": "2026-10-20T21:55:16Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nolabs-ai/nono/issues/2169",
+  "is_pr": false
+ },
+ {
+  "number": 2168,
+  "state": "closed",
+  "title": "refactor(headers): consolidate the HTTP token check",
+  "created_at": "2026-10-20T20:27:21Z",
+  "closed_at": "2026-10-21T09:34:24Z",
+  "html_url": "https://github.com/nolabs-ai/nono/pull/2168",
+  "is_pr": true
+ },
+ {
+  "number": 2167,
+  "state": "open",
+  "title": "Reverse proxy hides a truncated chunked response: the client sees a complete body",
+  "created_at": "2026-10-20T14:05:41Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nolabs-ai/nono/issues/2167",
+  "is_pr": false
+ },
+ {
+  "number": 2166,
+  "state": "closed",
+  "title": "fix(profiles): simplify package profile listing for fully qualified names",
+  "created_at": "2026-10-20T10:28:32Z",
+  "closed_at": "2026-10-22T12:36:55Z",
+  "html_url": "https://github.com/nolabs-ai/nono/pull/2166",
+  "is_pr": true
+ },
+ {
+  "number": 2165,
+  "state": "closed",
+  "title": "fix(cli): resolve wrapper exec after env assignments",
+  "created_at": "2026-10-20T06:19:16Z",
+  "closed_at": "2026-10-21T14:09:50Z",
+  "html_url": "https://github.com/nolabs-ai/nono/pull/2165",
+  "is_pr": true
+ },
+ {
+  "number": 2164,
+  "state": "closed",
+  "title": "Wrapper scripts break with tool sandboxing",
+  "created_at": "2026-10-20T04:55:34Z",
+  "closed_at": "2026-10-21T14:09:52Z",
+  "html_url": "https://github.com/nolabs-ai/nono/issues/2164",
+  "is_pr": false
+ },
+ {
+  "number": 2163,
+  "state": "closed",
+  "title": "Profile: handle profile name collisions across pack namespaces",
+  "created_at": "2026-10-19T23:25:25Z",
+  "closed_at": "2026-10-22T12:36:56Z",
+  "html_url": "https://github.com/nolabs-ai/nono/issues/2163",
+  "is_pr": false
+ },
+ {
+  "number": 2162,
+  "state": "closed",
+  "title": "chore(deps): bump the routine-rust group with 5 updates",
+  "created_at": "2026-10-19T14:37:35Z",
+  "closed_at": "2026-10-19T16:12:55Z",
+  "html_url": "https://github.com/nolabs-ai/nono/pull/2162",
+  "is_pr": true
+ },
+ {
+  "number": 2161,
+  "state": "closed",
+  "title": "chore(deps): bump cachix/install-nix-action from 31.11.1 to 31.11.2 in the routine-actions group",
+  "created_at": "2026-10-19T14:36:31Z",
+  "closed_at": "2026-10-19T16:13:21Z",
+  "html_url": "https://github.com/nolabs-ai/nono/pull/2161",
+  "is_pr": true
+ },
+ {
+  "number": 2160,
+  "state": "closed",
+  "title": "chore(deps): bump the sigstore group across 1 directory with 2 updates",
+  "created_at": "2026-10-19T14:34:46Z",
+  "closed_at": "2026-10-19T16:45:15Z",
+  "html_url": "https://github.com/nolabs-ai/nono/pull/2160",
+  "is_pr": true
+ },
+ {
+  "number": 2159,
+  "state": "closed",
+  "title": "fix(cli): keep --log-file output under --silent",
+  "created_at": "2026-10-19T13:24:47Z",
+  "closed_at": "2026-10-19T13:40:30Z",
+  "html_url": "https://github.com/nolabs-ai/nono/pull/2159",
+  "is_pr": true
+ },
+ {
+  "number": 2158,
+  "state": "closed",
+  "title": "--silent disables --log-file output, so proxy denials cannot be logged without terminal output",
+  "created_at": "2026-10-19T12:16:34Z",
+  "closed_at": "2026-10-19T13:40:32Z",
+  "html_url": "https://github.com/nolabs-ai/nono/issues/2158",
+  "is_pr": false
+ },
+ {
+  "number": 2157,
+  "state": "open",
+  "title": ".git directory protection (especially .git/hooks)",
+  "created_at": "2026-10-19T11:53:30Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nolabs-ai/nono/issues/2157",
+  "is_pr": false
+ },
+ {
+  "number": 2156,
+  "state": "open",
+  "title": "nono-proxy: Leverage tracing-journald",
+  "created_at": "2026-10-19T11:02:25Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nolabs-ai/nono/issues/2156",
+  "is_pr": false
+ },
+ {
+  "number": 2155,
+  "state": "closed",
+  "title": "feat(policy): add `rtk_state` group",
+  "created_at": "2026-10-19T10:59:58Z",
+  "closed_at": "2026-10-19T17:12:10Z",
+  "html_url": "https://github.com/nolabs-ai/nono/pull/2155",
+  "is_pr": true
+ },
+ {
+  "number": 2154,
+  "state": "open",
+  "title": "False sandbox-denial notices appended to successful OpenCode tool results",
+  "created_at": "2026-10-19T08:46:22Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nolabs-ai/nono/issues/2154",
+  "is_pr": false
+ },
+ {
+  "number": 2153,
+  "state": "closed",
+  "title": "docs(cli): document network.listen_port_range in profiles-groups",
+  "created_at": "2026-10-19T00:51:19Z",
+  "closed_at": "2026-10-19T09:08:37Z",
+  "html_url": "https://github.com/nolabs-ai/nono/pull/2153",
+  "is_pr": true
+ },
+ {
+  "number": 2152,
+  "state": "closed",
+  "title": "listen_port_range undocumented",
+  "created_at": "2026-10-18T21:38:01Z",
+  "closed_at": "2026-10-19T09:08:38Z",
+  "html_url": "https://github.com/nolabs-ai/nono/issues/2152",
+  "is_pr": false
+ },
+ {
+  "number": 2151,
+  "state": "closed",
+  "title": "fix(policy): enable Nix runtime and cache/channel access",
+  "created_at": "2026-10-18T15:10:47Z",
+  "closed_at": "2026-10-19T09:21:10Z",
+  "html_url": "https://github.com/nolabs-ai/nono/pull/2151",
+  "is_pr": true
+ },
+ {
+  "number": 2150,
+  "state": "closed",
+  "title": "docs(neps): add NEP 0007 for remote supervisor decisions over vsock",
+  "created_at": "2026-10-18T09:02:06Z",
+  "closed_at": "2026-10-19T08:07:10Z",
+  "html_url": "https://github.com/nolabs-ai/nono/pull/2150",
+  "is_pr": true
+ },
+ {
+  "number": 2149,
+  "state": "closed",
+  "title": "fix(policy): grant system_read_linux_core access to /var/lib/ca-certificates",
+  "created_at": "2026-10-18T07:10:54Z",
+  "closed_at": "2026-10-19T09:35:53Z",
+  "html_url": "https://github.com/nolabs-ai/nono/pull/2149",
+  "is_pr": true
+ },
+ {
+  "number": 2148,
+  "state": "open",
+  "title": "docs(credentials): document -T flag for macOS keychain access",
+  "created_at": "2026-10-18T07:10:15Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nolabs-ai/nono/pull/2148",
+  "is_pr": true
+ },
+ {
+  "number": 2147,
+  "state": "open",
+  "title": "Credential routes: support multiple credentials on one upstream with identical paths",
+  "created_at": "2026-10-18T00:35:22Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nolabs-ai/nono/issues/2147",
+  "is_pr": false
+ },
+ {
+  "number": 2146,
+  "state": "closed",
+  "title": "TLS fails on openSUSE",
+  "created_at": "2026-10-17T18:29:59Z",
+  "closed_at": "2026-10-19T09:35:54Z",
+  "html_url": "https://github.com/nolabs-ai/nono/issues/2146",
+  "is_pr": false
+ },
+ {
+  "number": 2145,
+  "state": "closed",
+  "title": "feat(linux): opt-in namespace isolation (NEP-0004)",
+  "created_at": "2026-10-17T16:55:30Z",
+  "closed_at": "2026-10-19T08:52:00Z",
+  "html_url": "https://github.com/nolabs-ai/nono/pull/2145",
+  "is_pr": true
+ },
+ {
+  "number": 2144,
+  "state": "closed",
+  "title": "chore(release): automate NEP roadmap generation script and workflow",
+  "created_at": "2026-10-17T12:40:46Z",
+  "closed_at": "2026-10-19T10:00:18Z",
+  "html_url": "https://github.com/nolabs-ai/nono/pull/2144",
+  "is_pr": true
+ },
+ {
+  "number": 2143,
+  "state": "open",
+  "title": "Slow startup with many large binaries in path",
+  "created_at": "2026-10-17T07:52:54Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nolabs-ai/nono/issues/2143",
+  "is_pr": false
+ },
+ {
+  "number": 2142,
+  "state": "open",
+  "title": "fix(policy): keep exact-file directory bypasses literal",
+  "created_at": "2026-10-16T20:39:27Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nolabs-ai/nono/pull/2142",
+  "is_pr": true
+ },
+ {
+  "number": 2141,
+  "state": "open",
+  "title": "macOS bypass_protection on an allow_file directory grants the subtree",
+  "created_at": "2026-10-16T20:32:49Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nolabs-ai/nono/issues/2141",
+  "is_pr": false
+ },
+ {
+  "number": 2140,
+  "state": "closed",
+  "title": "docs(neps): add nep for supervisor audit credentials outside microvm",
+  "created_at": "2026-10-16T17:02:48Z",
+  "closed_at": "2026-10-19T10:36:48Z",
+  "html_url": "https://github.com/nolabs-ai/nono/pull/2140",
+  "is_pr": true
+ },
+ {
+  "number": 2139,
+  "state": "closed",
+  "title": "docs(readme): rewrite introduction and feature breakdown",
+  "created_at": "2026-10-16T14:17:23Z",
+  "closed_at": "2026-10-16T14:20:46Z",
+  "html_url": "https://github.com/nolabs-ai/nono/pull/2139",
+  "is_pr": true
+ },
+ {
+  "number": 2138,
+  "state": "closed",
+  "title": "docs(readme): remove references to archived TypeScript and Go bindings",
+  "created_at": "2026-10-16T13:05:30Z",
+  "closed_at": "2026-10-16T13:20:41Z",
+  "html_url": "https://github.com/nolabs-ai/nono/pull/2138",
+  "is_pr": true
+ },
+ {
+  "number": 2137,
+  "state": "closed",
+  "title": "Update maintainers list",
+  "created_at": "2026-10-16T12:00:44Z",
+  "closed_at": "2026-10-16T12:04:44Z",
+  "html_url": "https://github.com/nolabs-ai/nono/pull/2137",
+  "is_pr": true
+ },
+ {
+  "number": 2136,
+  "state": "closed",
+  "title": "fix(proxy): resolve the Authorization phantom on token endpoint requests",
+  "created_at": "2026-10-16T11:02:32Z",
+  "closed_at": "2026-10-19T10:37:48Z",
+  "html_url": "https://github.com/nolabs-ai/nono/pull/2136",
+  "is_pr": true
+ },
+ {
+  "number": 2135,
+  "state": "open",
+  "title": "feat: publish nono release artifacts as OCI artifacts via GHCR",
+  "created_at": "2026-10-16T10:59:36Z",
+  "closed_at": null,
+  "html_url": "https://github.com/nolabs-ai/nono/issues/2135",
+  "is_pr": false
+ }
+]

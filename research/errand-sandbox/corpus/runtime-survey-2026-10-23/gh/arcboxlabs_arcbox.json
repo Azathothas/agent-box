@@ -1,0 +1,24 @@
+{
+ "full_name": "arcboxlabs/arcbox",
+ "description": "Run AI agents on real and isolated machines \u2014 own kernel, filesystem, and network \u2014 with <100ms boot. Local first, OCI compatible, pure Rust.",
+ "stargazers_count": 4246,
+ "forks_count": 185,
+ "open_issues_count": 32,
+ "pushed_at": "2026-10-22T18:30:44Z",
+ "archived": false,
+ "license": "Apache-2.0",
+ "html_url": "https://github.com/arcboxlabs/arcbox",
+ "default_branch": "master",
+ "topics": [
+  "ai-agents",
+  "computer-use",
+  "containers",
+  "docker",
+  "firecracker",
+  "microvm",
+  "rust",
+  "sandbox",
+  "virtual-machine",
+  "virtualization"
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "full_name": "canonical/lxd",
+ "description": "Powerful system container and virtual machine manager",
+ "stargazers_count": 4839,
+ "forks_count": 1063,
+ "open_issues_count": 431,
+ "pushed_at": "2026-10-22T20:33:24Z",
+ "archived": false,
+ "license": "AGPL-3.0",
+ "html_url": "https://github.com/canonical/lxd",
+ "default_branch": "main",
+ "topics": [
+  "containers",
+  "criu",
+  "go",
+  "hacktoberfest",
+  "lxc",
+  "lxd"
+ ]
+}

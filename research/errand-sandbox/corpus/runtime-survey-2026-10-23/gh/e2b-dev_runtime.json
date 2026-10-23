@@ -1,0 +1,32 @@
+{
+ "full_name": "e2b-dev/runtime",
+ "description": "The runtime behind every E2B stack: Cloud, Enterprise, and your own machine.",
+ "stargazers_count": 1756,
+ "forks_count": 489,
+ "open_issues_count": 119,
+ "pushed_at": "2026-10-22T20:06:16Z",
+ "archived": false,
+ "license": "Apache-2.0",
+ "html_url": "https://github.com/e2b-dev/runtime",
+ "default_branch": "main",
+ "topics": [
+  "ai-agents",
+  "code-interpreter",
+  "consul",
+  "devtools",
+  "firecracker",
+  "gcp",
+  "go",
+  "golang",
+  "gpt",
+  "infra",
+  "kvm",
+  "llm",
+  "microvm",
+  "nomad",
+  "sandbox",
+  "terraform",
+  "vm",
+  "vmm"
+ ]
+}

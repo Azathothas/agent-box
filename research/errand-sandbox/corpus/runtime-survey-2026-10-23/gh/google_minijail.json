@@ -1,0 +1,18 @@
+{
+ "full_name": "google/minijail",
+ "description": "sandboxing and containment tool used in ChromeOS and Android",
+ "stargazers_count": 393,
+ "forks_count": 44,
+ "open_issues_count": 0,
+ "pushed_at": "2026-10-21T06:34:50Z",
+ "archived": false,
+ "license": "BSD-3-Clause",
+ "html_url": "https://github.com/google/minijail",
+ "default_branch": "main",
+ "topics": [
+  "linux",
+  "minijail",
+  "sandboxing",
+  "security-tools"
+ ]
+}

@@ -1,0 +1,24 @@
+{
+ "full_name": "microsoft/nvx",
+ "description": "Cross-Platform Micro-VM Sandbox for Agentic Workloads",
+ "stargazers_count": 734,
+ "forks_count": 47,
+ "open_issues_count": 101,
+ "pushed_at": "2026-10-23T01:58:37Z",
+ "archived": false,
+ "license": "MIT",
+ "html_url": "https://github.com/microsoft/nvx",
+ "default_branch": "dev",
+ "topics": [
+  "agentic-coding",
+  "agentic-engineering",
+  "agentic-workflows",
+  "hyperv",
+  "hypervisor",
+  "kvm",
+  "linux",
+  "microvm",
+  "sandbox",
+  "vm"
+ ]
+}

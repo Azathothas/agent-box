@@ -1,0 +1,45 @@
+{
+ "total_count": 5,
+ "items": [
+  {
+   "full_name": "devsy-org/devsy",
+   "description": "Deploy secure local and cloud environments for developers and agents",
+   "stargazers_count": 124,
+   "pushed_at": "2026-10-23T01:17:58Z",
+   "archived": false,
+   "html_url": "https://github.com/devsy-org/devsy"
+  },
+  {
+   "full_name": "google/gvisor",
+   "description": "Application Kernel for Containers",
+   "stargazers_count": 19750,
+   "pushed_at": "2026-10-23T01:57:32Z",
+   "archived": false,
+   "html_url": "https://github.com/google/gvisor"
+  },
+  {
+   "full_name": "getkern/kern",
+   "description": "Rootless container runtime with no daemon. Runs agent tool calls and LLM-generated code in kernel-enforced containers.",
+   "stargazers_count": 448,
+   "pushed_at": "2026-10-18T13:30:21Z",
+   "archived": false,
+   "html_url": "https://github.com/getkern/kern"
+  },
+  {
+   "full_name": "Kron4ek/Conty",
+   "description": "Easy to use unprivileged Linux container packed into a single portable executable",
+   "stargazers_count": 1122,
+   "pushed_at": "2026-09-27T19:47:42Z",
+   "archived": false,
+   "html_url": "https://github.com/Kron4ek/Conty"
+  },
+  {
+   "full_name": "1player/host-spawn",
+   "description": "Run commands on your host from inside your toolbox or flatpak sandbox",
+   "stargazers_count": 174,
+   "pushed_at": "2026-07-21T17:16:49Z",
+   "archived": false,
+   "html_url": "https://github.com/1player/host-spawn"
+  }
+ ]
+}

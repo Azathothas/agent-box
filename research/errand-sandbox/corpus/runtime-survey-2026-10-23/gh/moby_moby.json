@@ -1,0 +1,18 @@
+{
+ "full_name": "moby/moby",
+ "description": "The Moby Project - a collaborative project for the container ecosystem to assemble container-based systems",
+ "stargazers_count": 72199,
+ "forks_count": 19193,
+ "open_issues_count": 3939,
+ "pushed_at": "2026-10-22T09:41:14Z",
+ "archived": false,
+ "license": "Apache-2.0",
+ "html_url": "https://github.com/moby/moby",
+ "default_branch": "master",
+ "topics": [
+  "containers",
+  "docker",
+  "go",
+  "golang"
+ ]
+}

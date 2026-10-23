@@ -1,0 +1,31 @@
+{
+ "full_name": "superradcompany/microsandbox",
+ "description": "\ud83e\uddf1 easy, fast, programmable and local-first microVM runtime and library",
+ "stargazers_count": 8770,
+ "forks_count": 485,
+ "open_issues_count": 120,
+ "pushed_at": "2026-10-23T02:00:41Z",
+ "archived": false,
+ "license": "Apache-2.0",
+ "html_url": "https://github.com/superradcompany/microsandbox",
+ "default_branch": "main",
+ "topics": [
+  "agents",
+  "docker",
+  "golang",
+  "linux",
+  "local",
+  "macos",
+  "microvm",
+  "nodejs",
+  "python",
+  "rust",
+  "sandbox",
+  "security",
+  "self-hosted",
+  "typescript",
+  "virtualization",
+  "vm",
+  "windows"
+ ]
+}

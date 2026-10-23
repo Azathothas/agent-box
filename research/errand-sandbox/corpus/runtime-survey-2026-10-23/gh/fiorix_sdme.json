@@ -1,0 +1,22 @@
+{
+ "full_name": "fiorix/sdme",
+ "description": "The systemd machine editor",
+ "stargazers_count": 46,
+ "forks_count": 8,
+ "open_issues_count": 0,
+ "pushed_at": "2026-10-05T11:10:24Z",
+ "archived": false,
+ "license": "MIT",
+ "html_url": "https://github.com/fiorix/sdme",
+ "default_branch": "main",
+ "topics": [
+  "containers",
+  "kubernetes",
+  "linux",
+  "nspawn",
+  "oci",
+  "oci-image",
+  "overlayfs",
+  "systemd"
+ ]
+}

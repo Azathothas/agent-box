@@ -1,0 +1,125 @@
+{
+ "total_count": 44,
+ "items": [
+  {
+   "full_name": "smol-machines/smolvm",
+   "description": "An embeddable, portable, branchable virtual machine to safely run Agents locally.",
+   "stargazers_count": 6802,
+   "pushed_at": "2026-10-23T01:50:58Z",
+   "archived": false,
+   "html_url": "https://github.com/smol-machines/smolvm"
+  },
+  {
+   "full_name": "agentic-os-org/ANOLISA",
+   "description": "ANOLISA (Agentic Nexus Operating Layer & Interface System Architecture) | Agentic OS with runtime, security, observability, and Tokenless response compression for lower token usage and cost.",
+   "stargazers_count": 634,
+   "pushed_at": "2026-10-23T01:41:38Z",
+   "archived": false,
+   "html_url": "https://github.com/agentic-os-org/ANOLISA"
+  },
+  {
+   "full_name": "scaleapi/agentenv-framework",
+   "description": "Creating realistic RL environments requires collaboration between researchers, engineers, and domain experts across many dimensions: artifacts, environments tools, dynamism of the environment, reproducibility, and more. There is no open source framework for building these environments effectively. Until now.",
+   "stargazers_count": 357,
+   "pushed_at": "2026-10-23T01:59:06Z",
+   "archived": false,
+   "html_url": "https://github.com/scaleapi/agentenv-framework"
+  },
+  {
+   "full_name": "omnigent-ai/omnigent",
+   "description": "Omnigent is an open-source AI agent framework and meta-harness: orchestrate Claude Code, Codex, Cursor, Pi, and custom agents \u2014 swap harnesses without rewriting, enforce policies and sandboxing, and collaborate in real time from any device.",
+   "stargazers_count": 10995,
+   "pushed_at": "2026-10-23T01:58:48Z",
+   "archived": false,
+   "html_url": "https://github.com/omnigent-ai/omnigent"
+  },
+  {
+   "full_name": "FootprintAI/Containarium",
+   "description": "Open-source agent runtime \u2014 SSH-native isolation, eBPF egress policy, Kubernetes + LXC backends, GPU passthrough, MCP-native CLI",
+   "stargazers_count": 310,
+   "pushed_at": "2026-10-23T01:59:06Z",
+   "archived": false,
+   "html_url": "https://github.com/FootprintAI/Containarium"
+  },
+  {
+   "full_name": "strands-agents/box",
+   "description": "Run AI agents in a sandbox that restricts what they can execute, read, write, and reach on the network. Box combines OS isolation with default-deny Dogwood policies and credential injection that keeps secrets outside the agent. Written in Rust. Supports macOS on Apple silicon, with Linux support planned.",
+   "stargazers_count": 460,
+   "pushed_at": "2026-10-22T23:06:50Z",
+   "archived": false,
+   "html_url": "https://github.com/strands-agents/box"
+  },
+  {
+   "full_name": "useagenthq/useagent",
+   "description": "The open-source Devin alternative. Run Claude Code, Codex or OpenCode in isolated cloud workspaces you can self-host.",
+   "stargazers_count": 379,
+   "pushed_at": "2026-10-22T23:56:06Z",
+   "archived": false,
+   "html_url": "https://github.com/useagenthq/useagent"
+  },
+  {
+   "full_name": "abacusai/abacusai-bot",
+   "description": "100% free, open-source personal agents for your messaging apps, tools, and services",
+   "stargazers_count": 302,
+   "pushed_at": "2026-10-22T21:25:47Z",
+   "archived": false,
+   "html_url": "https://github.com/abacusai/abacusai-bot"
+  },
+  {
+   "full_name": "Ephemeral-AI-Lab/layerfs",
+   "description": "Ephemeral Workspaces, durable shared history. LayerFS gives every agent a complete, writable filesystem Workspace over shared committed history, without copying the base. Agents work in parallel, commit what changed as deduplicated checkpoints, then branch, rewind or merge. Try it with LayerFS \u00d7 DSH.",
+   "stargazers_count": 1929,
+   "pushed_at": "2026-10-22T20:33:20Z",
+   "archived": false,
+   "html_url": "https://github.com/Ephemeral-AI-Lab/layerfs"
+  },
+  {
+   "full_name": "e2b-dev/runtime",
+   "description": "The runtime behind every E2B stack: Cloud, Enterprise, and your own machine.",
+   "stargazers_count": 1756,
+   "pushed_at": "2026-10-22T20:06:16Z",
+   "archived": false,
+   "html_url": "https://github.com/e2b-dev/runtime"
+  },
+  {
+   "full_name": "runtm-ai/runtm",
+   "description": "Open-source sandboxes where coding agents build and deploy. Spin up isolated environments where Claude Code, Cursor, and other agents code and deploy software.",
+   "stargazers_count": 302,
+   "pushed_at": "2026-10-22T18:44:05Z",
+   "archived": false,
+   "html_url": "https://github.com/runtm-ai/runtm"
+  },
+  {
+   "full_name": "arcboxlabs/arcbox",
+   "description": "Run AI agents on real and isolated machines \u2014 own kernel, filesystem, and network \u2014 with <100ms boot. Local first, OCI compatible, pure Rust.",
+   "stargazers_count": 4246,
+   "pushed_at": "2026-10-22T18:30:44Z",
+   "archived": false,
+   "html_url": "https://github.com/arcboxlabs/arcbox"
+  },
+  {
+   "full_name": "cuga-project/cuga-agent",
+   "description": "CUGA is an open-source generalist agent harness for the enterprise, supporting complex task execution on web and APIs, OpenAPI/MCP integrations, composable architecture, reasoning modes, and policy-aware features.",
+   "stargazers_count": 1048,
+   "pushed_at": "2026-10-22T17:55:59Z",
+   "archived": false,
+   "html_url": "https://github.com/cuga-project/cuga-agent"
+  },
+  {
+   "full_name": "deeplethe/forkd",
+   "description": "Fork() for AI agent microVMs. Spawn 100 children in ~100ms from a warm parent; BRANCH a live VM in ~150ms. KVM-isolated, snapshot CoW.",
+   "stargazers_count": 2901,
+   "pushed_at": "2026-10-22T15:24:51Z",
+   "archived": false,
+   "html_url": "https://github.com/deeplethe/forkd"
+  },
+  {
+   "full_name": "datawhalechina/deepagents-in-action",
+   "description": "\ud83d\udcda \u300aDeep Agents \u5b9e\u6218\u300b\u2014\u2014 LangChain \u5b98\u65b9\u5927\u4f7f\u51fa\u54c1\uff0c\u57fa\u4e8e LangChain / LangGraph \u751f\u6001\uff0c\u4ece\u96f6\u6784\u5efa\u751f\u4ea7\u7ea7 AI Agent \u7684\u5b8c\u6574\u6307\u5357",
+   "stargazers_count": 2778,
+   "pushed_at": "2026-10-22T13:41:12Z",
+   "archived": false,
+   "html_url": "https://github.com/datawhalechina/deepagents-in-action"
+  }
+ ]
+}

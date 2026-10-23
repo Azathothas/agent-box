@@ -1,0 +1,53 @@
+{
+ "total_count": 6,
+ "items": [
+  {
+   "full_name": "getkern/kern",
+   "description": "Rootless container runtime with no daemon. Runs agent tool calls and LLM-generated code in kernel-enforced containers.",
+   "stargazers_count": 448,
+   "pushed_at": "2026-10-18T13:30:21Z",
+   "archived": false,
+   "html_url": "https://github.com/getkern/kern"
+  },
+  {
+   "full_name": "iximiuz/awesome-container-tinkering",
+   "description": "Awesome tools to tinker with containers.",
+   "stargazers_count": 729,
+   "pushed_at": "2024-10-09T15:29:27Z",
+   "archived": false,
+   "html_url": "https://github.com/iximiuz/awesome-container-tinkering"
+  },
+  {
+   "full_name": "run-ai/genv",
+   "description": "GPU environment and cluster management with LLM support",
+   "stargazers_count": 658,
+   "pushed_at": "2024-05-16T11:12:54Z",
+   "archived": true,
+   "html_url": "https://github.com/run-ai/genv"
+  },
+  {
+   "full_name": "penumbra23/pura",
+   "description": "Easy to use, extendable, OCI-compliant container runtime written in pure Rust",
+   "stargazers_count": 128,
+   "pushed_at": "2023-11-27T09:21:49Z",
+   "archived": false,
+   "html_url": "https://github.com/penumbra23/pura"
+  },
+  {
+   "full_name": "flouthoc/vas-quod",
+   "description": ":aerial_tramway: Minimal linux container runtime",
+   "stargazers_count": 449,
+   "pushed_at": "2021-09-05T11:10:20Z",
+   "archived": false,
+   "html_url": "https://github.com/flouthoc/vas-quod"
+  },
+  {
+   "full_name": "w-vi/diyC",
+   "description": "A simple educational linux container runtime.",
+   "stargazers_count": 118,
+   "pushed_at": "2021-02-08T12:13:55Z",
+   "archived": false,
+   "html_url": "https://github.com/w-vi/diyC"
+  }
+ ]
+}

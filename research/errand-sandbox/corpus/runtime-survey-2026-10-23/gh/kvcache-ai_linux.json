@@ -1,0 +1,13 @@
+{
+ "full_name": "kvcache-ai/linux",
+ "description": "Linux kernel source tree for PVM",
+ "stargazers_count": 2,
+ "forks_count": 0,
+ "open_issues_count": 0,
+ "pushed_at": "2026-07-30T11:22:04Z",
+ "archived": false,
+ "license": "NOASSERTION",
+ "html_url": "https://github.com/kvcache-ai/linux",
+ "default_branch": "pvm-612",
+ "topics": []
+}

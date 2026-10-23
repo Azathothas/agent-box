@@ -1,0 +1,25 @@
+{
+ "full_name": "gominimal/minimal",
+ "description": "Run your agent in a Minimal box. Ship and run software with isolation on your own computer.",
+ "stargazers_count": 222,
+ "forks_count": 13,
+ "open_issues_count": 205,
+ "pushed_at": "2026-10-23T01:49:39Z",
+ "archived": false,
+ "license": "Apache-2.0",
+ "html_url": "https://github.com/gominimal/minimal",
+ "default_branch": "main",
+ "topics": [
+  "agent-isolation",
+  "agent-sandbox",
+  "ai-agents",
+  "ai-security",
+  "claude-code",
+  "cli",
+  "codex",
+  "coding-agent",
+  "hermetic-builds",
+  "opencode",
+  "package-manager"
+ ]
+}

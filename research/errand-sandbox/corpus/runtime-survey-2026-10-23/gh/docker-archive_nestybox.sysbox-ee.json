@@ -1,0 +1,21 @@
+{
+ "full_name": "docker-archive/nestybox.sysbox-ee",
+ "description": "Sysbox Enterprise-Edition repository. The enterprise version of the open-source Sysbox \"runc\" runtime (empowers rootless containers to run workloads such as Systemd, Docker, Kubernetes, just like VMs).",
+ "stargazers_count": 51,
+ "forks_count": 7,
+ "open_issues_count": 3,
+ "pushed_at": "2023-08-30T05:34:09Z",
+ "archived": true,
+ "license": null,
+ "html_url": "https://github.com/docker-archive/nestybox.sysbox-ee",
+ "default_branch": "master",
+ "topics": [
+  "container-runtime-security",
+  "container-runtimes",
+  "containers",
+  "devops",
+  "docker",
+  "kubernetes",
+  "rootless-containers"
+ ]
+}

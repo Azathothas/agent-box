@@ -1,0 +1,17 @@
+{
+ "full_name": "edera-dev/krata",
+ "description": "krata is a Xen control plane in Rust.",
+ "stargazers_count": 327,
+ "forks_count": 21,
+ "open_issues_count": 11,
+ "pushed_at": "2026-10-20T14:22:10Z",
+ "archived": false,
+ "license": "GPL-2.0",
+ "html_url": "https://github.com/edera-dev/krata",
+ "default_branch": "main",
+ "topics": [
+  "hypervisor",
+  "rust",
+  "xen"
+ ]
+}
