@@ -472,3 +472,84 @@ Follow-ups, 2026-10-23 (results/92-fuse-podman-followups.txt):
 
 So for "docker or podman, plus FUSE network storage", gVisor is out, and
 Incus does it with the least configuration.
+
+## 9. Incus: the remaining questions, measured 2026-10-23
+
+### 9.1 The host restarted mid-session
+
+uptime showed 5 minutes at 03:28.
+- Survived, on disk: packages, binaries, Incus images and instances, and
+  /etc/docker/daemon.json.
+- Lost, in memory: the /dev/fuse and /dev/net/tun modes (back to 0600),
+  every sysctl set in section 1.1, and every daemon.
+
+`experiments/75-host-up.sh` puts it all back in one idempotent command:
+- First run, about 1 minute: every step reported "started" or "set", and a
+  Sysbox container and an Incus container both ran.
+- Second run: every step reported "already up".
+
+### 9.2 Start-up, by what is started
+
+| what | dir pool | btrfs pool (loop file, 30 GiB) |
+| --- | --- | --- |
+| launch from image, first | 15642 ms | 12417 ms |
+| launch from image, later | 15000 to 24000 ms (section 5.2) | 1808 ms (snapshot of the image volume) |
+| start an existing, stopped instance, then exec `true` | 255 to 327 ms (5 runs) | - |
+| systemd settled after that start | +699 ms | - |
+| launch with `security.idmap.isolated=true` | - | about 2 s, including its own remap |
+
+- Use persistent instances (one per agent or per project), on btrfs.
+- Starting an existing instance is faster than a fresh Sysbox container
+  (0.69 s).
+
+### 9.3 Limits
+
+- **Disk:**
+  - The dir pool accepts `root.size=1GiB` and does not enforce it. 1.5 GB
+    was written, dd exited 0, and incusd logged only "The backing filesystem
+    doesn't support quotas, skipping set quota".
+  - btrfs enforces it: "Disk quota exceeded", dd exit 1.
+  - Inside a btrfs guest, `df /` shows the 30 GB pool, not the quota.
+- **Memory**, `limits.memory=256MiB` on cgroup v1: the cgroup limit read
+  268435456, and a python allocation loop was killed (exit 137).
+- **CPU**, `limits.cpu=1`: nproc read 1. Four CPU-bound processes took
+  1501 ms, against 436 ms unlimited.
+- **The guest's view of its limits:** without lxcfs, /proc/meminfo shows the
+  host's 16 GB. With lxcfs 5.0.4 running (`lxcfs /var/lib/lxcfs`), it shows
+  256 MiB, `free` shows 256 total, and the CPU count is 1.
+- lxcfs is a root FUSE daemon that serves the guests' /proc, so it widens
+  the trusted surface, the same objection made to sysbox-fs in section 6.
+  It is in 75-host-up.sh.
+
+### 9.4 Separate uid ranges per guest
+
+- With `security.idmap.isolated=true`: guest i1 is uid_map
+  `0 1065536 65536`, and guest i2 is `0 1131072 65536`. Their processes run
+  on the host as 1065536 and 1131072.
+- Instances without the setting share `0 1000000 1000000000`.
+- So one guest's root is not another guest's root on the host.
+- Cost: about 2 s more per launch, on btrfs, for its own remap.
+
+### 9.5 incusd dying takes the guests with it, on this host
+
+- `kill -9` of incusd: the guest's init (host pid 7542) died at once.
+- After `75-host-up.sh` restarted incusd, the guest was running again, but as
+  a new process (host pid 9230, a different start tick). Everything running
+  inside was lost.
+- Not established why. Under systemd, Incus is normally restarted without
+  stopping guests. Candidates, none tested:
+  - (a) the per-guest monitor processes are set to die with their parent;
+  - (b) systemd's separate service scope is what keeps them alive normally;
+  - (c) incusd was started from a tool shell with nohup.
+- What it means: on a host with no init, a supervisor that restarts incusd at
+  once is required, and even then a crash costs every running agent its
+  in-memory state.
+
+### 9.6 A client hang, and a habit
+
+- One `incus launch -q ... -c security.idmap.isolated=true`, run with other
+  jobs in the background, waited 482 s while the server listed no operation.
+- The same instance, made with `incus init` and `incus start` with stdin
+  closed (`</dev/null`), took 2 s.
+- Cause not proven (INFERRED: the client waited on stdin).
+- errand-box should call the client with stdin closed, and with a timeout.
