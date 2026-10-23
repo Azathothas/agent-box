@@ -1,19 +1,39 @@
 # errand sandbox research
 
-**Start with `engines-shortlist.md` section 7.** On this no-KVM, cgroup v1
-host: Sysbox, patched, runs Docker inside an agent's session at runc's
-speed; Incus 6.0 does too, with systemd, but starts in 17-24 s here; gVisor
-is the strongest boundary, at 6-8x on spawning and compiling. The microVM
-waits on the platform booting with `nested_pvm=1`.
+Read `next-session.md` first if you are continuing this work on another
+machine. It stands alone. For the result itself, read
+`engines-shortlist.md` section 13.
+
+The result, on this no-KVM, cgroup v1 host (Linux 6.18, 4 vCPUs, 16 GB):
+**Incus 6.0 LTS.**
+- It is the only engine tested with all of: Docker and podman inside, FUSE
+  and network storage over it, systemd as PID 1, runc speed (0.9-1.1x),
+  enforced memory, CPU and disk limits, and no patches.
+- With persistent or golden-copied instances on btrfs, a session starts in
+  about 0.3-0.4 s.
+- Sysbox matches it on speed, but needs 3 patches on this platform.
+- gVisor is the strongest boundary without KVM, but costs 1.8-8.2x, and it
+  mounted no FUSE here.
+- The microVM waits on the platform booting with `nested_pvm=1`.
 
 What is here:
-- `engines-shortlist.md`: the no-KVM engines tried here, as a log.
-- `runtime-survey.md`: a delegated web survey, not checked.
-- `experiments/70-90`: the scripts behind section 7.
-- `patches/`: the Sysbox patches.
 
-The sections below are the earlier phase: the gVisor bailey shim, and the
-errand findings.
+| path | contents |
+| --- | --- |
+| `next-session.md` | the stand-alone notes and the corrected prompt for the errand-box work |
+| `engines-shortlist.md` | the no-KVM engines, as a log; section 13 is the answer, and section 10 corrects section 9 |
+| `incus-gaps-survey.md`, `runtime-survey.md` | delegated web surveys, marked with what was tested here |
+| `experiments/70-engines-setup.sh` | Docker and rootless podman, each with runc and gVisor |
+| `experiments/75-host-up.sh` | the idempotent bring-up after a host restart |
+| `experiments/80-engine-cost.sh` | SUPERSEDED by 81; kept because results/80-* came from it |
+| `experiments/81-engine-cost-interleaved.sh` | the engine cost table |
+| `experiments/lib/` | workloads, the host-surface probe, the FUSE and podman probe, the apt-over-proxy helper |
+| `results/80-*` to `results/92-*` | raw output of those runs |
+| `patches/` | the Sysbox patches (not chosen) |
+| `corpus/` | the first survey's scripts and cited metadata |
+
+Everything below is the earlier phase: the gVisor bailey shim, experiments
+10 to 60, and the errand findings. Those findings still hold.
 
 # The bailey shim phase (paused)
 
@@ -59,7 +79,9 @@ Paused by the operator. This tree is evidence, not a product.
 4. gVisor cost (svc user, systrap, median of 7, measured once): 300 spawns took
    0.42 s bare and 3.3 s under gVisor; a git commit of 1000 files took about
    1.0 s bare and 3.7 s under gVisor. That makes gVisor a poor fit for build
-   work. The figures are for this host only.
+   work. The figures are for this host only. Experiment 81
+   (engines-shortlist.md section 5.2) measures it again, interleaved against
+   runc, Sysbox and Incus.
 
 ## Findings that hold whatever the engine
 
@@ -78,9 +100,11 @@ Paused by the operator. This tree is evidence, not a product.
 
 ```sh
 git clone https://github.com/QaidVoid/errand && git -C errand checkout 4a8011cd3668
+git clone https://github.com/nestybox/sysbox && git -C sysbox checkout v0.7.1  # 82881aaaf2ce
 git clone https://github.com/QaidVoid/bailey && git -C bailey checkout 98d9b455adc6
 git clone https://github.com/QaidVoid/kage && git -C kage checkout cce8b9a6dca4
 ```
 
-The trackers of all three were not read, because the forge proxy was rate
-limited. That is a gap.
+The errand, bailey and kage trackers were not read in this phase, because
+the forge proxy was rate-limited then. That is a gap. The later surveys read
+the Incus, Sysbox, coi and podman trackers (incus-gaps-survey.md).

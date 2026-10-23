@@ -49,12 +49,23 @@ if [ -x /usr/libexec/incus/incusd ]; then
 fi
 
 # The platform's proxy listens on loopback only; relay it onto each bridge.
-proxy_port=33337
+# Guests always dial the same relay port, so nothing inside them changes. The
+# upstream is read from HTTPS_PROXY on every run: on 2026-10-23 the platform's
+# proxy moved from port 33337 to 42151 across a restart, and a relay with the
+# old upstream answered nothing while it still looked "up".
+relay_port=${RELAY_PORT:-33337}
+upstream=${PROXY_UPSTREAM:-$(printf '%s' "${HTTPS_PROXY:-}" | sed -n 's#^[a-z]*://\([^/@]*@\)\{0,1\}\([^/]*\).*#\2#p')}
 relay() { # bridge-address
   [ -n "$1" ] || return
-  if pgrep -f "^socat TCP-LISTEN:$proxy_port,bind=$1," >/dev/null; then say "relay $1" "already up"
-  else nohup socat TCP-LISTEN:$proxy_port,bind="$1",fork,reuseaddr TCP:127.0.0.1:$proxy_port > /tmp/relay-"$1".log 2>&1 &
-       sleep 1; pgrep -f "^socat TCP-LISTEN:$proxy_port,bind=$1," >/dev/null && say "relay $1" "started" || { say "relay $1" "FAILED"; fail=1; }; fi
+  [ -n "$upstream" ] || { say "relay $1" "skipped: no HTTPS_PROXY or PROXY_UPSTREAM"; return; }
+  want="socat TCP-LISTEN:$relay_port,bind=$1,fork,reuseaddr TCP:$upstream"
+  for pid in $(pgrep -f "^socat TCP-LISTEN:$relay_port,bind=$1,"); do
+    [ "$(tr '\0' ' ' < /proc/"$pid"/cmdline | sed 's/ $//')" = "$want" ] && { say "relay $1" "already up, to $upstream"; return; }
+    kill "$pid"   # a relay to a stale upstream, by pid
+  done
+  sleep 1
+  nohup $want > /tmp/relay-"$1".log 2>&1 &
+  sleep 1; pgrep -f "^$want\$" >/dev/null && say "relay $1" "started, to $upstream" || { say "relay $1" "FAILED"; fail=1; }
 }
 relay "$(docker network inspect bridge -f '{{(index .IPAM.Config 0).Gateway}}' 2>/dev/null)"
 command -v incus >/dev/null && relay "$(incus network get incusbr0 ipv4.address 2>/dev/null | cut -d/ -f1)"

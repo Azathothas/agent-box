@@ -2,6 +2,7 @@
 # Inside one sandbox: can a session mount FUSE filesystems, including one
 # backed by network storage, and run podman? Prints PASS or FAIL per step.
 #   PROXY_HOST  where the relayed proxy listens, as seen from this sandbox
+#   PROXY_PORT  its port (default: the research host's, 33337)
 #   IMAGE_TAR   a `docker save` of debian:trixie-slim, for podman to load
 # Needs fuse3, rclone and podman in the image (bench-fuse:trixie).
 host=${PROXY_HOST:-172.17.0.1}
@@ -20,7 +21,7 @@ else no "fuse mount (rclone, local dir)" "$(head -c 200 /tmp/r1.err)"; fi
 # 2. Network storage over FUSE: the Debian mirror over HTTPS, read through
 #    the mount. The proxy's CA is at /run/proxy-ca.crt.
 mkdir -p /mnt/net
-if HTTPS_PROXY="http://$host:33337" rclone mount :http: /mnt/net --http-url https://deb.debian.org/debian/ \
+if HTTPS_PROXY="http://$host:${PROXY_PORT:-33337}" rclone mount :http: /mnt/net --http-url https://deb.debian.org/debian/ \
      --ca-cert /run/proxy-ca.crt --read-only --daemon --daemon-timeout 30s 2>/tmp/r2.err &&
    head -c 200 /mnt/net/dists/trixie/Release 2>/tmp/r2.read | grep -q '^Origin: Debian'; then
   ok "network storage over fuse (rclone :http:, $(du -b /mnt/net/dists/trixie/Release 2>/dev/null | cut -f1) bytes of Release read)"

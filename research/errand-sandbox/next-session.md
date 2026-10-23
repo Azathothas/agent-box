@@ -18,7 +18,7 @@ Every path below is relative to that directory:
 
 | path | what it is |
 | --- | --- |
-| `engines-shortlist.md` | the engines tried, in order, as a log. Sections 5 to 10 hold the numbers. Section 10 corrects section 9. |
+| `engines-shortlist.md` | the engines tried, in order, as a log. Section 13 is the answer. Sections 5 to 12 hold the numbers, section 10 corrects section 9, and section 13 replaces section 7. |
 | `incus-gaps-survey.md` | a delegated web survey of the Incus gaps and the errand-box groundwork; marks what was tested |
 | `runtime-survey.md` | a delegated survey of container runtimes |
 | `README.md` | the earlier phase: the errand findings, and the `bailey` CLI contract errand uses |
@@ -30,6 +30,48 @@ Every path below is relative to that directory:
 Nothing here assumes this session's machine. Where a number depends on that
 host, the host is named: Linux 6.18 x86_64 on a cloud VM, 4 vCPUs, 16 GB,
 ext4, no KVM, cgroup v1, and PID 1 not systemd.
+
+## 0. Open items from the final review: check these first
+
+The final review was cut short. Not yet done:
+1. **Source line citations are unverified.** Several citations into
+   errand's `src/sandbox/bailey.rs` came from a file view with 20 lines of
+   other output above the file, so they are probably off by 20. For example,
+   `NOT_APPLYING` is at line 36, not 56, and "session_environment 97-127" is
+   probably 77-107. Other citations were counted by eye from `sed` ranges.
+   Check every `file.rs:N` and `.c`/`.go:N` citation in this tree, and in
+   `poc/bailey-gvisor/bailey`, against errand@4a8011cd3668,
+   bailey@98d9b455adc6 and sysbox v0.7.1. Fix them or remove them.
+2. **The bailey CLI contract is not written down.** Section 1.4 points to
+   README.md, but README.md names only the verbs. Write it from errand's
+   `src/sandbox/bailey.rs`, `mod.rs` and `spawn.rs`:
+   - the verbs and their exact arguments;
+   - the doctor lines errand parses (`landlock: ABI`, `user namespaces:`,
+     `cgroup delegation:`);
+   - the shape probe and the `not applying` check;
+   - the environment errand passes (PATH, LANG, LC_ALL, TERM,
+     BAILEY_CGROUP_ROOT, HOME, XDG_*, and the launch env);
+   - ACP over stdio;
+   - stopping a session: SIGTERM to the process group, SIGKILL after the
+     grace period, then `untrust`;
+   - the policy TOML;
+   - the broker address 169.254.169.1.
+3. **Prompt fixes still to make in section 2:**
+   - step 2 should say "section 13 first, then 5 to 12";
+   - step 3 should cover sections 9 to 11, add the golden-copy claim (a new
+     instance in about 0.4 s), and say that the bench images are built by
+     experiment 80;
+   - the supervisor item should name s6 as the survey's first pick;
+   - name coi (Code on Incus, https://github.com/coipond/coi) as prior art
+     to read first.
+4. **Edge cases found in the review, not yet in table 1.2:**
+   - the platform's egress proxy moved from port 33337 to 42151 across the
+     restart (75-host-up.sh now reads `$HTTPS_PROXY` on every run);
+   - `apt-get update` exits 0 even when every fetch fails, so verify with
+     `apt-cache policy`;
+   - the proxy CA path is platform-specific (`PROXY_CA`).
+5. Read `engines-shortlist.md` section 13 for the current answer. Sections 7
+   and 9.5 are marked superseded or wrong.
 
 ## 1. Facts the next session must not re-derive
 

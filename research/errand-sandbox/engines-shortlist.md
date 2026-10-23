@@ -11,7 +11,13 @@ delegation. PID 1 is the platform's `process_api`, not systemd. Docker 29.9.1
 and rootless podman 4.9.3 run there, with runc and with gVisor
 release-20261019.0 (experiment 70).
 
-The shortlist came from a first web pass and has not been checked here:
+**Read section 13 first.** It is the current answer. The sections before it
+are the log in the order the work was done, and later sections correct
+earlier ones: section 10 corrects 5.2, 5.3, 7, 9.2 and 9.5, and section 13
+replaces 7.
+
+The shortlist came from a first web pass (runtime-survey.md), and this log
+tests it:
 1. Sysbox (nestybox/sysbox)
 2. Incus unprivileged system containers
 3. PVM with a VMM such as Firecracker
@@ -133,11 +139,14 @@ The two source patches are in `patches/sysbox-v0.7.1-no-modules-no-sys-resource.
 Setup for egress, needed by any container on this host:
 - The platform's proxy listens on host loopback, 127.0.0.1:33337, and only
   allows CONNECT. A plain-http apt fetch gets 405.
-- So: `socat TCP-LISTEN:33337,bind=172.17.0.1,fork TCP:127.0.0.1:33337` puts
-  it on the Docker bridge.
-- `.work/sysbox/apt-proxy.sh` switches a container's apt to
-  https://deb.debian.org, through 172.17.0.1:33337, trusting the proxy's CA
-  bundle mounted read-only.
+- So: `socat TCP-LISTEN:33337,bind=172.17.0.1,fork TCP:127.0.0.1:<proxy port>`
+  puts it on the Docker bridge. `experiments/75-host-up.sh` now does this,
+  reading the upstream from `$HTTPS_PROXY`, because the proxy's port changed
+  across a restart (section 13).
+- `experiments/lib/apt-proxy.sh` switches a container's apt to
+  https://deb.debian.org, through the relay, trusting the proxy's CA bundle
+  mounted read-only at /run/proxy-ca.crt. On this host the bundle is at
+  /root/.ccr/ca-bundle.crt (`PROXY_CA` in experiment 80).
 - This is the same shape as errand's broker: one exit, outside the sandbox.
 
 Run once, 2026-10-23, outer container `debian:trixie-slim` under sysbox-runc:
@@ -162,7 +171,7 @@ compiler, and Docker inside, with no `--privileged` and no host socket.
 Not established yet:
 - Isolation strength beyond the uid. The boundary is the shared host kernel.
 - cgroup limits per session.
-- Cost against runc and gVisor. Section 4 measures it.
+- Cost against runc and gVisor. Section 5 measures it.
 
 ## 2. Incus 6.0 LTS, unprivileged system containers
 
@@ -201,8 +210,10 @@ Against Sysbox, on this host:
 - It boots a full init, so `systemctl` works for the agent.
 - It is a separate engine. errand's podman backend cannot drive it, so it
   would need a bailey shim of its own (`incus launch`, `exec` and `delete`).
-- **It ends at 6.0 LTS here.** 7.0 and later need cgroup v2. INFERRED: the
-  6.0 LTS line is supported for years, but its end date was not read here.
+- **It ends at 6.0 LTS here.** 7.0 and later need cgroup v2. Per the Incus
+  support page, as read in incus-gaps-survey.md, 6.0 LTS is supported until
+  June 2029, with security-only fixes for its last 3 years. Ubuntu 24.04
+  ships 6.0.0; 6.0.7 was tagged 2026-10-17.
 
 ## 3. gVisor with Docker inside (the survey's #2)
 
@@ -214,7 +225,7 @@ are gVisor's, not the host's.
 It took six steps, and each was needed:
 1. `apt-get install docker.io docker-cli ca-certificates iptables` took
    **101 s**, against 15 s under Sysbox and 12 s under Incus. That is one
-   run each, so it is indicative only; section 4 measures properly.
+   run each, so it is indicative only; section 5 measures properly.
 2. dockerd's default nftables-backed iptables fails ("failed to create NAT
    chain DOCKER"). Switching to iptables-legacy reaches the next failure.
 3. With legacy iptables, "Extension addrtype ... Invalid argument": gVisor's
@@ -314,16 +325,16 @@ sample set each.
 
 | | runc | sysbox-runc | runsc | incus 6.0 |
 | --- | --- | --- | --- | --- |
-| cold start: create, `true`, remove, median ms | 396 | 694 | 485 | 16903 to 24367 |
+| cold start: create, `true`, remove, median ms | 396 | 694 | 485 | 16903 to 24367 (dir pool; see 10.2 and 10.3: about 0.4 s with a golden copy on btrfs) |
 | memory per idle container, KiB (MemAvailable over 5) | 2540 | 5307 | 12562 | 58809 |
 
 Notes on these:
 - The Sysbox figures leave out its two daemons. Those are paid once per
   host.
-- Incus cold start is dominated by "Remapping container filesystem". This
-  host refused ID-mapping for Incus (the disk-device `shift=true` failed with
-  "idmapping abilities are required but aren't supported"), so every launch
-  chowns the whole rootfs. Its memory includes a booted systemd.
+- CORRECTED in 10.2: the Incus cold start on the dir pool is mostly
+  unpacking the image (init 11.2 s), not the "Remapping container
+  filesystem" rewrite (first start 0.8 s). The original note blamed the
+  rewrite. Its memory includes a booted systemd.
 - The Incus start times rose across the 5 runs. The cause was not
   investigated. Plausible causes: disk drift, or leftover image layers.
 
@@ -333,8 +344,10 @@ Notes on these:
   runs. The shared kernel is why.
 - gVisor costs 6-8x on spawning and compiling, the work an agent does most.
   Its user-space kernel is why.
-- Sysbox starts in 0.7 s. Incus starts in 17-24 s on this host, until its
-  ID-mapping refusal is solved.
+- Sysbox starts in 0.7 s. Incus launched from an image on the dir pool took
+  17-24 s. CORRECTED in sections 9.2 and 10: an existing Incus instance
+  starts in about 0.27 s, and a golden copy on btrfs makes a new one in
+  about 0.4 s.
 
 ## 6. What root inside each engine can reach
 
@@ -374,9 +387,10 @@ What this shows:
   That is also why Docker cannot run inside it.
 - Sysbox and Incus give the session root inside its own user namespace, which
   is what lets Docker and systemd run. It maps to an unprivileged host id, so
-  a breakout through a kernel bug lands as an unprivileged user. Their
-  boundary is still the shared host kernel. Their syscall surface is the
-  host's, less seccomp.
+  an escape through a mistake in the container setup lands as an
+  unprivileged user. A kernel exploit is a different case: it runs in the
+  host kernel, whatever uid it started as. Their boundary is the shared host
+  kernel, and their syscall surface is the host's, less seccomp.
 - gVisor is the only one of the four in which the host kernel does not run
   the session's syscalls. That is its whole price, measured in section 5.
 
@@ -384,7 +398,7 @@ Not tested: actual kernel exploits; seccomp profile contents; side channels;
 resource exhaustion against the host. No cgroup limits apply under rootless
 use on this cgroup v1 host.
 
-## 7. The answer for this host, 2026-10-23
+## 7. The first answer for this host (SUPERSEDED by section 13)
 
 | | Sysbox (patched) | Incus 6.0 LTS | gVisor | microVM |
 | --- | --- | --- | --- | --- |
@@ -393,6 +407,10 @@ use on this cgroup v1 host.
 | cold start | 0.7 s | 17-24 s (rootfs chown) | 0.5 s | — |
 | boundary | shared kernel, userns, seccomp | shared kernel, userns | user-space kernel | hardware |
 | on this host | 3 patches to Sysbox | stock; ends at 6.0 (7.0 needs cgroup v2) | stock | blocked: nested_pvm=1 |
+
+This section was written before sections 8 to 11, and recommended Sysbox
+because the Incus start-up figure here was wrong (section 10). Kept as it
+was written, for the record.
 
 - For agents that build software and run containers, on a host without KVM:
   **Sysbox**. It runs at runc's speed, starts in under a second, and plugs
@@ -488,7 +506,7 @@ uptime showed 5 minutes at 03:28.
   Sysbox container and an Incus container both ran.
 - Second run: every step reported "already up".
 
-### 9.2 Start-up, by what is started
+### 9.2 Start-up, by what is started (10.2 corrects the cause, 10.3 adds the golden copy)
 
 | what | dir pool | btrfs pool (loop file, 30 GiB) |
 | --- | --- | --- |
@@ -530,7 +548,7 @@ uptime showed 5 minutes at 03:28.
 - So one guest's root is not another guest's root on the host.
 - Cost: about 2 s more per launch, on btrfs, for its own remap.
 
-### 9.5 incusd dying takes the guests with it, on this host
+### 9.5 incusd dying takes the guests with it (WRONG: see 10.1)
 
 - `kill -9` of incusd: the guest's init (host pid 7542) died at once.
 - After `75-host-up.sh` restarted incusd, the guest was running again, but as
@@ -619,3 +637,92 @@ Measured 2026-10-23, btrfs pool `bt` on a loop file
 - Idle memory: about 59 MB per Incus instance (section 5.2), and 18.9 MB RSS
   for `kage rpc` idle inside one. A session's working memory is whatever its
   builds take. That was not measured.
+
+## 12. An rclone FUSE mount as a cache, on a 10-20 MiB/s link (estimate)
+
+Not measured. This is arithmetic, plus how rclone's VFS layer works. Section
+8 measured only that an rclone mount works inside Incus and Sysbox.
+
+- Bandwidth: 10-20 MiB/s is about 36-72 GB per hour. 1 GB cold takes 50-100
+  s. The link is shared, so six sessions missing the cache at once get about
+  2-3 MiB/s each.
+- Per-file latency matters more than bandwidth. An object-store remote costs
+  one or more requests per file, typically tens of ms each. 3000 small files
+  at 50 ms is about 150 s, against 1-2 s for their bytes. Build caches are
+  mostly small files.
+- Viable for large, read-mostly, shared data (toolchains, release
+  artifacts, dependency tarballs, model weights, dataset snapshots), when:
+  - rclone keeps a large local cache: `--vfs-cache-mode full`, a large
+    `--vfs-cache-max-size` on local SSD, a long `--dir-cache-time`,
+    `--vfs-write-back`;
+  - there is one writer per area, because rclone has no cross-host locking.
+- Not viable for:
+  - build output (`target/`, `build/`, `node_modules`);
+  - git working trees;
+  - databases;
+  - anything that needs exact local fsync, rename or lock semantics;
+  - write-heavy caches pulled cold each session.
+- Better on a slow link:
+  1. Sync the cache as one archive: fetch one compressed tarball at session
+     start, and upload it at the end if it changed.
+  2. Use the tools' own remote caches: sccache (S3 or GCS backend), ccache
+     remote storage, Bazel's remote cache.
+  3. Run a caching proxy on the host, shared by every session:
+     apt-cacher-ng, a pull-through registry mirror (this also covers Docker
+     Hub's 429), verdaccio, or a crates mirror.
+- For errand-box:
+  - session work stays on the instance's local thin disk;
+  - the host runs caching proxies;
+  - rclone is optional, for large read-mostly data, with its local cache
+    counted against host disk rather than session quotas, and fstrim in
+    maintenance.
+- To measure later: an rclone mount with `--bwlimit 10M` and `20M`, with and
+  without the VFS cache, cold and warm, on a small-file tree and a 1 GB
+  file. `--bwlimit` adds no latency, so add delay with netem if the kernel
+  has it, or keep latency as arithmetic.
+
+## 13. The answer for this host, 2026-10-23 (replaces section 7)
+
+| | Incus 6.0 LTS | Sysbox (patched) | gVisor | microVM |
+| --- | --- | --- | --- | --- |
+| docker inside | yes, started by systemd | yes | yes, after 6 concessions | not testable here |
+| podman inside | yes, overlay, `--cgroups=disabled` | yes, vfs only | no | - |
+| FUSE, and network storage over it | yes, yes | yes (`--device /dev/fuse`), yes | no, no | - |
+| systemd as PID 1 | yes | not tried | not tried | - |
+| cost against runc (spawn, files, git, cpu, compile) | 0.9-1.1x | 1.0-1.1x | 1.1-8.2x | - |
+| new session | about 0.4 s (golden copy on btrfs) | about 0.7 s | about 0.5 s | - |
+| existing session start | about 0.27 s | - | - | - |
+| idle memory | about 59 MB, plus 19 MB for kage | about 5 MB | about 12 MB | - |
+| limits on cgroup v1 | memory, CPU, disk (btrfs) enforced | not measured | not measured | - |
+| guest uid on the host | 1000000, or a private range each | 231072 | the runsc user | - |
+| patches needed here | none | 3 | none | - |
+| boundary | shared kernel, user namespace, seccomp | the same, plus sysbox-fs | user-space kernel | hardware |
+
+**Incus 6.0 LTS**, run as persistent or golden-copied instances on a btrfs
+pool, with lxcfs, `security.idmap.isolated=true` and nesting on. It is the
+only engine tested that does all of it: Docker, podman, FUSE and network
+storage, systemd, runc speed, and enforced limits. It needs no patches. The
+same tool runs VMs on hosts that have KVM.
+
+Against it:
+- A root daemon (incusd) and a root FUSE daemon (lxcfs).
+- A shared kernel with no AppArmor on this host.
+- On cgroup v1 it ends at the 6.0 line, supported to June 2029.
+- It needs a supervisor on a host with no init. Never signal incusd by name
+  (10.1).
+
+Host edge cases found here, each with its fix, are in next-session.md
+section 1.2. One more came up during the final review: the platform's egress
+proxy moved from port 33337 to 42151 across the restart. The relay in
+75-host-up.sh now reads its upstream from `$HTTPS_PROXY` on every run, and
+replaces a relay pointing at a stale upstream. It was verified with an apt
+fetch from a container through the relay.
+
+Assume more claims here are wrong than have been caught. Caught and
+corrected so far:
+- experiment 80's 8x;
+- the ID-mapping "no" from my own Sysbox build;
+- the Landlock claim in the gVisor shim's comment (README);
+- "incusd dying kills its guests" (10.1);
+- "the cold start is the rewrite" (10.2);
+- section 7's recommendation.

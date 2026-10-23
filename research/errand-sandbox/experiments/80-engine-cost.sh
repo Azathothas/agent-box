@@ -23,6 +23,8 @@ set -u
 here=$(cd "$(dirname "$0")" && pwd)
 runs=${RUNS:-5}
 image=bench:trixie
+# The egress proxy CA bundle of the host. The default is the research host's.
+proxy_ca=${PROXY_CA:-/root/.ccr/ca-bundle.crt}
 engines=${ENGINES:-"runc sysbox-runc runsc incus"}
 [ "$(id -u)" = 0 ] || { echo "run as root"; exit 2; }
 docker info >/dev/null 2>&1 || { echo "dockerd is not running"; exit 2; }
@@ -30,7 +32,7 @@ docker info >/dev/null 2>&1 || { echo "dockerd is not running"; exit 2; }
 # The bench image: Debian 13 with python3, git, gcc and make, built once
 # through the relayed proxy (engines-shortlist.md section 1.4).
 if ! docker image inspect "$image" >/dev/null 2>&1; then
-  b=$(mktemp -d); cp /root/.ccr/ca-bundle.crt "$b/ca.crt"; cp "$here/../../../.work/sysbox/apt-proxy.sh" "$b/" || exit 2
+  b=$(mktemp -d); cp "$proxy_ca" "$b/ca.crt"; cp "$here/lib/apt-proxy.sh" "$b/" || exit 2
   cat > "$b/Dockerfile" <<'EOF'
 FROM debian:trixie-slim
 COPY ca.crt /run/proxy-ca.crt
@@ -83,8 +85,8 @@ cold() { # engine: start, run true, remove
 import_incus_image() {
   incus launch -q images:debian/13 benchbuild >/dev/null || return 1
   sleep 3
-  incus file push -q /root/.ccr/ca-bundle.crt benchbuild/run/proxy-ca.crt
-  incus file push -q "$here/../../../.work/sysbox/apt-proxy.sh" benchbuild/run/apt-proxy.sh
+  incus file push -q "$proxy_ca" benchbuild/run/proxy-ca.crt
+  incus file push -q "$here/lib/apt-proxy.sh" benchbuild/run/apt-proxy.sh
   incus exec benchbuild --env PROXY_HOST="$(incus network get incusbr0 ipv4.address | cut -d/ -f1)" -- sh -c \
     'sh /run/apt-proxy.sh && apt-get -qq update && DEBIAN_FRONTEND=noninteractive apt-get -qq install -y --no-install-recommends python3 git gcc libc6-dev make >/dev/null && rm -f /etc/apt/apt.conf.d/99proxy /run/proxy-ca.crt' || return 1
   incus stop benchbuild && incus publish -q benchbuild --alias bench >/dev/null; r=$?
