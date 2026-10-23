@@ -15,9 +15,12 @@ cgroup v1, no systemd. The source of each is in engines-shortlist.md.
   cpu, compile) it ties runc and Sysbox, at 0.9-1.1x, and beats gVisor by
   1.8-8.2x (section 5.2).
 - Start-up depends on what is started (section 9):
-  - Launch from an image: 15.6 s on the dir pool.
+  - Launch from an image: 15.6 s on the dir pool, mostly unpacking
+    (section 10.2).
   - On a btrfs pool: 12.4 s for the first launch, then 1.8 s for each later
     one.
+  - Golden copy on btrfs (`incus copy` of a stopped, prepared instance):
+    about 0.4 s with no rewrite (section 10.3). Use this.
   - Start an existing instance: about 0.27 s, with systemd settled about
     0.7 s later.
   - Sysbox, for comparison: about 0.69 s per fresh container.
@@ -46,7 +49,7 @@ cgroup v1, no systemd. The source of each is in engines-shortlist.md.
 | no AppArmor in the kernel | Incus loses a layer it normally adds | seccomp, idmap isolation; state it |
 | root lacks CAP_SYS_RESOURCE | Sysbox fails without a patch | not an Incus problem |
 | `security.idmap.isolated=true` | each instance gets its own uid range, so its rootfs must be rewritten | about 2 s per launch on btrfs (section 9.4); worth it |
-| incusd killed (SIGKILL), with no systemd | its guests died too; incusd restarted them as new processes, and in-memory work was lost | a supervisor that restarts incusd at once; find out why the guests do not outlive it here (section 9.5) |
+| incusd killed by name (`pkill`, `pgrep -x incusd`) | every guest's monitor is also named incusd, so the guests die too | signal incusd only by pid, or use `incus admin shutdown`; killed by pid, guests survive (section 10.1) |
 | `incus launch` with stdin open, from a background job | the client hung 482 s while the server had nothing to do | call the client with stdin closed and a timeout (section 9.6) |
 
 ### 1.3 How errand reaches any engine
@@ -147,7 +150,8 @@ Start the Docker daemon and set up the container tooling first.
      lvm pool, because the dir pool does not enforce quotas), and 80% of the
      host's RAM and CPU, configurable or derived from the host.
    - A host with no init must still work. The host restarted during the
-     research and lost every daemon and device mode. Provide a supervisor
+     research and lost every daemon and device mode. Never signal incusd by
+     name: its guests' monitors share the name (section 10.1). Provide a supervisor
      and an idempotent `up` that also runs at boot where an init exists, and
      on first use where none does. Inside the guest, systemd stays the init.
      Evaluate these, with the subagent research in

@@ -553,3 +553,49 @@ uptime showed 5 minutes at 03:28.
   closed (`</dev/null`), took 2 s.
 - Cause not proven (INFERRED: the client waited on stdin).
 - errand-box should call the client with stdin closed, and with a timeout.
+
+## 10. Corrections to section 9, from the second survey and tests that followed it
+
+`incus-gaps-survey.md` holds the delegated survey that prompted these. Each
+correction below was then tested here, 2026-10-23.
+
+1. **Section 9.5 was wrong: incusd dying does not take the guests with it.**
+   - Each guest's LXC monitor process is also named `incusd` (pids 9048 to
+     9917, ppid 1, cmdline `[lxc monitor] ... <name>`).
+   - My `kill -9 $(pgrep -x incusd)` killed every monitor, and LXC kills a
+     guest's init when its monitor exits.
+   - Killing only the daemon's pid (8965, found by its full command line)
+     left the guest's init alive: the same host pid 9230 and start tick
+     115052 before and after. The restarted incusd took it back.
+   - This matches the Incus docs on daemon behaviour (SIGTERM leaves
+     instances running).
+   - Rule for errand-box: never stop or signal incusd by name. Use its pid,
+     or `incus admin shutdown`.
+2. **Sections 5.2 and 9.2 blamed the wrong step for slow launches.** The cost
+   is unpacking the image, not the ownership rewrite. A launch on the dir
+   pool, split in two:
+   - `incus init`: 11240 ms, and `volatile.last_state.idmap` is still `[]`
+     after it.
+   - The first `incus start`: 826 ms, and the rewrite happened here
+     ("Remapping container filesystem").
+
+   The Incus docs say the dir driver has no optimized image storage, so it
+   unpacks on every init.
+3. **The golden copy removes the cold start.** On the btrfs pool: stop a
+   prepared instance once, then `incus copy` it.
+
+   | run | copy | first start | rewrite | idmap carried over |
+   | --- | --- | --- | --- | --- |
+   | g1 | 145 ms | 289 ms | none | yes |
+   | g2 | 109 ms | 280 ms | none | yes |
+   | g3 | 112 ms | 309 ms | none | yes |
+
+   So a new instance takes about 0.4 s, with no unpack and no rewrite.
+   Copies of instances with `security.idmap.isolated` get a new map, so they
+   still rewrite; that case was not measured.
+
+Still open, unchanged:
+- Why incusd falls back to rewriting at all, when the survey's own probe
+  (open_tree, a new userns, mount_setattr IDMAP, the same sequence as
+  Incus's CanIdmapMount) succeeds on these ext4 and btrfs paths.
+- Why `shift=true` disk devices are refused.
