@@ -257,3 +257,81 @@ parameter.
 
 Reopens if: the platform boots with `nested_pvm=1`. Then the microVM route
 (Firecracker, CubeSandbox, AgentENV) can be measured here.
+
+## 5. Cost, measured
+
+### 5.1 A correction first: experiment 80's "Sysbox is 8x slower on files" was wrong
+
+Experiment 80 ran one engine after another. Its runc pass measured
+`files@workspace` at 184 ms. Minutes later, the same work took about 1500 ms
+in three places:
+- unprivileged runc;
+- privileged runc, on a plain bind and an ID-mapped one;
+- host root, with no container at all.
+
+This host's disk speed drifts, so 80's disk-backed rows compared moments, not
+engines.
+
+Candidates that were tested and refuted along the way:
+- **ID-mapped mounts are slow.** Refuted: inside one runc container, a plain
+  bind and an ID-mapped bind of the same directory took the same time.
+- **cgroup v1 throttles writeback.** Refuted: the shell's memory cgroup has a
+  14.3 GB limit.
+- **fanotify watchers.** Refuted: the only mark belongs to incusd, on a
+  pseudo filesystem.
+
+Interleaved runs of runc and Sysbox on the same directory
+(`results/81-pre-ab-runc-vs-sysbox.txt`) put `files` at 1531 ms against
+1603 ms, the same. Experiment 81 replaces 80.
+
+### 5.2 Experiment 81: interleaved, every engine at once
+
+5 rounds, median ms, 2026-10-23. Raw rounds are in
+`results/81-raw-rounds.txt`. The factor is against runc.
+
+| workload@dir | runc | sysbox-runc | runsc (gVisor) | incus 6.0 |
+| --- | --- | --- | --- | --- |
+| spawn@workspace | 423 | 452 (1.1x) | 3467 (8.2x) | 436 (1.0x) |
+| files@workspace | 1518 | 1449 (1.0x) | 2705 (1.8x) | 1398 (0.9x) |
+| git@workspace | 1216 | 1279 (1.1x) | 3603 (3.0x) | 1253 (1.0x) |
+| cpu@workspace | 453 | 451 (1.0x) | 518 (1.1x) | 450 (1.0x) |
+| compile@workspace | 1512 | 1456 (1.0x) | 9490 (6.3x) | 1444 (1.0x) |
+| spawn@scratch | 426 | 411 (1.0x) | 3247 (7.6x) | 436 (1.0x) |
+| files@scratch | 133 | 138 (1.0x) | 423 (3.2x) | 137 (1.0x) |
+| git@scratch | 148 | 161 (1.1x) | 1131 (7.6x) | 156 (1.1x) |
+| cpu@scratch | 469 | 435 (0.9x) | 525 (1.1x) | 518 (1.1x) |
+| compile@scratch | 1527 | 1528 (1.0x) | 9721 (6.4x) | 1448 (0.9x) |
+
+- `/workspace` is a host directory, bind-mounted, and `/scratch` is a tmpfs.
+- Workloads are in `lib/workload.sh`. compile is 200 generated C files, make
+  -j4, link and run.
+- The engines ran one at a time within each round, so they never competed
+  for the 4 vCPUs.
+
+Start-up and memory. These are sequential, not interleaved; start-up and
+memory do not depend on disk drift the way file work does, but they are one
+sample set each.
+
+| | runc | sysbox-runc | runsc | incus 6.0 |
+| --- | --- | --- | --- | --- |
+| cold start: create, `true`, remove, median ms | 396 | 694 | 485 | 16903 to 24367 |
+| memory per idle container, KiB (MemAvailable over 5) | 2540 | 5307 | 12562 | 58809 |
+
+Notes on these:
+- The Sysbox figures leave out its two daemons. Those are paid once per
+  host.
+- Incus cold start is dominated by "Remapping container filesystem". This
+  host refused ID-mapping for Incus (the disk-device `shift=true` failed with
+  "idmapping abilities are required but aren't supported"), so every launch
+  chowns the whole rootfs. Its memory includes a booted systemd.
+- The Incus start times rose across the 5 runs. The cause was not
+  investigated. Plausible causes: disk drift, or leftover image layers.
+
+### 5.3 What this says, for this host only
+
+- Sysbox and Incus cost what plain runc costs, on every workload an agent
+  runs. The shared kernel is why.
+- gVisor costs 6-8x on spawning and compiling, the work an agent does most.
+  Its user-space kernel is why.
+- Sysbox starts in 0.7 s. Incus starts in 17-24 s on this host, until its
+  ID-mapping refusal is solved.

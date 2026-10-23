@@ -1,0 +1,13 @@
+Remapping container filesystem                                                                                             workload@dir                   runc      sysbox-runc            runsc            incus   (median ms of 5 interleaved rounds)
+spawn@workspace          423 (1.0x)       452 (1.1x)      3467 (8.2x)       436 (1.0x)
+files@workspace         1518 (1.0x)      1449 (1.0x)      2705 (1.8x)      1398 (0.9x)
+git@workspace           1216 (1.0x)      1279 (1.1x)      3603 (3.0x)      1253 (1.0x)
+cpu@workspace            453 (1.0x)       451 (1.0x)       518 (1.1x)       450 (1.0x)
+compile@workspace       1512 (1.0x)      1456 (1.0x)      9490 (6.3x)      1444 (1.0x)
+spawn@scratch            426 (1.0x)       411 (1.0x)      3247 (7.6x)       436 (1.0x)
+files@scratch            133 (1.0x)       138 (1.0x)       423 (3.2x)       137 (1.0x)
+git@scratch              148 (1.0x)       161 (1.1x)      1131 (7.6x)       156 (1.1x)
+cpu@scratch              469 (1.0x)       435 (0.9x)       525 (1.1x)       518 (1.1x)
+compile@scratch         1527 (1.0x)      1528 (1.0x)      9721 (6.4x)      1448 (0.9x)
+raw rounds: /var/tmp/b81.6gjgad/raw.txt
+conditions: host=Linux 6.18.44-fc-v140 x86_64 cpus=4 cgroup=v1 kvm=no docker=29.9.1 sysbox=0.7.1-patched runsc=release-20261019.0 incus=6.0.0 runs=5 order=interleaved date=2026-10-23T02:44:34Z
