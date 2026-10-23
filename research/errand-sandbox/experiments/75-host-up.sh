@@ -59,6 +59,11 @@ relay() { # bridge-address
 relay "$(docker network inspect bridge -f '{{(index .IPAM.Config 0).Gateway}}' 2>/dev/null)"
 command -v incus >/dev/null && relay "$(incus network get incusbr0 ipv4.address 2>/dev/null | cut -d/ -f1)"
 
+# Thin pools give space back to the host only when trimmed (section 11).
+for pool in /var/lib/incus/storage-pools/*; do
+  grep -q " $pool btrfs " /proc/mounts && fstrim "$pool" 2>/dev/null && say "fstrim $(basename "$pool")" "done"
+done
+
 # Proof, not assertion: one container per engine.
 docker info 2>/dev/null | grep -q sysbox-runc &&
   { docker run --rm --runtime=sysbox-runc debian:trixie-slim true >/dev/null 2>&1 && say "sysbox container" "runs" || { say "sysbox container" "FAILED"; fail=1; }; }

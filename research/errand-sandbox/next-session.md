@@ -1,13 +1,40 @@
 # Notes for the errand-box session
 
 Written 2026-10-23, at the end of the research on branch
-`ephemeral-errand-sandbox-research`. Two parts: what the next session must
-know before it starts, and the operator's draft prompt with corrections.
+`ephemeral-errand-sandbox-research` of https://github.com/Azathothas/agent-box.
+It is for a session on another machine that has no memory of this one. It
+has two parts: what that session must know before it starts, and the
+operator's draft prompt with corrections.
+
+Get the files with git, not with MCP tools:
+
+```sh
+git clone --depth 1 --branch ephemeral-errand-sandbox-research \
+  https://github.com/Azathothas/agent-box.git agent-box-research
+cd agent-box-research/research/errand-sandbox
+```
+
+Every path below is relative to that directory:
+
+| path | what it is |
+| --- | --- |
+| `engines-shortlist.md` | the engines tried, in order, as a log. Sections 5 to 10 hold the numbers. Section 10 corrects section 9. |
+| `incus-gaps-survey.md` | a delegated web survey of the Incus gaps and the errand-box groundwork; marks what was tested |
+| `runtime-survey.md` | a delegated survey of container runtimes |
+| `README.md` | the earlier phase: the errand findings, and the `bailey` CLI contract errand uses |
+| `experiments/` | every script behind a number, numbered in run order; `lib/` holds the shared helpers |
+| `results/` | raw output of the runs the documents cite |
+| `patches/` | the Sysbox patches (Sysbox was not chosen) |
+| `poc/bailey-gvisor/` | a worked example of the bailey contract over gVisor; not a base |
+
+Nothing here assumes this session's machine. Where a number depends on that
+host, the host is named: Linux 6.18 x86_64 on a cloud VM, 4 vCPUs, 16 GB,
+ext4, no KVM, cgroup v1, and PID 1 not systemd.
 
 ## 1. Facts the next session must not re-derive
 
-All were measured on one host: Linux 6.18 x86_64 on a cloud VM, no KVM,
-cgroup v1, no systemd. The source of each is in engines-shortlist.md.
+All were measured on the one host named above. The source of each is in
+engines-shortlist.md, by section number.
 
 ### 1.1 The engine result, stated as it was measured
 
@@ -52,17 +79,30 @@ cgroup v1, no systemd. The source of each is in engines-shortlist.md.
 | incusd killed by name (`pkill`, `pgrep -x incusd`) | every guest's monitor is also named incusd, so the guests die too | signal incusd only by pid, or use `incus admin shutdown`; killed by pid, guests survive (section 10.1) |
 | `incus launch` with stdin open, from a background job | the client hung 482 s while the server had nothing to do | call the client with stdin closed and a timeout (section 9.6) |
 
-### 1.3 How errand reaches any engine
+### 1.3 Disk and memory, for sizing
+
+- Disk is thin, not pre-allocated (engines-shortlist.md section 11):
+  - A btrfs pool on a 30 GiB loop file used 1.2 GB on disk.
+  - A new instance with a 20 GiB quota added nothing.
+  - Writing 2 GiB inside it grew the file by 2.1 GB.
+  - Deleting that data inside did not return space to the host until
+    `fstrim` of the pool ran (3.3 GB back to 1006 MB). Run fstrim on a
+    schedule.
+- An idle session is small: about 59 MB for the instance with systemd, plus
+  19 MB for `kage rpc`. A session's real size is what the agent builds. That
+  was not measured.
+
+### 1.4 How errand reaches any engine
 
 errand knows only two backends: `bailey`, which it runs as a CLI, and
 rootless `podman` (errand@4a8011cd3668, src/sandbox/mod.rs). To put errand
 on Incus with no change to errand, write a `bailey` that drives Incus. The
-contract errand uses is in README.md, "bailey shim phase": the verbs
+contract errand uses is in README.md, section "The bailey shim phase": the verbs
 `doctor`, `trust`, `untrust` and `run`, and the doctor lines errand parses.
 The gVisor shim in poc/ is a worked example of that contract. It is not a
 base to build on, because it shares host binaries with the guest.
 
-### 1.4 Credentials, when live testing is needed
+### 1.5 Credentials, when live testing is needed
 
 Do not paste credentials into the chat, and do not upload them as a file in
 the conversation: both stay in the transcript. Put them in the cloud
@@ -163,7 +203,8 @@ Start the Docker daemon and set up the container tooling first.
      through its podman backend if that proves better. Show me why.
    - Self-maintaining, safely: track upstream releases and drift with
      scheduled workflows that open issues and PRs, as mirror-archlinux does.
-   - Handle the edge cases in next-session.md section 1.2 from day one, each
+   - Handle the edge cases in next-session.md section 1.2 from day one (and run
+     fstrim on the storage pool on a schedule, section 1.3), each
      with a fallback, and a test that proves the fallback.
    - Same guest environment on personal machines, remote containers and
      clusters.

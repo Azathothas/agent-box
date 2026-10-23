@@ -599,3 +599,23 @@ Still open, unchanged:
   (open_tree, a new userns, mount_setattr IDMAP, the same sequence as
   Incus's CanIdmapMount) succeeds on these ext4 and btrfs paths.
 - Why `shift=true` disk devices are refused.
+
+## 11. Disk is thin; memory per idle session
+
+Measured 2026-10-23, btrfs pool `bt` on a loop file
+(`/var/lib/incus/disks/bt.img`), with discard=async set by Incus.
+
+| step | file size on disk |
+| --- | --- |
+| the 30 GiB pool, with the bench image and earlier test instances gone | 1.2 GB |
+| plus a new instance with `root.size=20GiB` | 1.2 GB |
+| plus 2 GiB of random data written inside it | 3.3 GB |
+| the data deleted inside the guest | 3.3 GB, not returned |
+| `fstrim -v /var/lib/incus/storage-pools/bt` | 1006 MB |
+
+- The quota is a ceiling, not a reservation.
+- Freed space comes back only with fstrim; discard=async alone did not
+  return it within the seconds watched.
+- Idle memory: about 59 MB per Incus instance (section 5.2), and 18.9 MB RSS
+  for `kage rpc` idle inside one. A session's working memory is whatever its
+  builds take. That was not measured.
