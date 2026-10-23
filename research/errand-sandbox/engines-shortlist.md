@@ -411,3 +411,36 @@ use on this cgroup v1 host.
 Assume more claims here are wrong than have been caught. Two were caught in
 this section's own work: experiment 80's 8x, and the ID-mapping "no" that
 came from my own build.
+
+## 8. FUSE (including network storage) and podman inside (in progress)
+
+Question: can a session mount FUSE filesystems, including network storage,
+and run podman? The probe is `lib/fuse-podman-probe.sh`, in image
+`bench-fuse:trixie` (bench, plus fuse3, rclone 1.60, sshfs, podman 5.4.2,
+crun and fuse-overlayfs). Network storage is `rclone mount :http:` of
+https://deb.debian.org/debian/ through the relayed proxy, reading
+`dists/trixie/Release` through the mount.
+
+Host change: `chmod 666 /dev/fuse`. It was 0600; distributions ship 0666,
+and a session's root is an unprivileged host uid. FUSE is built in
+(CONFIG_FUSE_FS=y).
+
+First run, 2026-10-23 (results/91-fuse-podman-docker-engines.txt):
+
+| engine | fuse, local dir | fuse, network storage | podman run |
+| --- | --- | --- | --- |
+| runc, default capabilities | fail | fail | fail ("cannot clone: Operation not permitted") |
+| runc, with `--device /dev/fuse` | fail | fail | fail |
+| sysbox-runc, no device | fail (no /dev/fuse) | fail | fail (fuse-overlayfs finds no device) |
+| sysbox-runc, `--device /dev/fuse` | **pass** (fuse.rclone) | **pass** (138612 bytes read) | fail: crun's self bind mount of the overlay `merged` dir gives ENOENT |
+| runsc, with or without the device | fail ("mount not ready") | fail | fail (lstat of overlay `merged`) |
+
+Under runc both fail for want of CAP_SYS_ADMIN, which Docker's default set
+drops. That is the control.
+
+Still to run:
+- runsc with `--cap-add SYS_ADMIN`. That capability is gVisor's own, not
+  the host's. In progress.
+- podman inside Sysbox with the vfs storage driver, and with overlay
+  through fuse-overlayfs. In progress.
+- Incus 6.0, nesting on: FUSE, network storage and podman. Not started.
